@@ -11,4 +11,5 @@ gemspec
 # your gem to rubygems.org.
 
 # To use debugger
-# gem 'debugger'
+gem 'pry'
+gem 'pry-debugger'

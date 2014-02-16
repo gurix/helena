@@ -1,9 +1,14 @@
+require 'ffaker'
+
 # Configure Rails Envinronment
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
 require 'rspec/rails'
 require "factory_girl_rails"
+FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'dummy/spec/factories')
+FactoryGirl.find_definitions # TODO: This is needed otherwise fg does not add defnitions
+
 require "database_cleaner"
 require 'shoulda/matchers/integrations/rspec'
 
@@ -15,6 +20,10 @@ Dir[File.join(ENGINE_RAILS_ROOT, "spec/support/**/*.rb")].each {|f| require f }
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
+
+  # We don't want write FactoryGirl all the time
+  config.include FactoryGirl::Syntax::Methods
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)

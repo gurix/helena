@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount Helena::Engine => "/helena"
+  mount Helena::Engine => "/survey"
 end
