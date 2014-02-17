@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Participant do
+describe Helena::Participant do
 
   it { expect(subject).to have_many(:surveys) }
 

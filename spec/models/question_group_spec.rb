@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe QuestionGroup do
+describe Helena::QuestionGroup do
   it { expect(subject).to belong_to(:survey) }
 
   it 'has a valid factory' do

@@ -17,10 +17,10 @@ end
 APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
 load 'rails/tasks/engine.rake'
 
-
-
 Bundler::GemHelper.install_tasks
 
+desc 'Default: run rspec tests.'
+task :default => :rspec
 
 desc 'Run rspec unit and integration tests'
 task :rspec do |t|

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Survey do
+describe Helena::Survey do
   it { expect(subject).to belong_to(:participant) }
 
   it { expect(subject).to have_many(:question_groups) }

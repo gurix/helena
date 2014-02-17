@@ -1,7 +1,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :survey do
-    sequence(:name)  { |n| "Survey #{n}" }
+  factory :question_group, class: Helena::QuestionGroup do
+    sequence(:title)  { |n| "Page #{n}" }
   end
 end

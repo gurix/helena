@@ -6,9 +6,6 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
 require 'rspec/rails'
 require "factory_girl_rails"
-FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'dummy/spec/factories')
-FactoryGirl.find_definitions # TODO: This is needed otherwise fg does not add defnitions
-
 require "database_cleaner"
 require 'shoulda/matchers/integrations/rspec'
 
