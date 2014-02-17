@@ -1,9 +1,7 @@
 module Helena
   class ApplicationController < ActionController::Base
     def authenticate_administrator!
-      unless can_administer?
-        raise Helena::AccessDenied.new("cannot administer")
-      end
+      fail(Helena::AccessDenied, 'cannot administer') unless can_administer?
     end
   end
 end
