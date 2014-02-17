@@ -1,0 +1,14 @@
+AllCops:
+  Includes:
+    - Rakefile
+    - config.ru
+  Excludes:
+    - bin/**
+    - spec/dummy/db/schema.rb
+    - spec/dummy/config/initializers/secret_token.rb
+Documentation:
+  Enabled: false
+LineLength:
+  Enabled: true 
+  Max: 160
+
