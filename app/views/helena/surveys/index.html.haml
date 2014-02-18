@@ -1,0 +1,9 @@
+%table.surveys
+  %thead
+    %th
+      = Helena::Survey.human_attribute_name :id
+    %th
+      = Helena::Survey.human_attribute_name :name
+    %th
+  %tbody
+    = render @surveys

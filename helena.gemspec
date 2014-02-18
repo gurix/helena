@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = 'TODO: Description of Helena.'
 
   s.files        = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.test_files   = Dir["spec/**/*"]
 
 
   s.add_dependency 'rails', '~> 4.0.2'
@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'haml'
   s.add_development_dependency 'haml-rails'
+  s.add_development_dependency 'capybara'
 end

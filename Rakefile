@@ -19,10 +19,10 @@ load 'rails/tasks/engine.rake'
 
 Bundler::GemHelper.install_tasks
 
-desc 'Default: run rspec tests.'
-task default: :rspec
+require 'rspec/core'
+require 'rspec/core/rake_task'
 
-desc 'Run rspec unit and integration tests'
-task :rspec do |t|
-  exec('bundle exec rspec spec')
-end
+desc 'Run all specs in spec directory (excluding plugin specs)'
+RSpec::Core::RakeTask.new(spec: 'app:db:test:prepare')
+
+task default: :spec

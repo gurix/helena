@@ -13,3 +13,4 @@ gemspec
 # To use debugger
 gem 'pry'
 gem 'pry-debugger'
+gem 'ruby-progressbar'

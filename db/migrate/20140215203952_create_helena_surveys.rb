@@ -3,9 +3,7 @@ class CreateHelenaSurveys < ActiveRecord::Migration
     create_table :helena_surveys do |t|
       t.belongs_to :participant
 
-      t.string :name,     null: false, default: ''
-      t.boolean :visible, default: false
-      t.boolean :public,  default: false
+      t.string :name, null: false, default: ''
 
       t.timestamps
     end
