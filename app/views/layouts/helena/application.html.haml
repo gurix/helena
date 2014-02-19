@@ -1,10 +1,15 @@
 !!!
 %html
-    %head
-        %title Helena
-        = stylesheet_link_tag    "helena/application", media: "all"
-        = javascript_include_tag "helena/application"
-        = csrf_meta_tags
-    %body
-        %h1 Helena
-        = yield
+  %head
+    %title Helena
+    = stylesheet_link_tag    'helena/application', media: 'all'
+    = javascript_include_tag 'helena/application'
+    %script{ src: '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js' }
+    %link{ href: '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel: 'stylesheet' }
+    = csrf_meta_tags
+
+  %body
+    .container
+      %h1.hidden
+        Helena
+      = yield
