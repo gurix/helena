@@ -1,0 +1,10 @@
+!!!
+%html
+    %head
+        %title Helena
+        = stylesheet_link_tag    "helena/application", media: "all"
+        = javascript_include_tag "helena/application"
+        = csrf_meta_tags
+    %body
+        %h1 Helena
+        = yield
