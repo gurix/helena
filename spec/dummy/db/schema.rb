@@ -28,9 +28,8 @@ ActiveRecord::Schema.define(version: 20140216172201) do
 
   create_table "helena_surveys", force: true do |t|
     t.integer  "participant_id"
-    t.string   "name",           default: "",    null: false
-    t.boolean  "visible",        default: false
-    t.boolean  "public",         default: false
+    t.string   "name",           null: false
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
