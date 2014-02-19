@@ -4,11 +4,10 @@ include FactoryGirl::Syntax::Methods
 FactoryGirl.definition_file_paths += ['spec/factories']
 FactoryGirl.find_definitions
 
-progressbar = ProgressBar.create starting_at: 20, total: nil
+puts 'Cleaning database ...'.green
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean
 
-DatabaseCleaner.strategy = :truncation && DatabaseCleaner.clean
-
-5.times do
-  create :survey
-  progressbar.increment
-end
+puts 'Seeding surveys ...'.green
+create :survey, name: 'Some test survey', description: Faker::Lorem.paragraph(1)
+create :survey, name: 'Another stupid questionary', description: Faker::Lorem.paragraph(1)

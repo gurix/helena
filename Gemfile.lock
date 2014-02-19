@@ -43,6 +43,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     coderay (1.1.0)
+    colorize (0.6.0)
     columnize (0.3.6)
     database_cleaner (1.2.0)
     debugger (1.6.5)
@@ -145,6 +146,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  colorize
   database_cleaner
   factory_girl_rails
   ffaker
