@@ -2,7 +2,7 @@
   %h3= survey.name
   %p= survey.description
   %a.btn.btn-primary{ href:  edit_survey_path(survey)}
-    = t 'edit'
-  %a.btn.btn-danger{ href:  survey_path(survey), data: { method: :delete, confirm: t('delete_question') }}
-    = t 'delete'
+    = t 'shared.edit'
+  %a.btn.btn-danger{ href:  survey_path(survey), data: { method: :delete, confirm: t('shared.delete_question') }}
+    = t 'shared.delete'
 

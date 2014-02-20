@@ -1,7 +1,9 @@
 module Helena
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
+    helper_method :can_administer?
+
     def authenticate_administrator!
-      fail(Helena::AccessDenied, 'cannot administer') unless can_administer?
+      fail(ActionController::RoutingError, 'Access Denied') unless can_administer?
     end
   end
 end
