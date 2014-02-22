@@ -1,0 +1,6 @@
+%h2 Surveys
+- @surveys.each do |survey|
+  = render 'helena/admin/surveys/survey', survey: survey
+%br
+%a.btn.btn-success{ href:  new_admin_survey_path}
+  = t 'survey.add'

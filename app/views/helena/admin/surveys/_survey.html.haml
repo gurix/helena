@@ -1,0 +1,8 @@
+%div[survey]
+  %h3= survey.name
+  %p= survey.description
+  %a.btn.btn-primary{ href:  edit_admin_survey_path(survey)}
+    = t 'shared.edit'
+  %a.btn.btn-danger{ href:  admin_survey_path(survey), data: { method: :delete, confirm: t('shared.delete_question') }}
+    = t 'shared.delete'
+
