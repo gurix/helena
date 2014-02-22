@@ -19,7 +19,35 @@ feature 'Survey management' do
   end
 
   scenario 'creates a new surveys'
-  scenario 'edits a survey'
+
+  scenario 'edits a survey' do
+    survey = create :survey, name: 'My first survey', description: 'I am very proud of it'
+
+    visit helena.edit_survey_path(survey)
+
+    fill_in 'Name', with: 'More crazy stuff...'
+    fill_in 'Description', with: 'Once upon a time.'
+
+    click_button 'Save'
+
+    within '#helena_survey_1' do
+      expect(page).to have_text 'More crazy stuff...'
+      expect(page).to have_text 'Once upon a time.'
+    end
+  end
+
+  scenario 'edits a survey fails when name is empty' do
+    survey = create :survey, name: 'My first survey', description: 'I am very proud of it'
+
+    visit helena.edit_survey_path(survey)
+
+    fill_in 'Name', with: ''
+    fill_in 'Description', with: 'Once upon a time.'
+
+    click_button 'Save'
+
+    expect(page).to have_text 'Ooopss... something is wrong, please check your input'
+  end
 
   scenario 'deletes a survey' do
     create :survey, name: 'My first survey', description: 'I am very proud of it'

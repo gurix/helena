@@ -2,7 +2,10 @@ en:
   shared:
     delete_question: Are you sure?
     delete: Delete
+    save: Save
 
   actions:
-    deleted:
-      "'%{ressource}' sucessfully deleted"
+    deleted: "'%{ressource}' sucessfully deleted"
+    updated: "'%{ressource}' sucessfully updated"
+    error: Ooopss... something is wrong, please check your input
+
