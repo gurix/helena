@@ -4,8 +4,11 @@ en:
     delete: Delete
     save: Save
 
+  survey:
+    add: Add a new survey
+
   actions:
     deleted: "'%{ressource}' sucessfully deleted"
     updated: "'%{ressource}' sucessfully updated"
+    created: "'%{ressource}' sucessfully created"
     error: Ooopss... something is wrong, please check your input
-

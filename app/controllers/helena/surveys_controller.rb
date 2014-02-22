@@ -10,6 +10,20 @@ module Helena
       @surveys = Helena::Survey.all
     end
 
+    def new
+      @survey = Helena::Survey.new
+    end
+
+    def create
+      @survey = Helena::Survey.new survey_params
+      if @survey.save
+        flash[:notice] = t('actions.created', ressource: @survey.name)
+      else
+        flash[:error] = t 'actions.error'
+      end
+      respond_with @survey, location: surveys_path
+    end
+
     def edit
       @survey = Helena::Survey.find params[:id]
     end

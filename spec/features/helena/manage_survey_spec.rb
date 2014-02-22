@@ -18,7 +18,19 @@ feature 'Survey management' do
     end
   end
 
-  scenario 'creates a new surveys'
+  scenario 'creates a new surveys' do
+    visit helena.new_survey_path
+
+    fill_in 'Name', with: 'More crazy stuff...'
+    fill_in 'Description', with: 'Once upon a time.'
+
+    click_button 'Save'
+
+    within '#helena_survey_1' do
+      expect(page).to have_text 'More crazy stuff...'
+      expect(page).to have_text 'Once upon a time.'
+    end
+  end
 
   scenario 'edits a survey' do
     survey = create :survey, name: 'My first survey', description: 'I am very proud of it'
@@ -58,6 +70,4 @@ feature 'Survey management' do
       expect { click_link 'Delete' }.to change { Helena::Survey.count }.by(-1)
     end
   end
-
-  scenario 'trying to delete a survey without authorization throws you an error'
 end

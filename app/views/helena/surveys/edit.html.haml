@@ -1,7 +1,4 @@
 %h2
   Edit
   = @survey.name
-= simple_form_for @survey do |f|
-  = f.input :name
-  = f.input :description, as: :text, input_html: { cols: 60, rows: 10 }
-  = f.submit t('shared.save'), class: 'btn btn-success'
+= render 'form'

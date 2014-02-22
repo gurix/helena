@@ -20,5 +20,13 @@ describe Helena::SurveysController do
       survey = create :survey
       expect { delete :destroy, id: survey }.to raise_error(ActionController::RoutingError, 'Access Denied')
     end
+
+    specify 'trying to add a survey throws an error' do
+      expect { get :new }.to raise_error(ActionController::RoutingError, 'Access Denied')
+    end
+
+    specify 'trying to create a survey throws an error' do
+      expect { post :create, some: :data }.to raise_error(ActionController::RoutingError, 'Access Denied')
+    end
   end
 end
