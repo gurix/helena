@@ -8,6 +8,7 @@ PATH
       jquery-rails
       rails (~> 4.0.2)
       sass-rails
+      simple_form
 
 GEM
   remote: https://rubygems.org/
@@ -132,6 +133,9 @@ GEM
       sprockets-rails (~> 2.0.0)
     shoulda-matchers (2.5.0)
       activesupport (>= 3.0.0)
+    simple_form (3.0.1)
+      actionpack (>= 4.0.0, < 4.1)
+      activemodel (>= 4.0.0, < 4.1)
     slop (3.4.7)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -171,4 +175,5 @@ DEPENDENCIES
   rspec-rails
   ruby-progressbar
   shoulda-matchers
+  simple_form
   sqlite3
