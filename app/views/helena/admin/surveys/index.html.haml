@@ -1,4 +1,6 @@
-%h2= Helena::Survey.model_name.human(count: 2)
+%h2
+  = Helena::Survey.model_name.human(count: 2)
+  = "(#{@surveys.count})"
 - if @surveys.empty?
   .alert.alert-warning
     = t('.empty')
