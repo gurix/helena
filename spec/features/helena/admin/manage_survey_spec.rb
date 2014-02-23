@@ -29,7 +29,7 @@ feature 'Survey management' do
     fill_in 'Description', with: 'Once upon a time.'
 
     within '.breadcrumb' do
-      expect(page).to have_text 'Add a new survey'
+      expect(page).to have_text 'New Survey'
     end
 
     click_button 'Save'

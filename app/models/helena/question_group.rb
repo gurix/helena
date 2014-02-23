@@ -2,6 +2,6 @@ module Helena
   class QuestionGroup < ActiveRecord::Base
     belongs_to :survey
 
-    validates :position, uniqueness: { scope: :survey_id }
+    default_scope { order(position: :asc) }
   end
 end

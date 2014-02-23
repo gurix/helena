@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Helena::Survey do
   it { expect(subject).to belong_to(:participant) }
 
-  it { expect(subject).to have_many(:question_groups) }
+  it { expect(subject).to have_many(:question_groups).dependent(:destroy) }
 
   it 'has a valid factory' do
     expect(build :survey).to be_valid
