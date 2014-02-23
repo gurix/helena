@@ -5,16 +5,22 @@ module Helena
     class SurveysController < Admin::ApplicationController
       respond_to :html, :json
 
+      add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
+
       def index
         @surveys = Helena::Survey.all
       end
 
       def new
+        add_breadcrumb t('survey.add')
         @survey = Helena::Survey.new
       end
 
       def create
+        add_breadcrumb t('survey.add')
+
         @survey = Helena::Survey.new survey_params
+
         if @survey.save
           flash[:notice] = t('actions.created', ressource: @survey.name)
         else
@@ -25,6 +31,7 @@ module Helena
 
       def edit
         @survey = Helena::Survey.find params[:id]
+        add_breadcrumb @survey.name
       end
 
       def update
@@ -33,6 +40,7 @@ module Helena
           flash[:notice] = t('actions.updated', ressource: @survey.name)
         else
           flash[:error] = t 'actions.error'
+          add_breadcrumb @survey.name_was
         end
         respond_with @survey, location: admin_surveys_path
       end

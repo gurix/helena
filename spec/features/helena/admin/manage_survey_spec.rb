@@ -16,6 +16,10 @@ feature 'Survey management' do
       expect(page).to have_text 'Another cool survey'
       expect(page).to have_text 'Everybody likes it'
     end
+
+    within '.breadcrumb' do
+      expect(page).to have_text 'Surveys'
+    end
   end
 
   scenario 'creates a new surveys' do
@@ -23,6 +27,10 @@ feature 'Survey management' do
 
     fill_in 'Name', with: 'More crazy stuff...'
     fill_in 'Description', with: 'Once upon a time.'
+
+    within '.breadcrumb' do
+      expect(page).to have_text 'Add a new survey'
+    end
 
     click_button 'Save'
 
@@ -59,6 +67,10 @@ feature 'Survey management' do
     click_button 'Save'
 
     expect(page).to have_text 'Ooopss... something is wrong, please check your input'
+
+    within '.breadcrumb' do
+      expect(page).to have_text 'My first survey'
+    end
   end
 
   scenario 'deletes a survey' do

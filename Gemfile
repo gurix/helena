@@ -18,3 +18,4 @@ gem 'colorize'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'simple_form'
+gem "breadcrumbs_on_rails"

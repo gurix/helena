@@ -12,3 +12,11 @@ en:
     updated: "'%{ressource}' sucessfully updated"
     created: "'%{ressource}' sucessfully created"
     error: Ooopss... something is wrong, please check your input
+
+
+  activerecord:
+      models:
+        'helena/survey':
+          one: Survey
+          other: Surveys
+
