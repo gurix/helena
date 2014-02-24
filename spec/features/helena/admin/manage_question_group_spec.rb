@@ -41,18 +41,17 @@ feature 'Question group management' do
   end
 
   scenario 'edits a question_group' do
-    question_group = create :question_group, title: 'Some stupid questions', survey: survey, group_order: 0
+    question_group = create :question_group, title: 'Some stupid questions', survey: survey, group_order: 2
     create :question_group, title: 'Some final remarks', survey: survey, group_order: 1
 
     visit helena.edit_admin_survey_question_group_path(survey, question_group)
 
     fill_in 'Title', with: 'Some serious question'
-    fill_in 'Position', with: '99'
 
     click_button 'Save'
 
     within '#helena_question_group_1' do
-      expect(page).to have_text '99 Some serious question'
+      expect(page).to have_text '2 Some serious question'
     end
 
     within '#helena_question_group_2' do

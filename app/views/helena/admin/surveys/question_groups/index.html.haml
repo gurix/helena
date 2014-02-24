@@ -19,6 +19,13 @@
           %td.title= question_group.title
           %td
             .btn-group.btn-group-sm
+              - if question_group.group_order < controller.maximum_group_order
+                = link_to move_down_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary', method: :patch  do
+                  %i.glyphicon.glyphicon-chevron-down
+              - if question_group.group_order > 1
+                = link_to move_up_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary', method: :patch  do
+                  %i.glyphicon.glyphicon-chevron-up
+
               = link_to t('.edit'), edit_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary'
               = link_to t('.delete'), admin_survey_question_group_path(@survey, question_group), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 
