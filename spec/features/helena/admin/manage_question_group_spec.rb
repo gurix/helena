@@ -5,8 +5,8 @@ feature 'Question group management' do
   let!(:survey) { create :survey }
 
   scenario 'lists all question groups of a certain survey' do
-    create :question_group, title: 'Introduction', survey: survey, group_order: 0
-    create :question_group, title: 'Food behaviour', survey: survey, group_order: 1
+    create :question_group, title: 'Introduction', survey: survey, group_order: 1
+    create :question_group, title: 'Food behaviour', survey: survey, group_order: 2
 
     visit helena.admin_survey_question_groups_path(survey)
 
@@ -47,15 +47,16 @@ feature 'Question group management' do
     visit helena.edit_admin_survey_question_group_path(survey, question_group)
 
     fill_in 'Title', with: 'Some serious question'
+    fill_in 'Position', with: '99'
 
     click_button 'Save'
 
     within '#helena_question_group_1' do
-      expect(page).to have_text '1 Some serious question'
+      expect(page).to have_text '99 Some serious question'
     end
 
     within '#helena_question_group_2' do
-      expect(page).to have_text '2 Some final remarks'
+      expect(page).to have_text '1 Some final remarks'
     end
   end
 

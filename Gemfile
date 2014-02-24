@@ -18,5 +18,6 @@ gem 'colorize'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'simple_form'
-gem "breadcrumbs_on_rails"
-gem 'ranked-model'
+gem 'breadcrumbs_on_rails'
+gem 'quiet_assets'
+gem 'better_errors'

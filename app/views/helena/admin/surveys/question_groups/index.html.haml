@@ -14,7 +14,8 @@
     %tbody
       - @question_groups.each_with_index do |question_group, index|
         %tr[question_group]
-          %td.group_order= index + 1
+          %td.group_order
+            = question_group.group_order
           %td.title= question_group.title
           %td
             .btn-group.btn-group-sm

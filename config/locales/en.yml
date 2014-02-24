@@ -43,3 +43,7 @@ en:
           one: Question Group
           other: Question Groups
 
+      attributes:
+        'helena/question_group':
+          group_order: Position
+          title: Title
