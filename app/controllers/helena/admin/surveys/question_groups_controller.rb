@@ -50,7 +50,7 @@ module Helena
 
         def destroy
           @question_group = @survey.question_groups.find(params[:id])
-          flash[:notice] = t('actions.deleted', ressource: @question_group.title) if @question_group.destroy
+          flash[:notice] = t('actions.deleted', ressource: @question_group.title) if @question_group.destroy && sort
           respond_with @question_group, location: admin_survey_question_groups_path(@survey)
         end
 

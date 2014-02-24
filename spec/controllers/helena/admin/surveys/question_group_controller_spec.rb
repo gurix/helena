@@ -39,4 +39,11 @@ describe Helena::Admin::Surveys::QuestionGroupsController  do
     expect(second_question_group.reload.group_order).to eq 2
     expect(third_question_group.reload.group_order).to eq 3
   end
+
+  it 'does resort after deleting a question group' do
+    delete :destroy, survey_id: survey, id: first_question_group
+
+    expect(second_question_group.reload.group_order).to eq 1
+    expect(third_question_group.reload.group_order).to eq 2
+  end
 end
