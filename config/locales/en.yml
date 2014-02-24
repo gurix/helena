@@ -4,8 +4,27 @@ en:
     delete: Delete
     save: Save
 
-  survey:
-    add: Add a new survey
+  helena:
+    admin:
+      surveys:
+        index:
+          add: Add a new survey
+          edit: Edit
+          empty: No surveys available
+          delete_question: Are you sure?
+          delete: Delete
+        new: &new_survey
+          new: New Survey
+        create: *new_survey
+        question_groups:
+          index:
+            empty: No question groups in this survey
+            add: Add a new question group
+            delete: Delete
+            edit: Edit
+          new: &new_question_group
+            new: New question group
+          create: *new_question_group
 
   actions:
     deleted: "'%{ressource}' sucessfully deleted"
@@ -20,3 +39,11 @@ en:
           one: Survey
           other: Surveys
 
+        'helena/question_group':
+          one: Question Group
+          other: Question Groups
+
+      attributes:
+        'helena/question_group':
+          group_order: Position
+          title: Title

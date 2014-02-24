@@ -3,7 +3,7 @@ require_dependency 'helena/application_controller'
 module Helena
   module Admin
     class SurveysController < Admin::ApplicationController
-      respond_to :html, :json
+      respond_to :html
 
       add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
 
@@ -12,12 +12,12 @@ module Helena
       end
 
       def new
-        add_breadcrumb t('survey.add')
+        add_breadcrumb t('.new')
         @survey = Helena::Survey.new
       end
 
       def create
-        add_breadcrumb t('survey.add')
+        add_breadcrumb t('.new')
 
         @survey = Helena::Survey.new survey_params
 
