@@ -14,14 +14,14 @@ module Helena
 
         def new
           add_breadcrumb t('.new')
-          biggest_question_group_position = @survey.question_groups.maximum(:position) || 0
-          @question_group = @survey.question_groups.new survey: @survey, position: (biggest_question_group_position + 1)
+          @question_group = @survey.question_groups.new survey: @survey
         end
 
         def create
           add_breadcrumb t('.new')
 
           @question_group = @survey.question_groups.new question_group_params
+          @question_group.group_order_position = :last
 
           if @question_group.save
             flash[:notice] = t('actions.created', ressource: @question_group.title)
@@ -64,7 +64,7 @@ module Helena
         end
 
         def question_group_params
-          params.require(:question_group).permit(:title, :position)
+          params.require(:question_group).permit(:title)
         end
       end
     end

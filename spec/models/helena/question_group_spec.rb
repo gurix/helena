@@ -9,8 +9,8 @@ describe Helena::QuestionGroup do
   end
 
   it 'sorts by default according the position' do
-    last_question_group = create :question_group, position: 99
-    first_question_group = create :question_group, position: 11
+    last_question_group = create :question_group, group_order: 99
+    first_question_group = create :question_group, group_order: 11
 
     expect(Helena::QuestionGroup.first).to eq first_question_group
     expect(Helena::QuestionGroup.last).to eq last_question_group

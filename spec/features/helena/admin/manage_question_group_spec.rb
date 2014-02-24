@@ -5,17 +5,17 @@ feature 'Question group management' do
   let!(:survey) { create :survey }
 
   scenario 'lists all question groups of a certain survey' do
-    create :question_group, title: 'Introduction', survey: survey, position: 33
-    create :question_group, title: 'Food behaviour', survey: survey, position: 12
+    create :question_group, title: 'Introduction', survey: survey, group_order: 0
+    create :question_group, title: 'Food behaviour', survey: survey, group_order: 1
 
     visit helena.admin_survey_question_groups_path(survey)
 
     within '#helena_question_group_1' do
-      expect(page).to have_text '33 Introduction'
+      expect(page).to have_text '1 Introduction'
     end
 
     within '#helena_question_group_2' do
-      expect(page).to have_text '12 Food behaviour'
+      expect(page).to have_text '2 Food behaviour'
     end
 
     within '.breadcrumb' do
@@ -28,7 +28,6 @@ feature 'Question group management' do
     visit helena.new_admin_survey_question_group_path(survey)
 
     fill_in 'Title', with: 'Welcome Message'
-    fill_in 'Position', with: '1'
 
     within '.breadcrumb' do
       expect(page).to have_text 'New question group'
@@ -42,18 +41,17 @@ feature 'Question group management' do
   end
 
   scenario 'edits a question_group' do
-    question_group = create :question_group, title: 'Some stupid questions', survey: survey, position: 1
-    create :question_group, title: 'Some final remarks', survey: survey, position: 2
+    question_group = create :question_group, title: 'Some stupid questions', survey: survey, group_order: 0
+    create :question_group, title: 'Some final remarks', survey: survey, group_order: 1
 
     visit helena.edit_admin_survey_question_group_path(survey, question_group)
 
     fill_in 'Title', with: 'Some serious question'
-    fill_in 'Position', with: '99'
 
     click_button 'Save'
 
     within '#helena_question_group_1' do
-      expect(page).to have_text '99 Some serious question'
+      expect(page).to have_text '1 Some serious question'
     end
 
     within '#helena_question_group_2' do

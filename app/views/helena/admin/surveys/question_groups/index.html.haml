@@ -8,13 +8,13 @@
   %table.table.question_groups
     %thead
       %tr
-        %th.position= Helena::QuestionGroup.human_attribute_name(:position)
+        %th.group_order= Helena::QuestionGroup.human_attribute_name(:group_order)
         %th= Helena::QuestionGroup.human_attribute_name(:title)
         %th
     %tbody
-      - @question_groups.each do |question_group|
+      - @question_groups.each_with_index do |question_group, index|
         %tr[question_group]
-          %td.position= question_group.position
+          %td.group_order= index + 1
           %td.title= question_group.title
           %td
             .btn-group.btn-group-sm
