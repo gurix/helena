@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140225064042) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_order", default: 1
+    t.integer  "position",    default: 1
   end
 
   create_table "helena_surveys", force: true do |t|

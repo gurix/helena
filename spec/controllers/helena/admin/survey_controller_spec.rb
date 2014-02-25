@@ -83,6 +83,7 @@ describe Helena::Admin::SurveysController do
 
       expect(first_survey.reload.position).to eq 1
       expect(second_survey.reload.position).to eq 2
+      expect(third_survey.reload.position).to eq 3
       expect(Helena::Survey.find_by(name: 'New Survey').position).to eq 4
     end
   end

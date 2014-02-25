@@ -28,10 +28,10 @@ describe Helena::Survey do
   end
 
   describe '#swap_position' do
-    it 'swaps two surveys' do
-      last_survey = create :survey, position: 99
-      first_survey = create :survey, position: 11
+    let!(:last_survey) { create :survey, position: 99 }
+    let!(:first_survey) { create :survey, position: 11 }
 
+    it 'swaps two surveys' do
       last_survey.swap_position(11)
 
       expect(first_survey.reload.position).to eq 99
@@ -39,9 +39,6 @@ describe Helena::Survey do
     end
 
     it 'does not swaps unknown position' do
-      last_survey = create :survey, position: 99
-      first_survey = create :survey, position: 11
-
       last_survey.swap_position(666)
 
       expect(first_survey.reload.position).to eq 11
@@ -49,7 +46,7 @@ describe Helena::Survey do
     end
   end
 
-  describe '#sort' do
+  describe '#resort' do
     it 'resorts all surveys' do
       last_survey = create :survey, position: 99
       first_survey = create :survey, position: 11

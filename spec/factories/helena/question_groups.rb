@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :question_group, class: Helena::QuestionGroup do
     sequence(:title)  { |n| "Page #{n}" }
-    sequence(:group_order)
+    sequence(:position)
   end
 end

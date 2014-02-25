@@ -2,13 +2,13 @@ module Helena
   class Survey < ActiveRecord::Base
     default_scope { order(position: :asc) }
 
+    after_destroy :resort
+
     belongs_to :participant
     has_many :question_groups, dependent: :destroy
 
     validates :name, presence: true
     validates :name, uniqueness: true
-
-    after_destroy :resort
 
     def swap_position(new_position)
       other_survey = self.class.find_by(position: new_position)

@@ -24,6 +24,8 @@ en:
             add: Add a new question group
             delete: Delete
             edit: Edit
+            move_up: Move up
+            move_down: Move down
           new: &new_question_group
             new: New question group
           create: *new_question_group
@@ -47,5 +49,5 @@ en:
 
       attributes:
         'helena/question_group':
-          group_order: Position
+          position: Position
           title: Title
