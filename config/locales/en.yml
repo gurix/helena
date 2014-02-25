@@ -13,6 +13,8 @@ en:
           empty: No surveys available
           delete_question: Are you sure?
           delete: Delete
+          move_up: Move up
+          move_down: Move down
         new: &new_survey
           new: New Survey
         create: *new_survey

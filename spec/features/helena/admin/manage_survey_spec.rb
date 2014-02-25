@@ -82,4 +82,27 @@ feature 'Survey management' do
       expect { click_link 'Delete' }.to change { Helena::Survey.count }.by(-1)
     end
   end
+
+  scenario 'moving surveys' do
+    first_survey = create :survey, position: 1
+    second_survey = create :survey, position: 2
+
+    visit helena.admin_surveys_path
+
+    within '#helena_survey_1' do
+      expect { click_link 'Move down' }.to change { first_survey.reload.position }.from(1).to(2)
+    end
+
+    within '#helena_survey_2' do
+      expect { click_link 'Move down' }.to change { second_survey.reload.position }.from(1).to(2)
+    end
+
+    within '#helena_survey_2' do
+      expect { click_link 'Move up' }.to change { second_survey.reload.position }.from(2).to(1)
+    end
+
+    within '#helena_survey_1' do
+      expect { click_link 'Move up' }.to change { first_survey.reload.position }.from(2).to(1)
+    end
+  end
 end

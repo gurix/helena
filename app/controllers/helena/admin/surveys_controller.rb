@@ -22,7 +22,7 @@ module Helena
         add_breadcrumb t('.new')
 
         @survey = Helena::Survey.new survey_params
-
+        @survey.position = maximum_survey_position + 1
         if @survey.save
           flash[:notice] = t('actions.created', ressource: @survey.name)
         else
@@ -38,6 +38,7 @@ module Helena
 
       def update
         @survey = Helena::Survey.find params[:id]
+
         if @survey.update_attributes survey_params
           flash[:notice] = t('actions.updated', ressource: @survey.name)
         else
@@ -73,6 +74,10 @@ module Helena
         @survey = Helena::Survey.find(params[:id])
         flash[:notice] = t('actions.deleted', ressource: @survey.name) if @survey.destroy && sort
         respond_with @survey, location: admin_surveys_path
+      end
+
+      def maximum_survey_position
+        (Helena::Survey.maximum(:position) || 0)
       end
 
       private

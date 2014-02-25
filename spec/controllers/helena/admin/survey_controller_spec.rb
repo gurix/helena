@@ -42,40 +42,48 @@ describe Helena::Admin::SurveysController do
     it 'moves a question group down with resort' do
       patch :move_down, id: first_survey
 
-      expect(first_survey.reload. position).to eq 2
-      expect(second_survey.reload. position).to eq 1
-      expect(third_survey.reload. position).to eq 3
+      expect(first_survey.reload.position).to eq 2
+      expect(second_survey.reload.position).to eq 1
+      expect(third_survey.reload.position).to eq 3
     end
 
     it 'moves a question group up with resort' do
       patch :move_up, id: third_survey
 
-      expect(first_survey.reload. position).to eq 1
-      expect(second_survey.reload. position).to eq 3
-      expect(third_survey.reload. position).to eq 2
+      expect(first_survey.reload.position).to eq 1
+      expect(second_survey.reload.position).to eq 3
+      expect(third_survey.reload.position).to eq 2
     end
 
     it 'does not moves a question group down when already the first with resort' do
       patch :move_down, id: third_survey
 
-      expect(first_survey.reload. position).to eq 1
-      expect(second_survey.reload. position).to eq 2
-      expect(third_survey.reload. position).to eq 3
+      expect(first_survey.reload.position).to eq 1
+      expect(second_survey.reload.position).to eq 2
+      expect(third_survey.reload.position).to eq 3
     end
 
     it 'does not moves a question group up when already the first with resort' do
       patch :move_up, id: first_survey
 
-      expect(first_survey.reload. position).to eq 1
-      expect(second_survey.reload. position).to eq 2
-      expect(third_survey.reload. position).to eq 3
+      expect(first_survey.reload.position).to eq 1
+      expect(second_survey.reload.position).to eq 2
+      expect(third_survey.reload.position).to eq 3
     end
 
-    it 'does resort after deleting a question group' do
+    it 'resorts after deleting a question group' do
       delete :destroy, id: first_survey
 
-      expect(second_survey.reload. position).to eq 1
-      expect(third_survey.reload. position).to eq 2
+      expect(second_survey.reload.position).to eq 1
+      expect(third_survey.reload.position).to eq 2
+    end
+
+    it 'counts position up when creating a new survey' do
+      post :create, survey: { name: 'New Survey' }
+
+      expect(first_survey.reload.position).to eq 1
+      expect(second_survey.reload.position).to eq 2
+      expect(Helena::Survey.find_by(name: 'New Survey').position).to eq 4
     end
   end
 end
