@@ -15,5 +15,4 @@ describe Helena::QuestionGroup do
     expect(Helena::QuestionGroup.first).to eq first_question_group
     expect(Helena::QuestionGroup.last).to eq last_question_group
   end
-
 end

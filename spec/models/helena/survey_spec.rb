@@ -18,4 +18,12 @@ describe Helena::Survey do
 
     expect(build :survey, name: 'Patric Star\'s favorit position').not_to be_valid
   end
+
+  it 'sorts by default according the position' do
+    last_survey = create :survey, position: 99
+    first_survey = create :survey, position: 11
+
+    expect(Helena::Survey.first).to eq first_survey
+    expect(Helena::Survey.last).to eq last_survey
+  end
 end
