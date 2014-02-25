@@ -7,7 +7,7 @@ module Helena
 
       add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
 
-      before_filter :sort, only: [:move_up, :move_down, :create]
+      before_filter :resort, only: [:move_up, :move_down, :create]
 
       def index
         @surveys = Helena::Survey.all
@@ -22,7 +22,7 @@ module Helena
         add_breadcrumb t('.new')
 
         @survey = Helena::Survey.new survey_params
-        @survey.position = maximum_survey_position + 1
+        @survey.position = Helena::Survey.maximum_position + 1
         if @survey.save
           flash[:notice] = t('actions.created', ressource: @survey.name)
         else
@@ -62,7 +62,7 @@ module Helena
       def move_down
         @survey = Helena::Survey.find params[:id]
 
-        if @survey.position < Helena::Survey.maximum(:position)
+        if @survey.position < Helena::Survey.maximum_position
           @survey.swap_position @survey.position + 1
           flash[:notice] = t 'actions.updated', ressource: @survey.name
         end
@@ -72,20 +72,14 @@ module Helena
 
       def destroy
         @survey = Helena::Survey.find(params[:id])
-        flash[:notice] = t('actions.deleted', ressource: @survey.name) if @survey.destroy && sort
+        flash[:notice] = t('actions.deleted', ressource: @survey.name) if @survey.destroy
         respond_with @survey, location: admin_surveys_path
-      end
-
-      def maximum_survey_position
-        (Helena::Survey.maximum(:position) || 0)
       end
 
       private
 
-      def sort
-        Helena::Survey.all.each_with_index do | survey, index|
-          survey.update_attribute(:position, index + 1)
-        end
+      def resort
+        Helena::Survey.resort
       end
 
       def survey_params

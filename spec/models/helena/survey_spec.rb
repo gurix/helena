@@ -48,4 +48,16 @@ describe Helena::Survey do
       expect(last_survey.reload.position).to eq 99
     end
   end
+
+  describe '#sort' do
+    it 'resorts all surveys' do
+      last_survey = create :survey, position: 99
+      first_survey = create :survey, position: 11
+
+      Helena::Survey.resort
+
+      expect(first_survey.reload.position).to eq 1
+      expect(last_survey.reload.position).to eq 2
+    end
+  end
 end
