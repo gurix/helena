@@ -7,6 +7,9 @@ Helena::Engine.routes.draw do
         patch :move_up, on: :member
         patch :move_down, on: :member
       end
+
+      patch :move_up, on: :member
+      patch :move_down, on: :member
     end
   end
 end

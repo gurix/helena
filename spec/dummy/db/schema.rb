@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140223142208) do
+ActiveRecord::Schema.define(version: 20140225064042) do
 
   create_table "helena_participants", force: true do |t|
     t.string   "name"
@@ -25,14 +25,16 @@ ActiveRecord::Schema.define(version: 20140223142208) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_order", default: 1
+    t.integer  "position",    default: 1
   end
 
   create_table "helena_surveys", force: true do |t|
     t.integer  "participant_id"
-    t.string   "name",           null: false
+    t.string   "name",                       null: false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position",       default: 1
   end
 
 end

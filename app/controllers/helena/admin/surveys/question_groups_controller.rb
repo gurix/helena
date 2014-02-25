@@ -7,7 +7,7 @@ module Helena
         respond_to :html
 
         before_filter :load_survey, :add_breadcrumps
-        before_filter :sort, only: [:move_up, :move_down, :create]
+        before_filter :resort, only: [:move_up, :move_down, :create]
 
         def index
           @question_groups = @survey.question_groups
@@ -22,7 +22,7 @@ module Helena
           add_breadcrumb t('.new')
 
           @question_group = @survey.question_groups.new question_group_params
-          @question_group.group_order = maximum_group_order + 1
+          @question_group.position = Helena::QuestionGroup.maximum_position(@survey) + 1
 
           if @question_group.save
             flash[:notice] = t('actions.created', ressource: @question_group.title)
@@ -50,19 +50,15 @@ module Helena
 
         def destroy
           @question_group = @survey.question_groups.find(params[:id])
-          flash[:notice] = t('actions.deleted', ressource: @question_group.title) if @question_group.destroy && sort
+          flash[:notice] = t('actions.deleted', ressource: @question_group.title) if @question_group.destroy
           respond_with @question_group, location: admin_survey_question_groups_path(@survey)
         end
 
         def move_up
           @question_group = @survey.question_groups.find(params[:id])
 
-          if @question_group.group_order > 1
-            previous_position = @question_group.group_order - 1
-            previous_question_group = @survey.question_groups.find_by group_order: previous_position
-            previous_question_group.update_attribute :group_order, @question_group.group_order
-            @question_group.update_attribute :group_order, previous_position
-
+          if @question_group.position > 1
+            @question_group.swap_position @question_group.position - 1
             flash[:notice] = t('actions.updated', ressource: @question_group.title)
           end
 
@@ -72,28 +68,18 @@ module Helena
         def move_down
           @question_group = @survey.question_groups.find(params[:id])
 
-          if @question_group.group_order < maximum_group_order
-            next_position =  @question_group.group_order + 1
-            next_question_group = @survey.question_groups.find_by group_order: next_position
-            next_question_group.update_attribute :group_order, @question_group.group_order
-            @question_group.update_attribute :group_order, next_position
-
+          if @question_group.position < Helena::QuestionGroup.maximum_position(@survey)
+            @question_group.swap_position @question_group.position + 1
             flash[:notice] = t('actions.updated', ressource: @question_group.title)
           end
 
           respond_with @survey, location: admin_survey_question_groups_path(@survey)
         end
 
-        def maximum_group_order
-          @survey.question_groups.maximum(:group_order) || 0
-        end
-
         private
 
-        def sort
-          @survey.question_groups.each_with_index do | question_group, index|
-            question_group.update_attribute(:group_order, index + 1)
-          end
+        def resort
+          Helena::QuestionGroup.resort @survey
         end
 
         def load_survey
