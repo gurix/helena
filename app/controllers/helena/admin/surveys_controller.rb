@@ -24,9 +24,9 @@ module Helena
         @survey = Helena::Survey.new survey_params
         @survey.position = Helena::Survey.maximum_position + 1
         if @survey.save
-          flash[:notice] = t('actions.created', ressource: @survey.name)
+          notify_successful_create_for(@survey.name)
         else
-          flash[:error] = t 'actions.error'
+          notify_error
         end
         respond_with @survey, location: admin_surveys_path
       end
@@ -40,9 +40,9 @@ module Helena
         @survey = Helena::Survey.find params[:id]
 
         if @survey.update_attributes survey_params
-          flash[:notice] = t('actions.updated', ressource: @survey.name)
+          notify_successful_update_for(@survey.name)
         else
-          flash[:error] = t 'actions.error'
+          notify_error
           add_breadcrumb @survey.name_was
         end
         respond_with @survey, location: admin_surveys_path
@@ -53,7 +53,7 @@ module Helena
 
         if @survey.position > 1
           @survey.swap_position @survey.position - 1
-          flash[:notice] = t 'actions.updated', ressource: @survey.name
+          notify_successful_update_for(@survey.name)
         end
 
         respond_with @survey, location: admin_surveys_path
@@ -64,7 +64,7 @@ module Helena
 
         if @survey.position < Helena::Survey.maximum_position
           @survey.swap_position @survey.position + 1
-          flash[:notice] = t 'actions.updated', ressource: @survey.name
+          notify_successful_update_for(@survey.name)
         end
 
         respond_with @survey, location: admin_surveys_path
@@ -72,7 +72,7 @@ module Helena
 
       def destroy
         @survey = Helena::Survey.find(params[:id])
-        flash[:notice] = t('actions.deleted', ressource: @survey.name) if @survey.destroy
+        notify_successful_delete_for(@survey.name) if @survey.destroy
         respond_with @survey, location: admin_surveys_path
       end
 

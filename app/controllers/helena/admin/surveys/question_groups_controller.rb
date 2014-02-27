@@ -25,9 +25,9 @@ module Helena
           @question_group.position = Helena::QuestionGroup.maximum_position(@survey) + 1
 
           if @question_group.save
-            flash[:notice] = t('actions.created', ressource: @question_group.title)
+            notify_successful_create_for(@question_group.title)
           else
-            flash[:error] = t 'actions.error'
+            notify_error
           end
           respond_with @question_group, location: admin_survey_question_groups_path(@survey)
         end
@@ -40,17 +40,17 @@ module Helena
           @question_group = @survey.question_groups.find(params[:id])
 
           if @question_group.update_attributes question_group_params
-            flash[:notice] = t('actions.updated', ressource: @question_group.title)
+            notify_successful_update_for(@question_group.title)
           else
-            flash[:error] = t 'actions.error'
-            add_breadcrumb @question_group.name_was
+            notify_error
+            add_breadcrumb @question_group.title_was
           end
           respond_with @question_group, location: admin_survey_question_groups_path(@survey)
         end
 
         def destroy
           @question_group = @survey.question_groups.find(params[:id])
-          flash[:notice] = t('actions.deleted', ressource: @question_group.title) if @question_group.destroy
+          notify_successful_delete_for(@question_group.title) if @question_group.destroy
           respond_with @question_group, location: admin_survey_question_groups_path(@survey)
         end
 
@@ -59,7 +59,7 @@ module Helena
 
           if @question_group.position > 1
             @question_group.swap_position @question_group.position - 1
-            flash[:notice] = t('actions.updated', ressource: @question_group.title)
+            notify_successful_update_for(@question_group.title)
           end
 
           respond_with @survey, location: admin_survey_question_groups_path(@survey)
@@ -70,7 +70,7 @@ module Helena
 
           if @question_group.position < Helena::QuestionGroup.maximum_position(@survey)
             @question_group.swap_position @question_group.position + 1
-            flash[:notice] = t('actions.updated', ressource: @question_group.title)
+            notify_successful_update_for(@question_group.title)
           end
 
           respond_with @survey, location: admin_survey_question_groups_path(@survey)
