@@ -13,5 +13,14 @@ DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 
 puts 'Seeding surveys ...'.green
-create :survey, name: 'Some test survey', description: Faker::Lorem.paragraph(1)
-create :survey, name: 'Another stupid questionary', description: Faker::Lorem.paragraph(1)
+
+satisfaction_survey = create :survey, name: 'The Satisfaction with Life Scale',
+                                      description: 'A 5-item scale designed to measure global cognitive judgments of one’s life satisfaction.'
+create :question_group, survey: satisfaction_survey
+
+description = <<EOF
+Thank you for your recent stay at our hotel. During your stay you dined at our 5-star Swiss Cheese Restaurant.
+We're conducting a short survey to find out about your dining experience and what we might do to improve.
+Please help us by completing this short survey."
+EOF
+create :survey, name: 'Restaurant customer satisfaction', description: description
