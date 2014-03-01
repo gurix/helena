@@ -4,7 +4,7 @@ module Helena
 
     default_scope { order(position: :asc) }
 
-    validates :question_group, presence: true
+    validates :question_group, :code, presence: true
 
     serialize :validation_rules
 

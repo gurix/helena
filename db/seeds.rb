@@ -23,4 +23,8 @@ Thank you for your recent stay at our hotel. During your stay you dined at our 5
 We're conducting a short survey to find out about your dining experience and what we might do to improve.
 Please help us by completing this short survey."
 EOF
-create :survey, name: 'Restaurant customer satisfaction', description: description
+restaurant_survey = create :survey, name: 'Restaurant customer satisfaction', description: description
+
+personal_details = create :question_group, survey: restaurant_survey, title: 'Personal Details'
+
+personal_details.questions << create(:short_text_question, code: :name, question_text: "What's your name?", validation_rules: { presence: true })
