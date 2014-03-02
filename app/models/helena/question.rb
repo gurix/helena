@@ -8,8 +8,34 @@ module Helena
 
     serialize :validation_rules
 
+    after_destroy :resort
+
     def rules
       validation_rules || {}
+    end
+
+    def swap_position(new_position)
+      other_question = self.class.find_by(position: new_position, question_group: question_group)
+      if other_question
+        other_question.update_attribute :position, position
+        update_attribute :position, new_position
+      end
+    end
+
+    def self.resort(question_group)
+      where(question_group: question_group).each_with_index do | question, index |
+        question.update_attribute(:position, index + 1)
+      end
+    end
+
+    def self.maximum_position(question_group)
+      where(question_group: question_group).maximum(:position) || 0
+    end
+
+    private
+
+    def resort
+      self.class.resort question_group
     end
   end
 end
