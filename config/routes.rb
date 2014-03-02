@@ -3,7 +3,7 @@ Helena::Engine.routes.draw do
 
   scope :admin, as: :admin, module: :admin do
     resources :surveys do
-      resources :question_groups, module: :surveys do
+      resources :question_groups do
         patch :move_up, on: :member
         patch :move_down, on: :member
       end
