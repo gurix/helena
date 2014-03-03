@@ -27,4 +27,8 @@ restaurant_survey = create :survey, name: 'Restaurant customer satisfaction', de
 
 personal_details = create :question_group, survey: restaurant_survey, title: 'Personal Details'
 
-personal_details.questions << create(:short_text_question, code: :name, question_text: "What's your name?", validation_rules: { presence: true })
+personal_details.questions << create(:short_text_question, code: :name, question_text: "What's your name?")
+personal_details.questions << create(:short_text_question, code: :name, question_text: "What's your E-Mail-Address?")
+
+dinner = create :question_group, survey: restaurant_survey, title: 'About the dinner'
+dinner.questions << create(:short_text_question, code: :name, question_text: 'How would you describe the dinner with one word?', validation_rules: { presence: true })
