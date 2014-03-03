@@ -83,7 +83,7 @@ feature 'Survey management' do
     end
   end
 
-  scenario 'survey links to question groups of a survey' do
+  scenario 'links to question groups of a survey' do
     survey = create :survey
     visit helena.admin_surveys_path
 
