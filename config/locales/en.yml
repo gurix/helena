@@ -47,6 +47,10 @@ en:
           one: Question Group
           other: Question Groups
 
+        'helena/question':
+          one: Question
+          other: Questions
+
       attributes:
         'helena/question_group':
           position: Position
