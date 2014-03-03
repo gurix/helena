@@ -34,6 +34,5 @@
               = link_to Helena::Question.model_name.human(count: 2), admin_survey_question_group_questions_path(@survey, question_group), class: 'btn btn-primary'
               = link_to t('.delete'), admin_survey_question_group_path(@survey, question_group), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 
-%br
 %a.btn.btn-success{ href:  new_admin_survey_question_group_path}
   = t '.add'

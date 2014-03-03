@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140301165805) do
 
   create_table "helena_questions", force: true do |t|
     t.integer  "question_group_id"
+    t.integer  "survey_id"
     t.string   "type"
     t.string   "code",                          null: false
     t.integer  "position",          default: 1

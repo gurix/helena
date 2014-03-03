@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @survey, @question_group, @question.becomes(Helena::Question)] do |f|
+  = f.input :question_text
+  = f.input :code
+  / needs a translation
+  = f.input :type, collection: Helena::Question::TYPES
+  %br
+  = f.submit t('shared.save'), class: 'btn btn-success'

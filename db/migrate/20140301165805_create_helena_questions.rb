@@ -2,6 +2,7 @@ class CreateHelenaQuestions < ActiveRecord::Migration
   def change
     create_table :helena_questions do |t|
       t.belongs_to :question_group
+      t.belongs_to :survey
       t.string     :type
       t.string     :code, null: false
       t.integer    :position, default: 1

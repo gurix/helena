@@ -6,6 +6,7 @@ AllCops:
     - bin/**
     - spec/dummy/db/schema.rb
     - spec/dummy/config/initializers/secret_token.rb
+    - db/migrate/**
 Documentation:
   Enabled: false
 LineLength:

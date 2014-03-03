@@ -25,10 +25,14 @@ Please help us by completing this short survey."
 EOF
 restaurant_survey = create :survey, name: 'Restaurant customer satisfaction', description: description
 
-personal_details = create :question_group, survey: restaurant_survey, title: 'Personal Details'
+personal_details = create :question_group, survey: restaurant_survey, title: 'Personal Details', position: 1
 
-personal_details.questions << create(:short_text_question, code: :name, question_text: "What's your name?")
-personal_details.questions << create(:short_text_question, code: :name, question_text: "What's your E-Mail-Address?")
+personal_details.questions << create(:short_text_question, code: :name, question_text: "What's your name?", position: 1, code: 'name')
+personal_details.questions << create(:short_text_question, code: :email, question_text: "What's your E-Mail-Address?", position: 2)
 
-dinner = create :question_group, survey: restaurant_survey, title: 'About the dinner'
-dinner.questions << create(:short_text_question, code: :name, question_text: 'How would you describe the dinner with one word?', validation_rules: { presence: true })
+dinner = create :question_group, survey: restaurant_survey, title: 'About the dinner', position: 2
+dinner.questions << create(:short_text_question, code:             :catchphrase,
+                                                 question_text:    'How would you describe the dinner with one word?',
+                                                 validation_rules: { presence: true },
+                                                 position:         1,
+                                                 survey:           restaurant_survey)

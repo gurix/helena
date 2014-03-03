@@ -1,10 +1,14 @@
 module Helena
   class Question < ActiveRecord::Base
+    TYPES = [Helena::Questions::ShortText]
+
     belongs_to :question_group, inverse_of: :questions
+    belongs_to :survey, inverse_of: :questions
 
     default_scope { order(position: :asc) }
 
     validates :question_group, :code, presence: true
+    validates :code, uniqueness: { scope: :survey_id }
 
     serialize :validation_rules
 

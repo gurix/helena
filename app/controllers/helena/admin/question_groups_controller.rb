@@ -33,6 +33,8 @@ module Helena
 
       def edit
         @question_group = @survey.question_groups.find(params[:id])
+
+        add_breadcrumb @question_group.title
       end
 
       def update

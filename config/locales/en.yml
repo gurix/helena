@@ -10,7 +10,7 @@ en:
         index:
           add: Add a new survey
           edit: Edit
-          empty: No surveys available
+          empty: There are no surveys available
           delete_question: Are you sure?
           delete: Delete
           move_up: Move up
@@ -20,7 +20,7 @@ en:
         create: *new_survey
       question_groups:
         index:
-          empty: No question groups in this survey
+          empty: There are no question groups in this survey
           add: Add a new question group
           delete: Delete
           edit: Edit
@@ -29,6 +29,18 @@ en:
         new: &new_question_group
           new: New question group
         create: *new_question_group
+      questions:
+        index:
+          empty: There are no questions in this question group
+          add: Add a new question
+          delete: Delete
+          edit: Edit
+          move_up: Move up
+          move_down: Move down
+          required: Required
+        new: &new_question
+          new: New question
+        create: *new_question
 
   actions:
     deleted: "'%{ressource}' sucessfully deleted"
@@ -59,3 +71,9 @@ en:
         'helena/question_group':
           position: Position
           title: Title
+
+      attributes:
+        'helena/question':
+          position: Position
+          code: Code
+          type: Type
