@@ -51,6 +51,10 @@ en:
           one: Question
           other: Questions
 
+        'helena/questions/short_text':
+          one: Short text
+          other:  Short texts
+
       attributes:
         'helena/question_group':
           position: Position

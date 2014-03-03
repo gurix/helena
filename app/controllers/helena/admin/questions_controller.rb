@@ -6,6 +6,10 @@ module Helena
       before_filter :load_question_group, :add_breadcrumbs
       before_filter :resort, only: [:move_up, :move_down, :create]
 
+      def index
+        @questions = @question_group.questions
+      end
+
       def create
         add_breadcrumb t('.new')
 

@@ -79,7 +79,6 @@ feature 'Question group management' do
     end
   end
 
-
   scenario 'moving a question group' do
     first_question_group = create :question_group, survey: survey, position: 1
     second_question_group = create :question_group, survey: survey, position: 2
