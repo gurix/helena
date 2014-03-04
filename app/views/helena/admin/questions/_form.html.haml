@@ -1,0 +1,10 @@
+= simple_form_for [:admin, @survey, @question_group, @question.becomes(Helena::Question)] do |f|
+  = f.input :question_text
+  = f.input :code
+  / needs a translation
+  = f.input :type, collection: Helena::Question::TYPES.map { |type| [question_type_translation_for(type), type]}
+  = f.input :required, as: :boolean, wrapper: :checkbox
+  - if @question.is_a?(Helena::Questions::ShortText)
+    = f.input :default_value
+  %br
+  = f.submit t('shared.save'), class: 'btn btn-success'

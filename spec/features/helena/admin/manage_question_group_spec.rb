@@ -69,7 +69,17 @@ feature 'Question group management' do
     end
   end
 
-  scenario 'moving a question gropu' do
+  scenario 'links to questions of a question group' do
+    question_group = create :question_group, title: 'We do not use this anymore', survey: survey
+
+    visit helena.admin_survey_question_groups_path(survey)
+
+    within '#helena_question_group_1' do
+      expect(page).to have_link 'Questions', href: helena.admin_survey_question_group_questions_path(survey, question_group)
+    end
+  end
+
+  scenario 'moving a question group' do
     first_question_group = create :question_group, survey: survey, position: 1
     second_question_group = create :question_group, survey: survey, position: 2
 

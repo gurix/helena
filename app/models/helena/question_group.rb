@@ -1,6 +1,7 @@
 module Helena
   class QuestionGroup < ActiveRecord::Base
-    belongs_to :survey
+    belongs_to :survey, inverse_of: :question_groups
+    has_many :questions
 
     after_destroy :resort
 

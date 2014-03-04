@@ -4,13 +4,16 @@ en:
     delete: Delete
     save: Save
 
+  question_types:
+    short_text: Short text
+
   helena:
     admin:
       surveys:
         index:
           add: Add a new survey
           edit: Edit
-          empty: No surveys available
+          empty: There are no surveys available
           delete_question: Are you sure?
           delete: Delete
           move_up: Move up
@@ -18,17 +21,29 @@ en:
         new: &new_survey
           new: New Survey
         create: *new_survey
-        question_groups:
-          index:
-            empty: No question groups in this survey
-            add: Add a new question group
-            delete: Delete
-            edit: Edit
-            move_up: Move up
-            move_down: Move down
-          new: &new_question_group
-            new: New question group
-          create: *new_question_group
+      question_groups:
+        index:
+          empty: There are no question groups in this survey
+          add: Add a new question group
+          delete: Delete
+          edit: Edit
+          move_up: Move up
+          move_down: Move down
+        new: &new_question_group
+          new: New question group
+        create: *new_question_group
+      questions:
+        index:
+          empty: There are no questions in this question group
+          add: Add a new question
+          delete: Delete
+          edit: Edit
+          move_up: Move up
+          move_down: Move down
+          required: Required
+        new: &new_question
+          new: New question
+        create: *new_question
 
   actions:
     deleted: "'%{ressource}' sucessfully deleted"
@@ -47,7 +62,21 @@ en:
           one: Question Group
           other: Question Groups
 
+        'helena/question':
+          one: Question
+          other: Questions
+
+        'helena/questions/short_text':
+          one: Short text
+          other:  Short texts
+
       attributes:
         'helena/question_group':
           position: Position
           title: Title
+
+      attributes:
+        'helena/question':
+          position: Position
+          code: Code
+          type: Type

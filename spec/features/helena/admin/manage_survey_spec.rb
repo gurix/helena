@@ -74,12 +74,21 @@ feature 'Survey management' do
   end
 
   scenario 'deletes a survey' do
-    create :survey, name: 'My first survey', description: 'I am very proud of it'
+    create :survey
 
     visit helena.admin_surveys_path
 
     within '#helena_survey_1' do
       expect { click_link 'Delete' }.to change { Helena::Survey.count }.by(-1)
+    end
+  end
+
+  scenario 'links to question groups of a survey' do
+    survey = create :survey
+    visit helena.admin_surveys_path
+
+    within '#helena_survey_1' do
+      expect(page).to have_link 'Question Groups', href: helena.admin_survey_question_groups_path(survey)
     end
   end
 

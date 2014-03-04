@@ -1,14 +1,23 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  config.wrappers :bootstrap, tag: 'div', class: 'control-group', error_class: 'error' do |b|
+  config.wrappers :bootstrap, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
-    b.wrapper tag: 'div', class: 'controls' do |ba|
+    b.use :input
+    b.use :error, wrap_with: { tag: 'span', class: 'form-control-feedback' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
+
+  config.wrappers :checkbox, tag: :div, class: 'checkbox', error_class: 'has-error' do |b|
+    b.use :html5
+    b.wrapper tag: :label do |ba|
       ba.use :input
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
-      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+      ba.use :label_text
     end
+
+    b.use :hint,  wrap_with: { tag: :p, class: 'help-block' }
+    b.use :error, wrap_with: { tag: :span, class: 'help-block text-danger' }
   end
 
   config.wrappers :prepend, tag: 'div', class: 'control-group', error_class: 'error' do |b|

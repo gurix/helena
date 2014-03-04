@@ -1,0 +1,46 @@
+%h2
+  = Helena::Question.model_name.human(count: 2)
+  = "(#{@questions.count})"
+- if @questions.empty?
+  .alert.alert-warning
+    = t '.empty'
+- else
+  %table.table.questions
+    %thead
+      %tr
+        %th.position= Helena::Question.human_attribute_name(:position)
+        %th= Helena::Question.human_attribute_name(:code)
+        %th= Helena::Question.human_attribute_name(:type)
+        %th= Helena::Question.human_attribute_name(:question_text)
+        %th
+    %tbody
+      - @questions.each_with_index do |question, index|
+        %tr[question]
+          %td.position
+            = question.position
+          %td.code
+            = question.code
+          %td.type
+            = question_type_translation_for question.type
+            - if question.required
+              %span.glyphicon.glyphicon-flag{ title: t('.required')}
+          %td.question_text= question.question_text
+          %td
+            .btn-group.btn-group-sm
+              - if question.position < Helena::Question.maximum_position(@question_group)
+                = link_to move_down_admin_survey_question_group_question_path(@survey, @question_group, question), class: 'btn btn-primary',
+                                                                                               method: :patch,
+                                                                                               title: t('.move_down')  do
+                  %i.glyphicon.glyphicon-chevron-down
+              - if question.position > 1
+                = link_to move_up_admin_survey_question_group_question_path(@survey, @question_group, question), class: 'btn btn-primary',
+                                                                                             method: :patch,
+                                                                                             title: t('.move_up')  do
+                  %i.glyphicon.glyphicon-chevron-up
+
+              = link_to t('.edit'), edit_admin_survey_question_group_question_path(@survey, @question_group, question), class: 'btn btn-primary'
+
+              = link_to t('.delete'), admin_survey_question_group_question_path(@survey, @question_group, question), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
+
+%a.btn.btn-success{ href:  new_admin_survey_question_group_question_path(@survey, @question_group) }
+  = t '.add'

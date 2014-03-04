@@ -6,6 +6,7 @@ module Helena
 
     belongs_to :participant
     has_many :question_groups, dependent: :destroy
+    has_many :questions, dependent: :destroy
 
     validates :name, presence: true
     validates :name, uniqueness: true
