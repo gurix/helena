@@ -23,6 +23,7 @@ module Helena
 
         @survey = Helena::Survey.new survey_params
         @survey.position = Helena::Survey.maximum_position + 1
+
         if @survey.save
           notify_successful_create_for(@survey.name)
         else

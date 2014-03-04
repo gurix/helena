@@ -14,10 +14,6 @@ module Helena
 
     after_destroy :resort
 
-    def rules
-      validation_rules || {}
-    end
-
     def swap_position(new_position)
       other_question = self.class.find_by(position: new_position, question_group: question_group)
       if other_question
@@ -34,6 +30,18 @@ module Helena
 
     def self.maximum_position(question_group)
       where(question_group: question_group).maximum(:position) || 0
+    end
+
+    def required
+      rules[:presence].present?
+    end
+
+    def required=(value)
+      rules[:presence] = (value.to_i == 1)
+    end
+
+    def rules
+      self.validation_rules ||= {}
     end
 
     private

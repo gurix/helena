@@ -39,7 +39,6 @@ module Helena
 
       def update
         @question = @question_group.questions.find(params[:id])
-
         if @question.update_attributes question_params
           notify_successful_update_for(@question.question_text)
         else
@@ -97,7 +96,7 @@ module Helena
       end
 
       def question_params
-        params.require(:question).permit(:question_text, :code, :type, :default_value)
+        params.require(:question).permit(:question_text, :code, :type, :default_value, :required)
       end
     end
   end
