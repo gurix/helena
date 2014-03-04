@@ -2,6 +2,6 @@
   = f.input :question_text
   = f.input :code
   / needs a translation
-  = f.input :type, collection: Helena::Question::TYPES
+  = f.input :type, collection: Helena::Question::TYPES.map { |type| [question_type_translation_for(type), type]}
   %br
   = f.submit t('shared.save'), class: 'btn btn-success'

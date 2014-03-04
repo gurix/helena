@@ -21,7 +21,7 @@
           %td.code
             = question.code
           %td.type
-            = question.class.model_name.human
+            = question_type_translation_for question.type
             - if question.rules.presence.present?
               %span.glyphicon.glyphicon-flag{ title: t('.required')}
           %td.question_text= question.question_text

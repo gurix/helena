@@ -4,6 +4,9 @@ en:
     delete: Delete
     save: Save
 
+  question_types:
+    short_text: Short text
+
   helena:
     admin:
       surveys:

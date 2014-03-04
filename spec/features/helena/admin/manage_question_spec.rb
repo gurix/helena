@@ -51,7 +51,7 @@ feature 'Question management' do
     click_button 'Save'
 
     within '#helena_question_1' do
-      expect(page).to have_text '1 B12 Question Are you sure?'
+      expect(page).to have_text '1 B12 Are you sure?'
     end
   end
 
