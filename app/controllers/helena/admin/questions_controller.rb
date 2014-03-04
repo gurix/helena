@@ -28,7 +28,7 @@ module Helena
         else
           notify_error
         end
-        respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
+        respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
       end
 
       def edit
@@ -46,7 +46,7 @@ module Helena
           notify_error
           add_breadcrumb @question.question_text_was
         end
-        respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
+        respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
       end
 
       def destroy
@@ -97,7 +97,7 @@ module Helena
       end
 
       def question_params
-        params.require(:question).permit(:question_text, :code, :type)
+        params.require(:question).permit(:question_text, :code, :type, :default_value)
       end
     end
   end

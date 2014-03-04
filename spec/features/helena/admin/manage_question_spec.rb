@@ -41,7 +41,7 @@ feature 'Question management' do
   end
 
   scenario 'edits a question' do
-    question = create :question, question_text: 'We are here?', position: 1
+    question = create :question, question_text: 'We are here?'
 
     visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
 
@@ -50,9 +50,8 @@ feature 'Question management' do
 
     click_button 'Save'
 
-    within '#helena_question_1' do
-      expect(page).to have_text '1 B12 Are you sure?'
-    end
+    expect(question.reload.question_text).to eq 'Are you sure?'
+    expect(question.reload.code).to eq 'B12'
   end
 
   scenario 'moving a question' do
