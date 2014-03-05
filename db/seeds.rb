@@ -15,8 +15,8 @@ DatabaseCleaner.clean
 puts 'Seeding surveys ...'.green
 
 def create_satisfaction_survey
-  satisfaction_survey = create :survey, name: 'The Satisfaction with Life Scale',
-                               description: 'A 5-item scale designed to measure global cognitive judgments of ones life satisfaction.'
+  satisfaction_survey = create :survey, name:        'The Satisfaction with Life Scale',
+                                        description: 'A 5-item scale designed to measure global cognitive judgments of ones life satisfaction.'
   create :question_group, survey: satisfaction_survey
 end
 
