@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 feature 'Short text question management' do
-
-  let!(:question_group) { create :question_group }
-
   scenario 'edits a question' do
     question = create :short_text_question, question_text: 'We are here?'
 
