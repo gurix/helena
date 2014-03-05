@@ -5,7 +5,7 @@ module Helena
     class SurveysController < Admin::ApplicationController
       respond_to :html
 
-      add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
+      before_filter :add_breadcrumbs
 
       before_filter :resort, only: [:move_up, :move_down, :create]
 
@@ -78,6 +78,10 @@ module Helena
       end
 
       private
+
+      def add_breadcrumbs
+        add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
+      end
 
       def resort
         Helena::Survey.resort
