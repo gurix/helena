@@ -6,7 +6,7 @@
   = f.input :type, collection: Helena::Question::TYPES.map { |type| [question_type_translation_for(type), type]}
   - if @question.respond_to? :required
     = f.input :required, as: :boolean, wrapper: :checkbox
-  - if @question.is_a?(Helena::Questions::ShortText)
+  - if @question.is_a?(Helena::Questions::ShortText) || @question.is_a?(Helena::Questions::StaticText)
     = f.input :default_value
   %br
   = f.submit t('shared.save'), class: 'btn btn-success'

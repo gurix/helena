@@ -80,3 +80,11 @@ en:
           position: Position
           code: Code
           type: Type
+          default_value: Default value
+
+      attributes:
+        'helena/questions/static_text':
+          position: Position
+          code: Code
+          type: Type
+          default_value: Static text
