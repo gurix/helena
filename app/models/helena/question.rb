@@ -1,6 +1,10 @@
 module Helena
   class Question < ActiveRecord::Base
-    TYPES = [Helena::Questions::ShortText, Helena::Questions::StaticText]
+    TYPES = [
+        Helena::Questions::ShortText,
+        Helena::Questions::LongText,
+        Helena::Questions::StaticText
+    ]
 
     belongs_to :question_group, inverse_of: :questions
     belongs_to :survey, inverse_of: :questions
