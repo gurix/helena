@@ -7,5 +7,6 @@ FactoryGirl.define do
 
     factory :short_text_question, class: 'Helena::Questions::ShortText'
     factory :static_text_question, class: 'Helena::Questions::StaticText'
+    factory :long_text_question, class: 'Helena::Questions::LongText'
   end
 end
