@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 feature 'Static text question management' do
-
-  let!(:question_group) { create :question_group }
-
   scenario 'edits a question' do
     question = create :static_text_question
 
