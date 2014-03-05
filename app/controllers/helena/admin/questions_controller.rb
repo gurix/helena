@@ -11,24 +11,21 @@ module Helena
       end
 
       def new
-        add_breadcrumb t('.new')
-
         @question = @question_group.questions.new
       end
 
       def create
-        add_breadcrumb t('.new')
-
         @question = @question_group.questions.new question_params
         @question.position = Helena::Question.maximum_position(@question_group) + 1
-        @question.survey = @survey
 
         if @question.save
           notify_successful_create_for(@question.question_text)
+          location =  edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
         else
           notify_error
+          location = new_admin_survey_question_group_question_path(@survey, @question_group, @question)
         end
-        respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
+        respond_with @question, location: location
       end
 
       def edit
@@ -89,6 +86,7 @@ module Helena
         add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
         add_breadcrumb @question_group.survey.name, admin_survey_question_groups_path(@survey)
         add_breadcrumb @question_group.title, admin_survey_question_group_questions_path(@survey, @question_group)
+        add_breadcrumb t('.new') if action_name == 'new' || action_name == 'create'
       end
 
       def resort
@@ -96,7 +94,7 @@ module Helena
       end
 
       def question_params
-        params.require(:question).permit(:question_text, :code, :type, :default_value, :required)
+        params.require(:question).permit(:question_text, :code, :type, :default_value, :required).merge(survey_id: @survey.id)
       end
     end
   end
