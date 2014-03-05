@@ -8,10 +8,4 @@ describe Helena::Question do
   it 'has a valid factory' do
     expect(build :question).to be_valid
   end
-
-  it 'deserializes the hash' do
-    question = create :question, validation_rules: { a: 1, b: 2, c: 3 }
-
-    expect(question.reload.validation_rules).to eq(a: 1, b: 2, c: 3)
-  end
 end
