@@ -4,10 +4,6 @@ module Helena
       module Requirable
         extend ActiveSupport::Concern
 
-        included do
-          serialize :validation_rules
-        end
-
         def required
           rules[:presence].present?
         end
