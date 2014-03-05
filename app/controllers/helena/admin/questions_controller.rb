@@ -19,7 +19,7 @@ module Helena
         @question.position = Helena::Question.maximum_position(@question_group) + 1
 
         if @question.save
-          notify_successful_create_for(@question.question_text)
+          notify_successful_create_for(@question.code)
           location =  edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
         else
           notify_error
@@ -31,23 +31,23 @@ module Helena
       def edit
         @question = @question_group.questions.find(params[:id])
 
-        add_breadcrumb @question.question_text
+        add_breadcrumb @question.code
       end
 
       def update
         @question = @question_group.questions.find(params[:id])
         if @question.update_attributes question_params
-          notify_successful_update_for(@question.question_text)
+          notify_successful_update_for(@question.code)
         else
           notify_error
-          add_breadcrumb @question.question_text_was
+          add_breadcrumb @question.code_was
         end
         respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
       end
 
       def destroy
         @question = @question_group.questions.find params[:id]
-        notify_successful_delete_for(@question.question_text) if @question.destroy
+        notify_successful_delete_for(@question.code) if @question.destroy
         respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
       end
 
@@ -56,7 +56,7 @@ module Helena
 
         if @question.position < Helena::Question.maximum_position(@question_group)
           @question.swap_position @question.position + 1
-          notify_successful_update_for(@question.question_text)
+          notify_successful_update_for(@question.code)
         end
 
         respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
@@ -66,7 +66,7 @@ module Helena
         @question = @question_group.questions.find params[:id]
         if @question.position > 1
           @question.swap_position @question.position - 1
-          notify_successful_update_for(@question.question_text)
+          notify_successful_update_for(@question.code)
         end
 
         respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)

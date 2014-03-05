@@ -10,8 +10,6 @@ module Helena
     validates :question_group, :code, presence: true
     validates :code, uniqueness: { scope: :survey_id }
 
-    serialize :validation_rules
-
     after_destroy :resort
 
     def swap_position(new_position)
@@ -30,18 +28,6 @@ module Helena
 
     def self.maximum_position(question_group)
       where(question_group: question_group).maximum(:position) || 0
-    end
-
-    def required
-      rules[:presence].present?
-    end
-
-    def required=(value)
-      rules[:presence] = (value.to_i == 1)
-    end
-
-    def rules
-      self.validation_rules ||= {}
     end
 
     private

@@ -22,7 +22,7 @@
             = question.code
           %td.type
             = question_type_translation_for question.type
-            - if question.required
+            - if question.try :required
               %span.glyphicon.glyphicon-flag{ title: t('.required')}
           %td.question_text= question.question_text
           %td

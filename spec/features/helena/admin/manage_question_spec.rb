@@ -47,13 +47,11 @@ feature 'Question management' do
 
     fill_in 'Question text', with: 'Are you sure?'
     fill_in 'Code', with: 'B12'
-    check 'Required'
 
     click_button 'Save'
 
     expect(question.reload.question_text).to eq 'Are you sure?'
     expect(question.reload.code).to eq 'B12'
-    expect(question.reload.required).to be_true
   end
 
   scenario 'moving a question' do
