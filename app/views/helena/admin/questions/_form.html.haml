@@ -15,6 +15,7 @@
       %thead
         %tr
           %th.position= Helena::Label.human_attribute_name :position
+          %th.preselected
           %th.text= Helena::Label.human_attribute_name :text
           %th.value= Helena::Label.human_attribute_name :value
           %th.delete
@@ -24,6 +25,8 @@
             %td.position
               = label.input :id, as: :hidden, label: false
               = label.input :position, as: :integer, label: false
+            %td.preselected
+              = label.input :preselected, wrapper: :checkbox
             %td.text
               = label.input :text, label: false
             %td.value

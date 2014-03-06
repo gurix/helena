@@ -6,7 +6,7 @@ class CreateLabels < ActiveRecord::Migration
       t.string  :text, null: false
       t.string  :value, null: false
       t.integer :position, default: 1
-
+      t.boolean :preselected, default: false
       t.timestamps
     end
   end

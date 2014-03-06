@@ -7,12 +7,12 @@ feature 'Radio group question management' do
 
     visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
 
-
     check 'Required'
 
     fill_in 'question_labels_attributes_0_position', with: '2'
     fill_in 'question_labels_attributes_0_text', with: 'Female'
     fill_in 'question_labels_attributes_0_value', with: 'f'
+    check 'question_labels_attributes_0_preselected'
 
     click_button 'Save'
 
@@ -30,6 +30,7 @@ feature 'Radio group question management' do
     fill_in 'question_labels_attributes_0_position', with: '2'
     fill_in 'question_labels_attributes_0_text', with: 'Female'
     fill_in 'question_labels_attributes_0_value', with: 'f'
+    check 'question_labels_attributes_0_preselected'
 
     click_button 'Save'
 

@@ -15,9 +15,10 @@ ActiveRecord::Schema.define(version: 20140306125211) do
 
   create_table "helena_labels", force: true do |t|
     t.integer  "question_id"
-    t.string   "text",                    null: false
-    t.string   "value",                   null: false
+    t.string   "text",                        null: false
+    t.string   "value",                       null: false
     t.integer  "position",    default: 1
+    t.boolean  "preselected", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -33,8 +34,7 @@ ActiveRecord::Schema.define(version: 20140306125211) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "group_order", default: 1
-    t.integer  "position",    default: 1
+    t.integer  "position",   default: 1
   end
 
   create_table "helena_questions", force: true do |t|

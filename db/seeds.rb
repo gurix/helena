@@ -53,7 +53,7 @@ EOF
                                                         build(:label, position: 2, text: 'Once a year', value: 2),
                                                         build(:label, position: 3, text: 'Once a Month', value: 3),
                                                         build(:label, position: 4, text: 'Once a week', value: 4),
-                                                        build(:label, position: 5, text: 'Daily', value: 5),
+                                                         build(:label, position: 5, text: 'Daily', value: 5),
                                                        ])
 
 

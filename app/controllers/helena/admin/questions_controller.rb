@@ -23,10 +23,10 @@ module Helena
           notify_successful_create_for(@question.code)
           location =  edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
         else
-          notify_error
+          notify_error && @question.labels.build
           location = new_admin_survey_question_group_question_path(@survey, @question_group, @question)
-          @question.labels.build
         end
+
         respond_with @question, location: location
       end
 
@@ -46,6 +46,7 @@ module Helena
           notify_error
           add_breadcrumb @question.code_was
         end
+        @question.labels.build
         respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
       end
 
@@ -102,6 +103,7 @@ module Helena
          :position,
          :text,
          :value,
+         :preselected,
          :_destroy]
       end
 
@@ -111,7 +113,7 @@ module Helena
                                          :type,
                                          :default_value,
                                          :required,
-                                         labels_attributes: labels_attributes ).merge(survey_id: @survey.id)
+                                         labels_attributes: labels_attributes).merge(survey_id: @survey.id)
       end
     end
   end
