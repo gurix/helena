@@ -1,10 +1,8 @@
 module Helena
   module Questions
-    class OptionGroup < Helena::Question
+    class RadioGroup < Helena::Question
       include Helena::Concerns::Questions::Validatable
       include Helena::Concerns::Questions::Requirable
-
-      has_many :labels, dependent: :destroy
     end
   end
 end

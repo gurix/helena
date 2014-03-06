@@ -4,12 +4,15 @@ module Helena
         Helena::Questions::ShortText,
         Helena::Questions::LongText,
         Helena::Questions::StaticText,
-        Helena::Questions::OptionGroup
+        Helena::Questions::RadioGroup
     ]
 
     belongs_to :question_group, inverse_of: :questions
     belongs_to :survey, inverse_of: :questions
-    has_many   :labels
+
+    has_many :labels, dependent: :destroy
+
+    accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: :reject_labels
 
     default_scope { order(position: :asc) }
 
@@ -37,6 +40,10 @@ module Helena
     end
 
     private
+
+    def reject_labels(attributed)
+      attributed['text'].blank? && attributed['value'].blank?
+    end
 
     def resort
       self.class.resort question_group

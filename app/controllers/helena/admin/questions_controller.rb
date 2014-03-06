@@ -12,6 +12,7 @@ module Helena
 
       def new
         @question = @question_group.questions.new
+        @question.labels.build
       end
 
       def create
@@ -24,18 +25,21 @@ module Helena
         else
           notify_error
           location = new_admin_survey_question_group_question_path(@survey, @question_group, @question)
+          @question.labels.build
         end
         respond_with @question, location: location
       end
 
       def edit
         @question = @question_group.questions.find(params[:id])
+        @question.labels.build
 
         add_breadcrumb @question.code
       end
 
       def update
         @question = @question_group.questions.find(params[:id])
+
         if @question.update_attributes question_params
           notify_successful_update_for(@question.code)
         else
@@ -93,8 +97,21 @@ module Helena
         Helena::Question.resort @question_group
       end
 
+      def labels_attributes
+        [:id,
+         :position,
+         :text,
+         :value,
+         :_destroy]
+      end
+
       def question_params
-        params.require(:question).permit(:question_text, :code, :type, :default_value, :required).merge(survey_id: @survey.id)
+        params.require(:question).permit(:question_text,
+                                         :code,
+                                         :type,
+                                         :default_value,
+                                         :required,
+                                         labels_attributes: labels_attributes ).merge(survey_id: @survey.id)
       end
     end
   end
