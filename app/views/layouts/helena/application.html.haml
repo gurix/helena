@@ -7,12 +7,15 @@
     = csrf_meta_tags
 
   %body
-
-    - flash.each do |name, msg|
-      %div{class: "alert alert-#{name == :notice ? "success" : "danger"}"}
-        = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
-
     .container
+      - flash.each do |name, messages|
+        %div{class: "alert alert-#{name == :notice ? "success" : "danger"}"}
+          - if messages.is_a?(String)
+            = messages
+          - else
+            %ul
+            - messages.each do |message|
+              %li= message
       %h1.hidden
         Helena
       %ol.breadcrumb

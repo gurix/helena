@@ -7,6 +7,5 @@ module Helena
     validates :text, presence: true
     validates :value, presence: true
     validates :value, uniqueness: { scope: :question_id }
-    validates :preselected, uniqueness: { scope: :question_id }, if: proc { |label| label.preselected? && question.is_a?(Helena::Questions::RadioGroup) }
   end
 end

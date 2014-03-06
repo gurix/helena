@@ -20,7 +20,7 @@
           %th.value= Helena::Label.human_attribute_name :value
           %th.delete
       %tbody
-        = f.simple_fields_for :labels do |label|
+        = f.simple_fields_for :labels, @question.labels  do |label|
           %tr[label.object]
             %td.position
               = label.input :id, as: :hidden, label: false
