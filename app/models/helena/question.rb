@@ -3,11 +3,13 @@ module Helena
     TYPES = [
         Helena::Questions::ShortText,
         Helena::Questions::LongText,
-        Helena::Questions::StaticText
+        Helena::Questions::StaticText,
+        Helena::Questions::OptionGroup
     ]
 
     belongs_to :question_group, inverse_of: :questions
     belongs_to :survey, inverse_of: :questions
+    has_many   :labels
 
     default_scope { order(position: :asc) }
 

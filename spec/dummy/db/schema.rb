@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301165805) do
+ActiveRecord::Schema.define(version: 20140306125211) do
+
+  create_table "helena_labels", force: true do |t|
+    t.integer  "question_id"
+    t.string   "text",                    null: false
+    t.string   "value",                   null: false
+    t.integer  "position",    default: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "helena_participants", force: true do |t|
     t.string   "name"
