@@ -1,8 +1,3 @@
-[![Code Climate](https://codeclimate.com/github/gurix/helena.png)](https://codeclimate.com/github/gurix/helena) [![Build Status](https://travis-ci.org/gurix/helena.png?branch=master)](https://travis-ci.org/gurix/helena)
-[![Coverage Status](https://coveralls.io/repos/gurix/helena/badge.png)](https://coveralls.io/r/gurix/helena)
-
-# Helena
-
 Helena is an online survey/test framework designed for agile
 survey/test development, longitudinal studies and instant feedback.
 Copyright (C) 2014  Markus Graf <info@markusgraf.ch>
@@ -19,4 +14,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-

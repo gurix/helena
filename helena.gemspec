@@ -10,8 +10,10 @@ Gem::Specification.new do |s|
   s.authors     = ['Markus Graf']
   s.email       = ['info@markusgraf.ch']
   s.homepage    = 'https://github.com/gurix/helena'
-  s.summary     = 'Creating agile surveys'
-  s.description = 'Creating agile surveys'
+  s.summary     = 'Helena is an online survey/test framework designed for agile
+survey/test development, longitudinal studies and instant feedback.'
+  s.description = 'Helena is an online survey/test framework designed for agile
+survey/test development, longitudinal studies and instant feedback.'
 
   s.files        = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
