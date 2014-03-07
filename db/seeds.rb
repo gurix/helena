@@ -43,6 +43,21 @@ EOF
                                                              survey:         restaurant_survey,
                                                              question_group: personal_details)
 
+  personal_details.questions << create(:radio_group_question, code: :visit_intervall,
+                                       question_text:  'How often do you visit the Swiss Chees Restaurant?',
+                                       position:       3,
+                                       survey:         restaurant_survey,
+                                       question_group: personal_details,
+                                       labels:         [
+                                                        build(:label, position: 1, text: 'Just once', value: 1),
+                                                        build(:label, position: 2, text: 'Once a year', value: 2),
+                                                        build(:label, position: 3, text: 'Once a Month', value: 3),
+                                                        build(:label, position: 4, text: 'Once a week', value: 4),
+                                                         build(:label, position: 5, text: 'Daily', value: 5),
+                                                       ])
+
+
+
   dinner = create :question_group, survey: restaurant_survey, title: 'About the dinner', position: 2
   dinner.questions << create(:short_text_question, code:             :catchphrase,
                                                    question_text:    'How would you describe the dinner with one word?',
@@ -55,6 +70,7 @@ EOF
                                                   position:         2,
                                                   survey:           restaurant_survey,
                                                   question_group:   dinner)
+
 end
 
 create_satisfaction_survey

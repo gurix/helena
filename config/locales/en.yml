@@ -9,6 +9,8 @@ en:
 
   helena:
     admin:
+      radio_group:
+        only_one_preselection_allowed: only have one preselection
       surveys:
         index:
           add: Add a new survey
@@ -46,9 +48,9 @@ en:
         create: *new_question
 
   actions:
-    deleted: "'%{ressource}' sucessfully deleted"
-    updated: "'%{ressource}' sucessfully updated"
-    created: "'%{ressource}' sucessfully created"
+    deleted: "'%{resource}' sucessfully deleted"
+    updated: "'%{resource}' sucessfully updated"
+    created: "'%{resource}' sucessfully created"
     error: Ooopss... something is wrong, please check your input
 
 

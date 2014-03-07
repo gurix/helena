@@ -6,7 +6,7 @@
     = javascript_include_tag 'helena/application'
     = csrf_meta_tags
 
-  %body
+  %body.admin
     .container
       - flash.each do |name, messages|
         %div{class: "alert alert-#{name == :notice ? "success" : "danger"}"}
@@ -20,5 +20,4 @@
         Helena
       %ol.breadcrumb
         = render_breadcrumbs tag: :li, separator: ''
-
       = yield
