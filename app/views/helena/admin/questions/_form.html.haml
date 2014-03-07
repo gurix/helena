@@ -11,6 +11,7 @@
   - if @question.is_a?(Helena::Questions::ShortText)
     = f.input :default_value, as: :string
   - if @question.is_a?(Helena::Questions::RadioGroup)
+    %h3= t '.options'
     %table.table.labels
       %thead
         %tr
