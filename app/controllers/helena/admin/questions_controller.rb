@@ -12,7 +12,6 @@ module Helena
 
       def new
         @question = @question_group.questions.new
-        @question.labels.build
       end
 
       def create
@@ -23,7 +22,7 @@ module Helena
           notify_successful_create_for(@question.code)
           location =  edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
         else
-          notify_error(@question) && @question.labels.build
+          notify_error(@question) && build_additional_resources
           location = new_admin_survey_question_group_question_path(@survey, @question_group, @question)
         end
 
@@ -32,7 +31,7 @@ module Helena
 
       def edit
         @question = @question_group.questions.find(params[:id])
-        @question.labels.build
+        build_additional_resources
 
         add_breadcrumb @question.code
       end
@@ -46,7 +45,8 @@ module Helena
           notify_error @question
           add_breadcrumb @question.code_was
         end
-        @question.labels.build
+
+        build_additional_resources
         respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
       end
 
@@ -99,12 +99,11 @@ module Helena
       end
 
       def labels_attributes
-        [:id,
-         :position,
-         :text,
-         :value,
-         :preselected,
-         :_destroy]
+        [:id, :position, :text, :value, :preselected, :_destroy]
+      end
+
+      def sub_questions_attributes
+        [:id, :position, :code, :question_text, :default_value, :preselected, :_destroy]
       end
 
       def question_params
@@ -113,7 +112,13 @@ module Helena
                                          :type,
                                          :default_value,
                                          :required,
-                                         labels_attributes: labels_attributes).merge(survey_id: @survey.id)
+                                         labels_attributes: labels_attributes,
+                                         sub_questions_attributes: sub_questions_attributes).merge(survey_id: @survey.id)
+      end
+
+      def build_additional_resources
+        @question.labels.build
+        @question.sub_questions.build
       end
     end
   end
