@@ -11,29 +11,9 @@
   - if @question.is_a?(Helena::Questions::ShortText)
     = f.input :default_value, as: :string
   - if @question.is_a?(Helena::Questions::RadioGroup)
-    %h3= t '.options'
-    %table.table.labels
-      %thead
-        %tr
-          %th.position= Helena::Label.human_attribute_name :position
-          %th.preselected
-          %th.text= Helena::Label.human_attribute_name :text
-          %th.value= Helena::Label.human_attribute_name :value
-          %th.delete
-      %tbody
-        = f.simple_fields_for :labels  do |label|
-          %tr[label.object]
-            %td.position
-              = label.input :id, as: :hidden, label: false
-              = label.input :position, as: :integer, label: false
-            %td.preselected
-              = label.input :preselected, wrapper: :checkbox
-            %td.text
-              = label.input :text, label: false
-            %td.value
-              = label.input :value, label: false
-            %td.delete
-              = label.input :_destroy, as: :boolean, wrapper: :checkbox unless label.object.new_record?
+    = render 'labels', form: f
+  - if @question.is_a?(Helena::Questions::CheckboxGroup)
+    = render 'sub_questions', form: f
 
   %br
   = f.submit t('shared.save'), class: 'btn btn-success'

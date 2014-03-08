@@ -4,10 +4,12 @@ FactoryGirl.define do
     sequence(:position)
     sequence(:code) { |n| "X#{n}" }
     question_group
+    survey
 
-    factory :short_text_question, class: 'Helena::Questions::ShortText'
-    factory :static_text_question, class: 'Helena::Questions::StaticText'
-    factory :long_text_question, class: 'Helena::Questions::LongText'
-    factory :radio_group_question, class: 'Helena::Questions::RadioGroup'
+    factory :short_text_question, class: Helena::Questions::ShortText
+    factory :static_text_question, class: Helena::Questions::StaticText
+    factory :long_text_question, class: Helena::Questions::LongText
+    factory :radio_group_question, class: Helena::Questions::RadioGroup
+    factory :checkbox_group_question, class: Helena::Questions::CheckboxGroup
   end
 end

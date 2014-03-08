@@ -6,6 +6,8 @@ module Helena
 
       validate :labels_preselection
 
+      private
+
       def labels_preselection
         selected_labels = labels.select { |label| label.preselected == true }
         if selected_labels.size > 1

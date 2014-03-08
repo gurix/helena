@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306125211) do
+ActiveRecord::Schema.define(version: 20140307143005) do
 
   create_table "helena_labels", force: true do |t|
     t.integer  "question_id"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20140306125211) do
     t.string   "question_text"
     t.text     "default_value"
     t.text     "validation_rules"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "helena_sub_questions", force: true do |t|
+    t.integer  "question_id"
+    t.string   "code",                      null: false
+    t.integer  "position",      default: 1
+    t.string   "question_text"
+    t.text     "default_value"
+    t.boolean  "preselected"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

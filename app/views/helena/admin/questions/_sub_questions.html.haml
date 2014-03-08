@@ -1,0 +1,26 @@
+%h3= t '.options'
+%table.table.labels
+  %thead
+    %tr
+      %th.position= Helena::SubQuestion.human_attribute_name :position
+      %th.position= Helena::SubQuestion.human_attribute_name :code
+      %th.preselected
+      %th.text= Helena::SubQuestion.human_attribute_name :question_text
+      %th.value= Helena::SubQuestion.human_attribute_name :default_value
+      %th.delete
+  %tbody
+    = form.simple_fields_for :sub_questions  do |sub_question|
+      %tr[sub_question.object]
+        %td.position
+          = sub_question.input :id, as: :hidden, label: false
+          = sub_question.input :position, as: :integer, label: false
+        %td.code
+          = sub_question.input :code, label: false
+        %td.preselected
+          = sub_question.input :preselected, wrapper: :checkbox
+        %td.text
+          = sub_question.input :question_text, label: false
+        %td.value
+          = sub_question.input :default_value, label: false, as: :string
+        %td.delete
+          = sub_question.input :_destroy, as: :boolean, wrapper: :checkbox unless sub_question.object.new_record?
