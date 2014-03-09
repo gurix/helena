@@ -30,6 +30,7 @@ module Helena
       end
 
       def edit
+        add_ressources
       end
 
       def update
@@ -39,6 +40,7 @@ module Helena
           notify_error @question
           add_breadcrumb @question.code_was
         end
+        add_ressources
         respond_with @question, location: [:edit, :admin, @survey, @question_group, @question]
       end
 
@@ -96,6 +98,9 @@ module Helena
       def load_question
         @question = @question_group.questions.find(params[:id])
         add_breadcrumb @question.code
+      end
+
+      def add_ressources
       end
     end
   end
