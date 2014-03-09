@@ -10,6 +10,13 @@ Helena::Engine.routes.draw do
     resources :surveys, concerns: :movable do
       resources :question_groups, concerns: :movable do
         resources :questions, concerns: :movable
+        resource :questions do
+          resources :short_texts, module: 'questions'
+          resources :long_texts, module: 'questions'
+          resources :static_texts, module: 'questions'
+          resources :radio_groups, module: 'questions'
+          resources :checkbox_groups, module: 'questions'
+        end
       end
     end
   end

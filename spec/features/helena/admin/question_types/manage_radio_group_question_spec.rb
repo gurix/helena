@@ -9,10 +9,10 @@ feature 'Radio group question management' do
 
     check 'Required'
 
-    fill_in 'question_labels_attributes_0_position', with: '2'
-    fill_in 'question_labels_attributes_0_text', with: 'Female'
-    fill_in 'question_labels_attributes_0_value', with: 'f'
-    check 'question_labels_attributes_0_preselected'
+    fill_in 'questions_radio_group_labels_attributes_0_position', with: '2'
+    fill_in 'questions_radio_group_labels_attributes_0_text', with: 'Female'
+    fill_in 'questions_radio_group_labels_attributes_0_value', with: 'f'
+    check 'questions_radio_group_labels_attributes_0_preselected'
 
     click_button 'Save'
 
@@ -25,12 +25,12 @@ feature 'Radio group question management' do
   scenario 'adds a an option' do
     question = create :radio_group_question
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_radio_group_path(question.question_group.survey, question.question_group, question)
 
-    fill_in 'question_labels_attributes_0_position', with: '2'
-    fill_in 'question_labels_attributes_0_text', with: 'Female'
-    fill_in 'question_labels_attributes_0_value', with: 'f'
-    check 'question_labels_attributes_0_preselected'
+    fill_in 'questions_radio_group_labels_attributes_0_position', with: '2'
+    fill_in 'questions_radio_group_labels_attributes_0_text', with: 'Female'
+    fill_in 'questions_radio_group_labels_attributes_0_value', with: 'f'
+    check 'questions_radio_group_labels_attributes_0_preselected'
 
     click_button 'Save'
 
@@ -43,9 +43,9 @@ feature 'Radio group question management' do
     question = create :radio_group_question
     question.labels << create(:label, text: 'Male', value: 'm', position: 1)
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_radio_group_path(question.question_group.survey, question.question_group, question)
 
-    check 'question_labels_attributes_0__destroy'
+    check 'questions_radio_group_labels_attributes_0__destroy'
 
     click_button 'Save'
 

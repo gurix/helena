@@ -48,9 +48,9 @@ en:
         create: *new_question
 
   actions:
-    deleted: "'%{resource}' sucessfully deleted"
-    updated: "'%{resource}' sucessfully updated"
-    created: "'%{resource}' sucessfully created"
+    deleted: "'%{resource}' successfully deleted"
+    updated: "'%{resource}' successfully updated"
+    created: "'%{resource}' successfully created"
     error: Ooopss... something is wrong, please check your input
 
 

@@ -5,6 +5,7 @@ module Helena
 
       before_filter :load_question_group, :load_survey, :add_breadcrumbs
       before_filter :resort, only: [:move_up, :move_down, :create]
+      before_filter :load_question, only: [:edit, :update, :destroy]
 
       def index
         @questions = @question_group.questions
@@ -20,38 +21,30 @@ module Helena
 
         if @question.save
           notify_successful_create_for(@question.code)
-          location =  edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
+          location = [:admin, @survey, @question_group, :questions]
         else
-          notify_error(@question) && build_additional_resources
-          location = new_admin_survey_question_group_question_path(@survey, @question_group, @question)
+          notify_error(@question)
+          location = [:new, :admin, @survey, @question_group, @question]
         end
-
         respond_with @question, location: location
       end
 
       def edit
-        @question = @question_group.questions.find(params[:id])
-        build_additional_resources
-
-        add_breadcrumb @question.code
+        add_ressources
       end
 
       def update
-        @question = @question_group.questions.find(params[:id])
-
         if @question.update_attributes question_params
           notify_successful_update_for(@question.code)
         else
           notify_error @question
           add_breadcrumb @question.code_was
         end
-
-        build_additional_resources
-        respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
+        add_ressources
+        respond_with @question, location: [:edit, :admin, @survey, @question_group, @question]
       end
 
       def destroy
-        @question = @question_group.questions.find params[:id]
         notify_successful_delete_for(@question.code) if @question.destroy
         respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
       end
@@ -98,27 +91,16 @@ module Helena
         Helena::Question.resort @question_group
       end
 
-      def labels_attributes
-        [:id, :position, :text, :value, :preselected, :_destroy]
-      end
-
-      def sub_questions_attributes
-        [:id, :position, :code, :question_text, :default_value, :preselected, :_destroy]
-      end
-
       def question_params
-        params.require(:question).permit(:question_text,
-                                         :code,
-                                         :type,
-                                         :default_value,
-                                         :required,
-                                         labels_attributes: labels_attributes,
-                                         sub_questions_attributes: sub_questions_attributes).merge(survey_id: @survey.id)
+        params.require(:question).permit(:question_text, :code, :type, :default_value).merge(survey_id: @survey.id)
       end
 
-      def build_additional_resources
-        @question.labels.build
-        @question.sub_questions.build
+      def load_question
+        @question = @question_group.questions.find(params[:id])
+        add_breadcrumb @question.code
+      end
+
+      def add_ressources
       end
     end
   end
