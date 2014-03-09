@@ -5,6 +5,7 @@ module Helena
 
       before_filter :load_question_group, :load_survey, :add_breadcrumbs
       before_filter :resort, only: [:move_up, :move_down, :create]
+      before_filter :load_question, only: [:edit, :update, :destroy]
 
       def index
         @questions = @question_group.questions
@@ -29,28 +30,19 @@ module Helena
       end
 
       def edit
-        @question = @question_group.questions.find(params[:id])
-        build_additional_resources
-
-        add_breadcrumb @question.code
       end
 
       def update
-        @question = @question_group.questions.find(params[:id])
-
         if @question.update_attributes question_params
           notify_successful_update_for(@question.code)
         else
           notify_error @question
           add_breadcrumb @question.code_was
         end
-
-        build_additional_resources
         respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
       end
 
       def destroy
-        @question = @question_group.questions.find params[:id]
         notify_successful_delete_for(@question.code) if @question.destroy
         respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
       end
@@ -101,9 +93,9 @@ module Helena
         params.require(:question).permit(:question_text, :code, :type, :default_value).merge(survey_id: @survey.id)
       end
 
-      def build_additional_resources
-        @question.labels.build
-        @question.sub_questions.build
+      def load_question
+        @question = @question_group.questions.find(params[:id])
+        add_breadcrumb @question.code
       end
     end
   end

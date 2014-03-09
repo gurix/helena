@@ -25,7 +25,7 @@ feature 'Radio group question management' do
   scenario 'adds a an option' do
     question = create :radio_group_question
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_radio_group_path(question.question_group.survey, question.question_group, question)
 
     fill_in 'questions_radio_group_labels_attributes_0_position', with: '2'
     fill_in 'questions_radio_group_labels_attributes_0_text', with: 'Female'
@@ -43,7 +43,7 @@ feature 'Radio group question management' do
     question = create :radio_group_question
     question.labels << create(:label, text: 'Male', value: 'm', position: 1)
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_radio_group_path(question.question_group.survey, question.question_group, question)
 
     check 'questions_radio_group_labels_attributes_0__destroy'
 

@@ -5,7 +5,7 @@ feature 'Checkbox group question management' do
     question = create :checkbox_group_question
     question.sub_questions << create(:sub_question, code: 'aperto', question_text: 'Aperto Snacks', default_value: 'Aperto', position: 1)
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_checkbox_group_path(question.question_group.survey, question.question_group, question)
 
     check 'Required'
 
@@ -27,7 +27,7 @@ feature 'Checkbox group question management' do
   scenario 'adds a a sub question' do
     question = create :checkbox_group_question
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_checkbox_group_path(question.question_group.survey, question.question_group, question)
 
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_position', with: '2'
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_question_text', with: 'Avec Shop'

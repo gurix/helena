@@ -6,7 +6,6 @@ module Helena
       respond_to :html
 
       before_filter :add_breadcrumbs
-
       before_filter :resort, only: [:move_up, :move_down, :create]
 
       def index
