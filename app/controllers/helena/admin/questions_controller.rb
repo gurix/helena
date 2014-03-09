@@ -20,12 +20,11 @@ module Helena
 
         if @question.save
           notify_successful_create_for(@question.code)
-          location =  edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
+          location = [:admin, @survey, @question_group, :questions]
         else
-          notify_error(@question) && build_additional_resources
-          location = new_admin_survey_question_group_question_path(@survey, @question_group, @question)
+          notify_error(@question)
+          location = [:new, :admin, @survey, @question_group, @question]
         end
-
         respond_with @question, location: location
       end
 
@@ -98,22 +97,8 @@ module Helena
         Helena::Question.resort @question_group
       end
 
-      def labels_attributes
-        [:id, :position, :text, :value, :preselected, :_destroy]
-      end
-
-      def sub_questions_attributes
-        [:id, :position, :code, :question_text, :default_value, :preselected, :_destroy]
-      end
-
       def question_params
-        params.require(:question).permit(:question_text,
-                                         :code,
-                                         :type,
-                                         :default_value,
-                                         :required,
-                                         labels_attributes: labels_attributes,
-                                         sub_questions_attributes: sub_questions_attributes).merge(survey_id: @survey.id)
+        params.require(:question).permit(:question_text, :code, :type, :default_value).merge(survey_id: @survey.id)
       end
 
       def build_additional_resources

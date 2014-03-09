@@ -38,7 +38,7 @@
                                                                                              title: t('.move_up')  do
                   %i.glyphicon.glyphicon-chevron-up
 
-              = link_to t('.edit'), edit_admin_survey_question_group_question_path(@survey, @question_group, question), class: 'btn btn-primary'
+              = link_to t('.edit'), [:edit, :admin, @survey, @question_group, question], class: 'btn btn-primary'
 
               = link_to t('.delete'), admin_survey_question_group_question_path(@survey, @question_group, question), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 

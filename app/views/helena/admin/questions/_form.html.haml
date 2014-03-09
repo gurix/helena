@@ -1,5 +1,4 @@
-- url = @question.new_record? ? admin_survey_question_group_questions_path(@survey, @question_group) : admin_survey_question_group_question_path(@survey, @question_group, @question)
-= simple_form_for @question, as: 'question', url: url do |f|
+= simple_form_for [:admin, @survey, @question_group, @question] do |f|
   = f.input :question_text
   = f.input :code
   / needs a translation
