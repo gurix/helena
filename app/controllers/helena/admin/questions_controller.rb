@@ -39,7 +39,7 @@ module Helena
           notify_error @question
           add_breadcrumb @question.code_was
         end
-        respond_with @question, location: edit_admin_survey_question_group_question_path(@survey, @question_group, @question)
+        respond_with @question, location: [:edit, :admin, @survey, @question_group, @question]
       end
 
       def destroy
