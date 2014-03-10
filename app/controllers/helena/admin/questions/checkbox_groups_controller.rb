@@ -5,7 +5,7 @@ module Helena
         private
 
         def sub_questions_attributes
-          [:id, :position, :code, :question_text, :default_value, :preselected, :_destroy]
+          [:id, :position, :code, :text, :value, :preselected, :_destroy]
         end
 
         def question_params

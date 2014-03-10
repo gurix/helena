@@ -5,8 +5,8 @@
       %th.position= Helena::SubQuestion.human_attribute_name :position
       %th.position= Helena::SubQuestion.human_attribute_name :code
       %th.preselected
-      %th.text= Helena::SubQuestion.human_attribute_name :question_text
-      %th.value= Helena::SubQuestion.human_attribute_name :default_value
+      %th.text= Helena::SubQuestion.human_attribute_name :text
+      %th.value= Helena::SubQuestion.human_attribute_name :value
       %th.delete
   %tbody
     = form.simple_fields_for :sub_questions  do |sub_question|
@@ -19,8 +19,8 @@
         %td.preselected
           = sub_question.input :preselected, wrapper: :checkbox
         %td.text
-          = sub_question.input :question_text, label: false
+          = sub_question.input :text, label: false
         %td.value
-          = sub_question.input :default_value, label: false, as: :string
+          = sub_question.input :value, label: false, as: :string
         %td.delete
           = sub_question.input :_destroy, as: :boolean, wrapper: :checkbox unless sub_question.object.new_record?

@@ -5,8 +5,8 @@ module Helena
     default_scope { order(position: :asc) }
 
     validates :question, presence: true
-    validates :question_text, presence: true
-    validates :question_text, uniqueness: { scope: :question_id }
+    validates :text, presence: true
+    validates :text, uniqueness: { scope: :question_id }
     validates :code, presence: true
     validates :code, uniqueness: { scope: :question_id }
   end

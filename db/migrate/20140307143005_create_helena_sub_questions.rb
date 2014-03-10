@@ -4,8 +4,8 @@ class CreateHelenaSubQuestions < ActiveRecord::Migration
       t.belongs_to :question
       t.string     :code, null: false
       t.integer    :position, default: 1
-      t.string     :question_text
-      t.text       :default_value
+      t.string     :text
+      t.text       :value
       t.boolean    :preselected
 
       t.timestamps

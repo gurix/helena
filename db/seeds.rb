@@ -48,13 +48,29 @@ EOF
                                        position:       3,
                                        survey:         restaurant_survey,
                                        question_group: personal_details,
-                                       labels:         [
-                                                        build(:label, position: 1, text: 'Just once', value: 1),
+                                       labels:         [build(:label, position: 1, text: 'Just once', value: 1),
                                                         build(:label, position: 2, text: 'Once a year', value: 2),
                                                         build(:label, position: 3, text: 'Once a Month', value: 3),
                                                         build(:label, position: 4, text: 'Once a week', value: 4),
-                                                         build(:label, position: 5, text: 'Daily', value: 5),
-                                                       ])
+                                                        build(:label, position: 5, text: 'Daily', value: 5)])
+
+  personal_details.questions << create(:checkbox_group_question, code: :food_allergy,
+                                       question_text:  'What kind of food allergy do you have?',
+                                       position:       4,
+                                       survey:         restaurant_survey,
+                                       question_group: personal_details,
+                                       sub_questions:  [build(:sub_question, text: 'Garlic', code: 'garlic', position: 1),
+                                                        build(:sub_question, text: 'Oats', code: 'oat', position: 2),
+                                                        build(:sub_question, text: 'Meat', code: 'meat', position: 3),
+                                                        build(:sub_question, text: 'Milk', code: 'milk', position: 4),
+                                                        build(:sub_question, text: 'Peanut', code: 'peanut', position: 5),
+                                                        build(:sub_question, text: 'Fish / Shellfish', code: 'fish', position: 6),
+                                                        build(:sub_question, text: 'Soy', code: 'soy', position: 7),
+                                                        build(:sub_question, text: 'Tree nut', code: 'tree_nut', position: 8),
+                                                        build(:sub_question, text: 'Wheat', code: 'wheat', position: 9),
+                                                        build(:sub_question, text: 'Gluten', code: 'gluten', position: 10),
+                                                        build(:sub_question, text: 'Egg', code: 'egg', position: 11),
+                                                        build(:sub_question, text: 'Sulfites', code: 'sulfites',  position: 12)])
 
 
 

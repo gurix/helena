@@ -34,7 +34,8 @@ ActiveRecord::Schema.define(version: 20140307143005) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   default: 1
+    t.integer  "group_order", default: 1
+    t.integer  "position",    default: 1
   end
 
   create_table "helena_questions", force: true do |t|
@@ -52,10 +53,10 @@ ActiveRecord::Schema.define(version: 20140307143005) do
 
   create_table "helena_sub_questions", force: true do |t|
     t.integer  "question_id"
-    t.string   "code",                      null: false
-    t.integer  "position",      default: 1
-    t.string   "question_text"
-    t.text     "default_value"
+    t.string   "code",                    null: false
+    t.integer  "position",    default: 1
+    t.string   "text"
+    t.text     "value"
     t.boolean  "preselected"
     t.datetime "created_at"
     t.datetime "updated_at"
