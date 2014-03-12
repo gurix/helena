@@ -4,6 +4,7 @@ describe Helena::QuestionGroup do
   let!(:survey) { create :survey }
 
   it { expect(subject).to belong_to(:survey) }
+  it { expect(subject).to validate_presence_of(:version) }
 
   it 'has a valid factory' do
     expect(build :question_group).to be_valid

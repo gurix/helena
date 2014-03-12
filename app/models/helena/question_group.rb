@@ -5,6 +5,8 @@ module Helena
 
     after_destroy :resort
 
+    validates :version, presence: true
+
     default_scope { order(position: :asc) }
 
     def swap_position(new_position)

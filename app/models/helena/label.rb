@@ -6,6 +6,7 @@ module Helena
 
     validates :text, presence: true
     validates :value, presence: true
+    validates :version, presence: true
     validates :value, uniqueness: { scope: :question_id }
   end
 end

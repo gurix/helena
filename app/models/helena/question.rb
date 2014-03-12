@@ -21,6 +21,7 @@ module Helena
 
     validates :question_group, :code, presence: true
     validates :code, uniqueness: { scope: :survey_id }
+    validates :version, presence: true
 
     after_destroy :resort
 
