@@ -2,8 +2,12 @@ require 'spec_helper'
 
 feature 'Survey management' do
   scenario 'lists all surveys' do
-    create :survey, name: 'My first survey', description: 'I am very proud of it'
-    create :survey, name: 'Another cool survey', description: 'Everybody likes it'
+    first_survey = create :survey, name: 'first'
+    first_survey.versions.create version: 0
+    first_survey.versions.first.survey_detail = Helena::SurveyDetail.new(title: 'My first survey', description: 'I am very proud of it')
+    second_survey = create :survey, name: 'second'
+    second_survey.versions.create version: 0
+    second_survey.versions.first.survey_detail = Helena::SurveyDetail.new(title: 'Another cool survey', description: 'Everybody likes it')
 
     visit helena.surveys_path
 

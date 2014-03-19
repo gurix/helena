@@ -1,36 +1,34 @@
 module Helena
   class QuestionGroup < ActiveRecord::Base
-    belongs_to :survey, inverse_of: :question_groups
+    belongs_to :version, inverse_of: :question_groups
     has_many :questions
 
     after_destroy :resort
 
-    validates :version, presence: true
-
     default_scope { order(position: :asc) }
 
     def swap_position(new_position)
-      other_survey = self.class.find_by(position: new_position, survey: survey)
-      if other_survey
-        other_survey.update_attribute :position, position
+      other_version = self.class.find_by(position: new_position, version: version)
+      if other_version
+        other_version.update_attribute :position, position
         update_attribute :position, new_position
       end
     end
 
-    def self.resort(survey)
-      where(survey: survey).each_with_index do | question_group, index |
+    def self.resort(version)
+      where(version: version).each_with_index do | question_group, index |
         question_group.update_attribute(:position, index + 1)
       end
     end
 
-    def self.maximum_position(survey)
-      where(survey: survey).maximum(:position) || 0
+    def self.maximum_position(version)
+      where(version: version).maximum(:position) || 0
     end
 
     private
 
     def resort
-      self.class.resort survey
+      self.class.resort version
     end
   end
 end

@@ -9,6 +9,5 @@ module Helena
     validates :text, uniqueness: { scope: :question_id }
     validates :code, presence: true
     validates :code, uniqueness: { scope: :question_id }
-    validates :version, presence: true
   end
 end

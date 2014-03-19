@@ -3,10 +3,11 @@ require 'spec_helper'
 describe Helena::Admin::QuestionGroupsController  do
   routes { Helena::Engine.routes }
 
-  let(:survey) { create :survey }
-  let!(:first_question_group) { create :question_group, position: 1, survey: survey }
-  let!(:second_question_group) { create :question_group, position: 12, survey: survey }
-  let!(:third_question_group) { create :question_group, position: 33, survey: survey }
+  let!(:survey) { create :survey }
+  let!(:draft_version) { create :version, version: 0, survey: survey }
+  let!(:first_question_group) { create :question_group, position: 1, version: draft_version }
+  let!(:second_question_group) { create :question_group, position: 12, version: draft_version }
+  let!(:third_question_group) { create :question_group, position: 33, version: draft_version }
 
   it 'moves a question group down with resort' do
     patch :move_down, survey_id: survey, id: first_question_group
@@ -53,6 +54,6 @@ describe Helena::Admin::QuestionGroupsController  do
     expect(first_question_group.reload.position).to eq 1
     expect(second_question_group.reload.position).to eq 2
     expect(third_question_group.reload.position).to eq 3
-    expect(survey.question_groups.last.position).to eq 4
+    expect(draft_version.question_groups.last.position).to eq 4
   end
 end

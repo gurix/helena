@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 feature 'Radio group question management' do
+  let!(:draft_version) { create :version, survey: create(:survey), version: 0 }
+  let!(:question_group) { create(:question_group, version: draft_version) }
+
   scenario 'edits a question' do
-    question = create :radio_group_question
+    question = create :radio_group_question, question_group: question_group
     question.labels << create(:label, text: 'Male', value: 'm', position: 1)
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_question_path(draft_version.survey, question.question_group, question)
 
     check 'Required'
 
@@ -23,9 +26,9 @@ feature 'Radio group question management' do
   end
 
   scenario 'adds a an option' do
-    question = create :radio_group_question
+    question = create :radio_group_question, question_group: question_group
 
-    visit helena.edit_admin_survey_question_group_questions_radio_group_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_radio_group_path(draft_version.survey, question.question_group, question)
 
     fill_in 'questions_radio_group_labels_attributes_0_position', with: '2'
     fill_in 'questions_radio_group_labels_attributes_0_text', with: 'Female'
@@ -40,10 +43,10 @@ feature 'Radio group question management' do
   end
 
   scenario 'removes an option' do
-    question = create :radio_group_question
+    question = create :radio_group_question, question_group: question_group
     question.labels << create(:label, text: 'Male', value: 'm', position: 1)
 
-    visit helena.edit_admin_survey_question_group_questions_radio_group_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_radio_group_path(draft_version.survey, question.question_group, question)
 
     check 'questions_radio_group_labels_attributes_0__destroy'
 

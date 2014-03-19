@@ -9,7 +9,7 @@ module Helena
     ]
 
     belongs_to :question_group, inverse_of: :questions
-    belongs_to :survey, inverse_of: :questions
+    belongs_to :version, inverse_of: :questions
 
     has_many :labels, dependent: :destroy
     has_many :sub_questions, dependent: :destroy
@@ -20,8 +20,7 @@ module Helena
     default_scope { order(position: :asc) }
 
     validates :question_group, :code, presence: true
-    validates :code, uniqueness: { scope: :survey_id }
-    validates :version, presence: true
+    validates :code, uniqueness: { scope: :version_id }
 
     after_destroy :resort
 

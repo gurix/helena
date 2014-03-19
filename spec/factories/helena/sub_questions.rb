@@ -3,6 +3,5 @@ FactoryGirl.define do
     sequence(:text)  { |n| "Question #{n}, #{Faker::Lorem.words(3).join(' ')}?" }
     sequence(:code) { |n| "Y#{n}" }
     sequence(:position)
-    question
   end
 end

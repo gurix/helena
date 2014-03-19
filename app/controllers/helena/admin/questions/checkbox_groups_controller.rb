@@ -13,7 +13,7 @@ module Helena
                                                            :code,
                                                            :type,
                                                            :required,
-                                                           sub_questions_attributes: sub_questions_attributes).merge(survey_id: @survey.id)
+                                                           sub_questions_attributes: sub_questions_attributes).merge(version_id: @version.id)
         end
 
         def add_ressources

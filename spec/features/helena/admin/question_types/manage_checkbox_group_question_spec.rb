@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 feature 'Checkbox group question management' do
-  scenario 'edits a question' do
-    question = create :checkbox_group_question
-    question.sub_questions << create(:sub_question, code: 'aperto', text: 'Aperto Snacks', value: 'Aperto', position: 1)
+  let!(:draft_version) { create :version, survey: create(:survey), version: 0 }
+  let!(:question_group) { create(:question_group, version: draft_version) }
 
-    visit helena.edit_admin_survey_question_group_questions_checkbox_group_path(question.question_group.survey, question.question_group, question)
+  scenario 'edits a question' do
+    question = create :checkbox_group_question, question_group: question_group
+    question.sub_questions.create(code: 'aperto', text: 'Aperto Snacks', value: 'Aperto', position: 1)
+
+    visit helena.edit_admin_survey_question_group_questions_checkbox_group_path(draft_version.survey, question.question_group, question)
 
     check 'Required'
 
@@ -25,9 +28,9 @@ feature 'Checkbox group question management' do
   end
 
   scenario 'adds a a sub question' do
-    question = create :checkbox_group_question
+    question = create :checkbox_group_question, question_group: question_group
 
-    visit helena.edit_admin_survey_question_group_questions_checkbox_group_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_checkbox_group_path(draft_version.survey, question.question_group, question)
 
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_position', with: '2'
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_text', with: 'Avec Shop'
@@ -44,10 +47,10 @@ feature 'Checkbox group question management' do
   end
 
   scenario 'removes a sub question' do
-    question = create :checkbox_group_question
-    question.sub_questions << create(:sub_question, code: 'aperto', text: 'Aperto Snacks', value: 'Aperto', position: 1)
+    question = create :checkbox_group_question, question_group: question_group
+    question.sub_questions.create(code: 'aperto', text: 'Aperto Snacks', value: 'Aperto', position: 1)
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_question_path(draft_version.survey, question.question_group, question)
 
     check 'questions_checkbox_group_sub_questions_attributes_0__destroy'
 

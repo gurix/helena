@@ -4,13 +4,11 @@ module Helena
 
     after_destroy :resort
 
-    belongs_to :participant
-    has_many :question_groups, dependent: :destroy
-    has_many :questions, dependent: :destroy
-    has_many :versions, dependent: :destroy
+    has_many :versions, inverse_of: :survey, dependent: :destroy
 
-    validates :name, presence: true
-    validates :name, uniqueness: true
+    accepts_nested_attributes_for :versions
+
+    validates :name, presence: true, uniqueness: true
 
     def swap_position(new_position)
       other_survey = self.class.find_by(position: new_position)
@@ -18,6 +16,14 @@ module Helena
         other_survey.update_attribute :position, position
         update_attribute :position, new_position
       end
+    end
+
+    def draft_version
+      versions.find_by(version: 0)
+    end
+
+    def last_version
+      versions.find_by version: versions.maximum(:version)
     end
 
     def self.resort

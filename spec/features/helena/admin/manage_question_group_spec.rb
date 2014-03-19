@@ -3,10 +3,11 @@ require 'spec_helper'
 feature 'Question group management' do
 
   let!(:survey) { create :survey }
+  let!(:draft_version) { create :version, survey: survey, version: 0 }
 
   scenario 'lists all question groups of a certain survey' do
-    create :question_group, title: 'Introduction', survey: survey, position: 1
-    create :question_group, title: 'Food behaviour', survey: survey, position: 2
+    create :question_group, title: 'Introduction', version: draft_version, position: 1
+    create :question_group, title: 'Food behaviour', version: draft_version, position: 2
 
     visit helena.admin_survey_question_groups_path(survey)
 
@@ -41,8 +42,8 @@ feature 'Question group management' do
   end
 
   scenario 'edits a question_group' do
-    question_group = create :question_group, title: 'Some stupid questions', survey: survey, position: 2
-    create :question_group, title: 'Some final remarks', survey: survey, position: 1
+    question_group = create :question_group, title: 'Some stupid questions', version: draft_version, position: 2
+    create :question_group, title: 'Some final remarks', version: draft_version, position: 1
 
     visit helena.edit_admin_survey_question_group_path(survey, question_group)
 
@@ -60,17 +61,17 @@ feature 'Question group management' do
   end
 
   scenario 'deletes a question group' do
-    create :question_group, title: 'We do not use this anymore', survey: survey
+    create :question_group, title: 'We do not use this anymore', version: draft_version
 
     visit helena.admin_survey_question_groups_path(survey)
 
     within '#helena_question_group_1' do
-      expect { click_link 'Delete' }.to change { survey.question_groups.count }.by(-1)
+      expect { click_link 'Delete' }.to change { draft_version.question_groups.count }.by(-1)
     end
   end
 
   scenario 'links to questions of a question group' do
-    question_group = create :question_group, title: 'We do not use this anymore', survey: survey
+    question_group = create :question_group, title: 'We do not use this anymore', version: draft_version
 
     visit helena.admin_survey_question_groups_path(survey)
 
@@ -80,8 +81,8 @@ feature 'Question group management' do
   end
 
   scenario 'moving a question group' do
-    first_question_group = create :question_group, survey: survey, position: 1
-    second_question_group = create :question_group, survey: survey, position: 2
+    first_question_group = create :question_group, version: draft_version, position: 1
+    second_question_group = create :question_group, version: draft_version, position: 2
 
     visit helena.admin_survey_question_groups_path(survey)
 
