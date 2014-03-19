@@ -5,7 +5,7 @@ describe Helena::SurveysController do
 
   it 'lists only root surveys', pending: true do
     base_survey = create :survey
-    copied_survey = create :survey, version: build(:version), survey: base_survey
+    create :survey, version: build(:version), survey: base_survey
 
     get :index
 

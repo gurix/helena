@@ -35,8 +35,8 @@ describe Helena::Admin::SurveysController do
   end
 
   context 'with authorization' do
-    let!(:first_survey) { create :survey,  position: 1, versions: [build(:base_version)]}
-    let!(:second_survey) { create :survey,  position: 12, versions: [build(:base_version)]}
+    let!(:first_survey) { create :survey,  position: 1, versions: [build(:base_version)] }
+    let!(:second_survey) { create :survey,  position: 12, versions: [build(:base_version)] }
     let!(:third_survey) { create :survey,  position: 33, versions: [build(:base_version)] }
 
     it 'moves a question group down with resort' do

@@ -51,7 +51,6 @@ feature 'Survey management' do
     survey.versions.create version: 0
     survey.versions.first.survey_detail = Helena::SurveyDetail.new(title: 'My first survey', description: 'I am very proud of it')
 
-
     visit helena.edit_admin_survey_path(survey)
 
     fill_in 'Name', with: 'This is crazy'

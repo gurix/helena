@@ -10,7 +10,7 @@ module Helena
       before_filter :load_survey, only: [:edit, :update, :move_up, :move_down, :destroy]
 
       def index
-        @surveys = Helena::Survey.joins(:versions).where(helena_versions: {version: 0})
+        @surveys = Helena::Survey.joins(:versions).where(helena_versions: { version: 0 })
       end
 
       def new

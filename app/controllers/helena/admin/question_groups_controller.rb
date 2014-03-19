@@ -9,7 +9,6 @@ module Helena
       before_filter :find_question_group, only: [:edit, :destroy, :move_up, :move_down]
       before_filter :resort, only: [:move_up, :move_down, :create]
 
-
       def index
         @question_groups = @version.question_groups
       end
