@@ -5,7 +5,7 @@ module Helena
         private
 
         def question_params
-          params.require(:questions_short_text).permit(:question_text,  :code, :type,  :default_value, :required).merge(survey_id: @survey.id)
+          params.require(:questions_short_text).permit(:question_text,  :code, :type,  :default_value, :required).merge(version_id: @version.id)
         end
       end
     end

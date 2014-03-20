@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 feature 'Question management' do
-
-  let!(:question_group) { create :question_group }
+  let!(:draft_version) { create :version, survey: create(:survey), version: 0 }
+  let!(:question_group) { create :question_group, version: draft_version }
 
   scenario 'lists all question groups of a certain survey' do
     create :question, question_text: 'Who are you?', question_group: question_group, position: 1
     create :question, question_text: 'Imagine an inivisible pony. What color has ist?', question_group: question_group, position: 2
 
-    visit helena.admin_survey_question_group_questions_path(question_group.survey, question_group)
+    visit helena.admin_survey_question_group_questions_path(draft_version.survey, question_group)
 
     within '#helena_question_1' do
       expect(page).to have_text 'Who are you?'
@@ -20,13 +20,13 @@ feature 'Question management' do
 
     within '.breadcrumb' do
       expect(page).to have_link'Surveys', href: helena.admin_surveys_path
-      expect(page).to have_link question_group.survey.name, href: helena.admin_survey_question_groups_path(question_group.survey)
+      expect(page).to have_link draft_version.survey.name, href: helena.admin_survey_question_groups_path(draft_version.survey)
       expect(page).to have_text question_group.title
     end
   end
 
   scenario 'creates a new question' do
-    visit helena.new_admin_survey_question_group_question_path(question_group.survey, question_group)
+    visit helena.new_admin_survey_question_group_question_path(draft_version.survey, question_group)
 
     fill_in 'Code', with: 'A38'
     fill_in 'Question text', with: 'Shall we go?'
@@ -37,13 +37,13 @@ feature 'Question management' do
 
     expect { click_button 'Save' }.to change { Helena::Question.count }.by(1)
 
-    expect(Helena::Question.last.survey).to eq question_group.survey
+    expect(Helena::Question.last.version).to eq question_group.version
   end
 
   scenario 'edits a question' do
-    question = create :question, question_text: 'We are here?'
+    question = create :question, question_text: 'We are here?', question_group: question_group
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_question_path(draft_version.survey, question.question_group, question)
 
     fill_in 'Question text', with: 'Are you sure?'
     fill_in 'Code', with: 'B12'
@@ -58,7 +58,7 @@ feature 'Question management' do
     first_question = create :question, question_group: question_group, position: 1
     second_question = create :question, question_group: question_group, position: 2
 
-    visit helena.admin_survey_question_group_questions_path(question_group.survey, question_group)
+    visit helena.admin_survey_question_group_questions_path(draft_version.survey, question_group)
 
     within '#helena_question_1' do
       expect { click_link 'Move down' }.to change { first_question.reload.position }.from(1).to(2)
@@ -80,7 +80,7 @@ feature 'Question management' do
   scenario 'deletes a question' do
     create :question, question_group: question_group
 
-    visit helena.admin_survey_question_group_questions_path(question_group.survey, question_group)
+    visit helena.admin_survey_question_group_questions_path(draft_version.survey, question_group)
 
     within '#helena_question_1' do
       expect { click_link 'Delete' }.to change { question_group.questions.count }.by(-1)

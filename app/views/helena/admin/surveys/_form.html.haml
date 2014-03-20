@@ -1,4 +1,8 @@
 = simple_form_for [:admin, @survey] do |f|
   = f.input :name
-  = f.input :description, as: :text, input_html: { cols: 60, rows: 10 }
+  = f.simple_fields_for :versions do |v|
+    = v.input :version, as: :hidden, value: 0 if @survey.new_record?
+    = v.simple_fields_for :survey_detail do |detail|
+      = detail.input :title
+      = detail.input :description, as: :text, input_html: { cols: 60, rows: 10 }
   = f.submit t('shared.save'), class: 'btn btn-success'

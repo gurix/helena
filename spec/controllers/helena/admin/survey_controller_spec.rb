@@ -35,13 +35,12 @@ describe Helena::Admin::SurveysController do
   end
 
   context 'with authorization' do
-    let!(:first_survey) { create :survey,  position: 1 }
-    let!(:second_survey) { create :survey,  position: 12 }
-    let!(:third_survey) { create :survey,  position: 33 }
+    let!(:first_survey) { create :survey,  position: 1, versions: [build(:base_version)] }
+    let!(:second_survey) { create :survey,  position: 12, versions: [build(:base_version)] }
+    let!(:third_survey) { create :survey,  position: 33, versions: [build(:base_version)] }
 
     it 'moves a question group down with resort' do
       patch :move_down, id: first_survey
-
       expect(first_survey.reload.position).to eq 2
       expect(second_survey.reload.position).to eq 1
       expect(third_survey.reload.position).to eq 3

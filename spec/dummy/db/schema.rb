@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307143005) do
+ActiveRecord::Schema.define(version: 20140312204736) do
 
   create_table "helena_labels", force: true do |t|
     t.integer  "question_id"
@@ -30,17 +30,15 @@ ActiveRecord::Schema.define(version: 20140307143005) do
   end
 
   create_table "helena_question_groups", force: true do |t|
-    t.integer  "survey_id"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "group_order", default: 1
-    t.integer  "position",    default: 1
+    t.integer  "position",   default: 1
+    t.integer  "version_id"
   end
 
   create_table "helena_questions", force: true do |t|
     t.integer  "question_group_id"
-    t.integer  "survey_id"
     t.string   "type"
     t.string   "code",                          null: false
     t.integer  "position",          default: 1
@@ -49,6 +47,7 @@ ActiveRecord::Schema.define(version: 20140307143005) do
     t.text     "validation_rules"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "version_id"
   end
 
   create_table "helena_sub_questions", force: true do |t|
@@ -62,13 +61,28 @@ ActiveRecord::Schema.define(version: 20140307143005) do
     t.datetime "updated_at"
   end
 
-  create_table "helena_surveys", force: true do |t|
-    t.integer  "participant_id"
-    t.string   "name",                       null: false
+  create_table "helena_survey_details", force: true do |t|
+    t.integer  "version_id"
+    t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "helena_surveys", force: true do |t|
+    t.integer  "participant_id"
+    t.string   "name",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "position",       default: 1
+  end
+
+  create_table "helena_versions", force: true do |t|
+    t.integer  "survey_id"
+    t.integer  "version",    default: 0, null: false
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

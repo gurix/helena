@@ -7,14 +7,16 @@ module Helena
 
       before_filter :add_breadcrumbs
       before_filter :resort, only: [:move_up, :move_down, :create]
+      before_filter :load_survey, only: [:edit, :update, :move_up, :move_down, :destroy]
 
       def index
-        @surveys = Helena::Survey.all
+        @surveys = Helena::Survey.joins(:versions).where(helena_versions: { version: 0 })
       end
 
       def new
         add_breadcrumb t('.new')
         @survey = Helena::Survey.new
+        @survey.versions.build version: 0, survey_detail: Helena::SurveyDetail.new
       end
 
       def create
@@ -32,26 +34,21 @@ module Helena
       end
 
       def edit
-        @survey = Helena::Survey.find params[:id]
         add_breadcrumb @survey.name
       end
 
       def update
-        @survey = Helena::Survey.find params[:id]
-
         if @survey.update_attributes survey_params
           notify_successful_update_for(@survey.name)
         else
-          notify_error
+          notify_error @survey
           add_breadcrumb @survey.name_was
         end
         respond_with @survey, location: admin_surveys_path
       end
 
       def move_up
-        @survey = Helena::Survey.find params[:id]
-
-        if @survey.position > 1
+        if @survey.reload.position > 1
           @survey.swap_position @survey.position - 1
           notify_successful_update_for(@survey.name)
         end
@@ -60,9 +57,7 @@ module Helena
       end
 
       def move_down
-        @survey = Helena::Survey.find params[:id]
-
-        if @survey.position < Helena::Survey.maximum_position
+        if @survey.reload.position < Helena::Survey.maximum_position
           @survey.swap_position @survey.position + 1
           notify_successful_update_for(@survey.name)
         end
@@ -71,7 +66,6 @@ module Helena
       end
 
       def destroy
-        @survey = Helena::Survey.find(params[:id])
         notify_successful_delete_for(@survey.name) if @survey.destroy
         respond_with @survey, location: admin_surveys_path
       end
@@ -87,7 +81,11 @@ module Helena
       end
 
       def survey_params
-        params.require(:survey).permit(:name, :description)
+        params.require(:survey).permit(:name, versions_attributes: [:version, :id, survey_detail_attributes: [:title, :description]])
+      end
+
+      def load_survey
+        @survey = Helena::Survey.find params[:id]
       end
     end
   end

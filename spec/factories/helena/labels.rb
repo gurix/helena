@@ -3,6 +3,5 @@ FactoryGirl.define do
     sequence(:text)  { |n| "Option #{n}" }
     sequence(:value)
     sequence(:position)
-    question
   end
 end

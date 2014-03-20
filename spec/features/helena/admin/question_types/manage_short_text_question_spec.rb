@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 feature 'Short text question management' do
-  scenario 'edits a question' do
-    question = create :short_text_question
+  let!(:draft_version) { create :version, survey: create(:survey), version: 0 }
 
-    visit helena.edit_admin_survey_question_group_question_path(question.question_group.survey, question.question_group, question)
+  scenario 'edits a question' do
+    question = create :short_text_question, question_group: create(:question_group, version: draft_version)
+
+    visit helena.edit_admin_survey_question_group_question_path(question.question_group.version.survey, question.question_group, question)
 
     fill_in 'Default value', with: 'Hey Hey!'
     check 'Required'

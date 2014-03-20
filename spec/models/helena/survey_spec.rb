@@ -1,22 +1,12 @@
 require 'spec_helper'
 
 describe Helena::Survey do
-  it { expect(subject).to belong_to(:participant) }
-
-  it { expect(subject).to have_many(:question_groups).dependent(:destroy) }
+  it { expect(subject).to have_many(:versions).dependent(:destroy) }
+  it { expect(subject).to validate_presence_of(:name) }
+  it { expect(subject).to validate_uniqueness_of(:name) }
 
   it 'has a valid factory' do
     expect(build :survey).to be_valid
-  end
-
-  it 'validates presence of name' do
-    expect(build :survey, name: '').not_to be_valid
-  end
-
-  it 'validates uniqueness of name' do
-    create :survey, name: 'Patric Star\'s favorit position'
-
-    expect(build :survey, name: 'Patric Star\'s favorit position').not_to be_valid
   end
 
   it 'sorts by default according the position' do

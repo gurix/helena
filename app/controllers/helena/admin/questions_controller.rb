@@ -3,9 +3,9 @@ module Helena
     class QuestionsController < Admin::ApplicationController
       respond_to :html
 
-      before_filter :load_question_group, :load_survey, :add_breadcrumbs
+      before_filter :load_resources, :add_breadcrumbs
       before_filter :resort, only: [:move_up, :move_down, :create]
-      before_filter :load_question, only: [:edit, :update, :destroy]
+      before_filter :load_question, only: [:edit, :update, :destroy, :move_up, :move_down]
 
       def index
         @questions = @question_group.questions
@@ -50,8 +50,6 @@ module Helena
       end
 
       def move_down
-        @question = @question_group.questions.find params[:id]
-
         if @question.position < Helena::Question.maximum_position(@question_group)
           @question.swap_position @question.position + 1
           notify_successful_update_for(@question.code)
@@ -61,7 +59,6 @@ module Helena
       end
 
       def move_up
-        @question = @question_group.questions.find params[:id]
         if @question.position > 1
           @question.swap_position @question.position - 1
           notify_successful_update_for(@question.code)
@@ -72,17 +69,15 @@ module Helena
 
       private
 
-      def load_question_group
+      def load_resources
         @question_group = Helena::QuestionGroup.find params[:question_group_id]
-      end
-
-      def load_survey
-        @survey = @question_group.survey
+        @version = @question_group.version
+        @survey = @version.survey
       end
 
       def add_breadcrumbs
         add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
-        add_breadcrumb @question_group.survey.name, admin_survey_question_groups_path(@survey)
+        add_breadcrumb @survey.name, admin_survey_question_groups_path(@survey)
         add_breadcrumb @question_group.title, admin_survey_question_group_questions_path(@survey, @question_group)
         add_breadcrumb t('.new') if action_name == 'new' || action_name == 'create'
       end
@@ -92,7 +87,7 @@ module Helena
       end
 
       def question_params
-        params.require(:question).permit(:question_text, :code, :type, :default_value).merge(survey_id: @survey.id)
+        params.require(:question).permit(:question_text, :code, :type, :default_value).merge(version_id: @version.id)
       end
 
       def load_question
