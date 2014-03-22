@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    models:
+      'helena/question_group':
+        one: Question Group
+        other: Question Groups
+
+    attributes:
+      'helena/question_group':
+        position: Position
+        title: Title

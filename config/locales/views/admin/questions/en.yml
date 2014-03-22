@@ -1,0 +1,17 @@
+en:
+  helena:
+    admin:
+      radio_group:
+        only_one_preselection_allowed: only have one preselection
+      questions:
+        index:
+          empty: There are no questions in this question group
+          add: Add a new question
+          delete: Delete
+          edit: Edit
+          move_up: Move up
+          move_down: Move down
+          required: Required
+        new: &new_question
+          new: New question
+        create: *new_question
