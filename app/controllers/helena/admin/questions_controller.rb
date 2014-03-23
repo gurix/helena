@@ -97,6 +97,14 @@ module Helena
 
       def add_ressources
       end
+
+      def labels_attributes
+        [:id, :position, :text, :value, :preselected, :_destroy]
+      end
+
+      def sub_questions_attributes
+        [:id, :position, :code, :text, :value, :preselected, :_destroy]
+      end
     end
   end
 end

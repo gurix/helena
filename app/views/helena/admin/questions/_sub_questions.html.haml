@@ -4,7 +4,8 @@
     %tr
       %th.position= Helena::SubQuestion.human_attribute_name :position
       %th.position= Helena::SubQuestion.human_attribute_name :code
-      %th.preselected
+      - if @question.is_a?(Helena::Questions::CheckboxGroup)
+        %th.preselected
       %th.text= Helena::SubQuestion.human_attribute_name :text
       %th.value= Helena::SubQuestion.human_attribute_name :value
       %th.delete
@@ -16,8 +17,9 @@
           = sub_question.input :position, as: :integer, label: false
         %td.code
           = sub_question.input :code, label: false
-        %td.preselected
-          = sub_question.input :preselected, wrapper: :checkbox
+        - if @question.is_a?(Helena::Questions::CheckboxGroup)
+          %td.preselected
+            = sub_question.input :preselected, wrapper: :checkbox
         %td.text
           = sub_question.input :text, label: false
         %td.value

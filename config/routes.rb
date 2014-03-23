@@ -17,6 +17,7 @@ Helena::Engine.routes.draw do
           resources :static_texts, module: 'questions'
           resources :radio_groups, module: 'questions'
           resources :checkbox_groups, module: 'questions'
+          resources :radio_matrix, module: 'questions'
         end
       end
     end
