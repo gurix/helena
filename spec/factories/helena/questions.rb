@@ -9,5 +9,6 @@ FactoryGirl.define do
     factory :long_text_question, class: Helena::Questions::LongText
     factory :radio_group_question, class: Helena::Questions::RadioGroup
     factory :checkbox_group_question, class: Helena::Questions::CheckboxGroup
+    factory :radio_matrix_question, class: Helena::Questions::RadioMatrix
   end
 end

@@ -1,15 +1,16 @@
 module Helena
   module Admin
     module Questions
-      class CheckboxGroupsController < Admin::QuestionsController
+      class RadioMatrixController < Admin::QuestionsController
         private
 
         def add_ressources
+          @question.labels.build
           @question.sub_questions.build
         end
 
         def permited_params
-          [:required, sub_questions_attributes: sub_questions_attributes]
+          [:required, labels_attributes: labels_attributes, sub_questions_attributes: sub_questions_attributes]
         end
       end
     end

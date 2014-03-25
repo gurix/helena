@@ -4,8 +4,8 @@ module Helena
       class ShortTextsController < Admin::QuestionsController
         private
 
-        def question_params
-          params.require(:questions_short_text).permit(:question_text,  :code, :type,  :default_value, :required).merge(version_id: @version.id)
+        def permited_params
+          [:default_value, :required]
         end
       end
     end

@@ -22,6 +22,7 @@ feature 'Radio group question management' do
     expect(question.reload.labels.first.position).to eq 2
     expect(question.reload.labels.first.text).to eq 'Female'
     expect(question.reload.labels.first.value).to eq 'f'
+    expect(question.reload.labels.first.preselected).to eq true
     expect(question.reload.required).to be_true
   end
 
@@ -40,6 +41,7 @@ feature 'Radio group question management' do
     expect(question.reload.labels.first.position).to eq 2
     expect(question.reload.labels.first.text).to eq 'Female'
     expect(question.reload.labels.first.value).to eq 'f'
+    expect(question.reload.labels.first.preselected).to eq true
   end
 
   scenario 'removes an option' do
