@@ -87,7 +87,16 @@ module Helena
       end
 
       def question_params
-        params.require(:question).permit(:question_text, :code, :type, :default_value).merge(version_id: @version.id)
+        required_param.permit(permited_params + [:question_text,  :code, :type]).merge(version_id: @version.id)
+      end
+
+      def required_param
+        param_name = self.class == Helena::Admin::QuestionsController ? :question : "questions_#{controller_name.singularize}"
+        params.require(param_name)
+      end
+
+      def permited_params
+        []
       end
 
       def load_question
