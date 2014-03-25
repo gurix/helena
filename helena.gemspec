@@ -22,7 +22,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'haml'
   s.add_dependency 'haml-rails'
   s.add_dependency 'jquery-rails'
-  s.add_dependency 'sass-rails'
+  s.add_dependency 'sass-rails', '~> 4.0.0' # version needed here http://stackoverflow.com/questions/22392862/undefined-method-environment-for-nilnilclass-when-importing-bootstrap
   s.add_dependency 'bootstrap-sass'
   s.add_dependency 'simple_form'
   s.add_dependency 'breadcrumbs_on_rails'
