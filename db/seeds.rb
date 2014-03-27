@@ -122,6 +122,29 @@ EOF
                           question_group:   dinner,
                           type:             'Helena::Questions::LongText'
 
+  restaurant = restaurant_survey_base_version.question_groups.create title: 'About the restaurant', position: 3
+
+  brand_attributes = restaurant.questions.create code: :brand_attributes,
+                                                 question_text: 'What words describe the following topics best?',
+                                                 position:         1,
+                                                 version: restaurant_survey_base_version,
+                                                 question_group: restaurant,
+                                                 type: 'Helena::Questions::CheckboxMatrix'
+
+  brand_attributes.labels.create position: 1, text: 'calm', value: 'calm'
+  brand_attributes.labels.create position: 2, text: 'energetic', value: 'energetic'
+  brand_attributes.labels.create position: 3, text: 'friendly', value: 'friendly'
+  brand_attributes.labels.create position: 4, text: 'funny', value: 'funny'
+  brand_attributes.labels.create position: 5, text: 'modest', value: 'modest'
+  brand_attributes.labels.create position: 6, text: 'warmhearted', value: 'warmhearted'
+  brand_attributes.labels.create position: 7, text: 'sociable', value: 'sociable'
+  brand_attributes.labels.create position: 8, text: 'romantic', value: 'romantic'
+
+  brand_attributes.sub_questions.create position: 1, text: 'Restaurant', code: 'restaurant'
+  brand_attributes.sub_questions.create position: 2, text: 'Staff', code: 'staff'
+  brand_attributes.sub_questions.create position: 3, text: 'Food', code: 'food'
+  brand_attributes.sub_questions.create position: 4, text: 'Drinks', code: 'drinks'
+  brand_attributes.sub_questions.create position: 5, text: 'Atmosphere', code: 'atmosphere'
 end
 
 create_satisfaction_survey
