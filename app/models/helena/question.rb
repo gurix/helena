@@ -1,12 +1,13 @@
 module Helena
   class Question < ActiveRecord::Base
     TYPES = [
-        Helena::Questions::ShortText,
-        Helena::Questions::LongText,
-        Helena::Questions::StaticText,
-        Helena::Questions::RadioGroup,
-        Helena::Questions::CheckboxGroup,
-        Helena::Questions::RadioMatrix
+      Helena::Questions::ShortText,
+      Helena::Questions::LongText,
+      Helena::Questions::StaticText,
+      Helena::Questions::RadioGroup,
+      Helena::Questions::CheckboxGroup,
+      Helena::Questions::RadioMatrix,
+      Helena::Questions::CheckboxMatrix
     ]
 
     belongs_to :question_group, inverse_of: :questions
@@ -41,6 +42,14 @@ module Helena
 
     def self.maximum_position(question_group)
       where(question_group: question_group).maximum(:position) || 0
+    end
+
+    def includes_labels?
+      false
+    end
+
+    def includes_subquestions?
+      false
     end
 
     private
