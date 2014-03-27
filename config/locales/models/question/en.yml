@@ -7,7 +7,28 @@ en:
 
       'helena/questions/short_text':
         one: Short text
-        other:  Short texts
+        other: Short texts
+
+      'helena/questions/long_text':
+        one: Long text
+        other: Long texts
+
+      'helena/questions/static_text':
+        one: Static text
+        other: Static texts
+
+      'helena/questions/radio_group':
+        one: Radio Group
+        other: Radio Groups
+
+      'helena/questions/checkbox_group':
+        one: Checkbox Group
+        other: Checkbox Groups
+
+      'helena/questions/radio_matrix':
+        one: Radio Matrix
+        other: Radio Matrice
+
 
     attributes:
       'helena/question':
