@@ -20,7 +20,6 @@ feature 'Radio matrix question management' do
 
     fill_in 'questions_radio_matrix_sub_questions_attributes_0_position', with: '2'
     fill_in 'questions_radio_matrix_sub_questions_attributes_0_text', with: 'Avec Shop'
-    fill_in 'questions_radio_matrix_sub_questions_attributes_0_value', with: 'Avec'
     fill_in 'questions_radio_matrix_sub_questions_attributes_0_code', with: 'avec'
 
     click_button 'Save'
@@ -32,7 +31,6 @@ feature 'Radio matrix question management' do
 
     expect(question.reload.sub_questions.first.position).to eq 2
     expect(question.reload.sub_questions.first.text).to eq 'Avec Shop'
-    expect(question.reload.sub_questions.first.value).to eq 'Avec'
     expect(question.reload.sub_questions.first.code).to eq 'avec'
 
     expect(question.reload.required).to be_true
@@ -50,7 +48,6 @@ feature 'Radio matrix question management' do
 
     fill_in 'questions_radio_matrix_sub_questions_attributes_0_position', with: '2'
     fill_in 'questions_radio_matrix_sub_questions_attributes_0_text', with: 'Avec Shop'
-    fill_in 'questions_radio_matrix_sub_questions_attributes_0_value', with: 'Avec'
     fill_in 'questions_radio_matrix_sub_questions_attributes_0_code', with: 'avec'
 
     click_button 'Save'
@@ -62,7 +59,6 @@ feature 'Radio matrix question management' do
 
     expect(question.reload.sub_questions.first.position).to eq 2
     expect(question.reload.sub_questions.first.text).to eq 'Avec Shop'
-    expect(question.reload.sub_questions.first.value).to eq 'Avec'
     expect(question.reload.sub_questions.first.code).to eq 'avec'
   end
 
