@@ -29,6 +29,9 @@ en:
         one: Radio Matrix
         other: Radio Matrice
 
+      'helena/questions/checkbox_matrix':
+              one: Checkbox Matrix
+              other: Checkbox Matrice
 
     attributes:
       'helena/question':

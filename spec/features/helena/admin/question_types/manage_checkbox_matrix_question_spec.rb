@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-feature 'Radio matrix question management' do
+feature 'Checkbox matrix question management' do
   let!(:draft_version) { create :version, survey: create(:survey), version: 0 }
   let!(:question_group) { create(:question_group, version: draft_version) }
 
   scenario 'edits a question' do
-    question = create :radio_matrix_question, question_group: question_group
+    question = create :checkbox_matrix_question, question_group: question_group
     question.labels.create text: 'Strongly disagree', value: '-1', position: 1
     question.sub_questions.create code: 'aperto', text: 'Aperto Snacks', value: 'Aperto', position: 1
 
@@ -13,14 +13,14 @@ feature 'Radio matrix question management' do
 
     check 'Required'
 
-    fill_in 'questions_radio_matrix_labels_attributes_0_position', with: '2'
-    fill_in 'questions_radio_matrix_labels_attributes_0_text', with: 'Strongly agree'
-    fill_in 'questions_radio_matrix_labels_attributes_0_value', with: '1'
-    check 'questions_radio_matrix_labels_attributes_0_preselected'
+    fill_in 'questions_checkbox_matrix_labels_attributes_0_position', with: '2'
+    fill_in 'questions_checkbox_matrix_labels_attributes_0_text', with: 'Strongly agree'
+    fill_in 'questions_checkbox_matrix_labels_attributes_0_value', with: '1'
+    check 'questions_checkbox_matrix_labels_attributes_0_preselected'
 
-    fill_in 'questions_radio_matrix_sub_questions_attributes_0_position', with: '2'
-    fill_in 'questions_radio_matrix_sub_questions_attributes_0_text', with: 'Avec Shop'
-    fill_in 'questions_radio_matrix_sub_questions_attributes_0_code', with: 'avec'
+    fill_in 'questions_checkbox_matrix_sub_questions_attributes_0_position', with: '2'
+    fill_in 'questions_checkbox_matrix_sub_questions_attributes_0_text', with: 'Avec Shop'
+    fill_in 'questions_checkbox_matrix_sub_questions_attributes_0_code', with: 'avec'
 
     click_button 'Save'
 
@@ -37,18 +37,18 @@ feature 'Radio matrix question management' do
   end
 
   scenario 'adds a an option' do
-    question = create :radio_matrix_question, question_group: question_group
+    question = create :checkbox_matrix_question, question_group: question_group
 
-    visit helena.edit_admin_survey_question_group_questions_radio_matrix_path(draft_version.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_checkbox_matrix_path(draft_version.survey, question.question_group, question)
 
-    fill_in 'questions_radio_matrix_labels_attributes_0_position', with: '2'
-    fill_in 'questions_radio_matrix_labels_attributes_0_text', with: 'Strongly agree'
-    fill_in 'questions_radio_matrix_labels_attributes_0_value', with: '1'
-    check 'questions_radio_matrix_labels_attributes_0_preselected'
+    fill_in 'questions_checkbox_matrix_labels_attributes_0_position', with: '2'
+    fill_in 'questions_checkbox_matrix_labels_attributes_0_text', with: 'Strongly agree'
+    fill_in 'questions_checkbox_matrix_labels_attributes_0_value', with: '1'
+    check 'questions_checkbox_matrix_labels_attributes_0_preselected'
 
-    fill_in 'questions_radio_matrix_sub_questions_attributes_0_position', with: '2'
-    fill_in 'questions_radio_matrix_sub_questions_attributes_0_text', with: 'Avec Shop'
-    fill_in 'questions_radio_matrix_sub_questions_attributes_0_code', with: 'avec'
+    fill_in 'questions_checkbox_matrix_sub_questions_attributes_0_position', with: '2'
+    fill_in 'questions_checkbox_matrix_sub_questions_attributes_0_text', with: 'Avec Shop'
+    fill_in 'questions_checkbox_matrix_sub_questions_attributes_0_code', with: 'avec'
 
     click_button 'Save'
 
@@ -63,14 +63,14 @@ feature 'Radio matrix question management' do
   end
 
   scenario 'removes an option' do
-    question = create :radio_matrix_question, question_group: question_group
+    question = create :checkbox_matrix_question, question_group: question_group
     question.labels.create text: 'Male', value: 'm', position: 1
     question.sub_questions.create code: 'aperto', text: 'Aperto Snacks', value: 'Aperto', position: 1
 
-    visit helena.edit_admin_survey_question_group_questions_radio_matrix_path(draft_version.survey, question.question_group, question)
+    visit helena.edit_admin_survey_question_group_questions_checkbox_matrix_path(draft_version.survey, question.question_group, question)
 
-    check 'questions_radio_matrix_labels_attributes_0__destroy'
-    check 'questions_radio_matrix_sub_questions_attributes_0__destroy'
+    check 'questions_checkbox_matrix_labels_attributes_0__destroy'
+    check 'questions_checkbox_matrix_sub_questions_attributes_0__destroy'
 
     click_button 'Save'
 

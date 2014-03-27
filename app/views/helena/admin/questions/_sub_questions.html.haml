@@ -7,7 +7,8 @@
       - if @question.is_a?(Helena::Questions::CheckboxGroup)
         %th.preselected
       %th.text= Helena::SubQuestion.human_attribute_name :text
-      %th.value= Helena::SubQuestion.human_attribute_name :value
+      - if @question.is_a?(Helena::Questions::CheckboxGroup)
+        %th.value= Helena::SubQuestion.human_attribute_name :value
       %th.delete
   %tbody
     = form.simple_fields_for :sub_questions  do |sub_question|
@@ -22,7 +23,8 @@
             = sub_question.input :preselected, wrapper: :checkbox
         %td.text
           = sub_question.input :text, label: false
-        %td.value
-          = sub_question.input :value, label: false, as: :string
+        - if @question.is_a?(Helena::Questions::CheckboxGroup)
+          %td.value
+            = sub_question.input :value, label: false, as: :string
         %td.delete
           = sub_question.input :_destroy, as: :boolean, wrapper: :checkbox unless sub_question.object.new_record?
