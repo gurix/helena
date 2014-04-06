@@ -26,13 +26,12 @@ RSpec.configure do |config|
   # We don't want write FactoryGirl all the time
   config.include FactoryGirl::Syntax::Methods
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with :truncation
-  end
+  DatabaseCleaner.strategy = :truncation
+
   config.before(:each) do
     DatabaseCleaner.start
   end
+
   config.after(:each) do
     DatabaseCleaner.clean
   end

@@ -13,18 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20140312204736) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "helena_labels", force: true do |t|
     t.integer  "question_id"
     t.string   "text",                        null: false
     t.string   "value",                       null: false
     t.integer  "position",    default: 1
     t.boolean  "preselected", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "helena_participants", force: true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
