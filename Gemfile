@@ -22,6 +22,6 @@ gem 'breadcrumbs_on_rails'
 gem 'quiet_assets'
 gem 'better_errors'
 gem 'launchy'
-gem 'binding_of_caller', platforms: :ruby
+gem 'binding_of_caller'
 gem 'coveralls', require: false
 

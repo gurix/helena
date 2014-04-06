@@ -29,7 +29,6 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'breadcrumbs_on_rails'
   s.add_dependency 'rails-i18n'
 
-  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'factory_girl_rails'
