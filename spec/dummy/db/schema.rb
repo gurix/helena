@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312204736) do
+ActiveRecord::Schema.define(version: 20140406190014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "helena_labels", force: true do |t|
     t.integer  "question_id"
@@ -45,6 +46,17 @@ ActiveRecord::Schema.define(version: 20140312204736) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "version_id"
+  end
+
+  create_table "helena_sessions", force: true do |t|
+    t.integer  "version_id"
+    t.string   "token"
+    t.inet     "ip"
+    t.integer  "last_question_group_id"
+    t.boolean  "completed",              default: false
+    t.hstore   "answers"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "helena_sub_questions", force: true do |t|
