@@ -1,5 +1,6 @@
 module Helena
   class Session < ActiveRecord::Base
+    belongs_to :survey, inverse_of: :sessions
     belongs_to :version, inverse_of: :sessions
 
     before_create :reset_token

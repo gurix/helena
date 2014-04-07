@@ -3,6 +3,7 @@ class CreateHelenaSessions < ActiveRecord::Migration
     enable_extension 'hstore'
     create_table :helena_sessions do |t|
       t.belongs_to :version
+      t.belongs_to :survey
       t.string :token
       t.inet :ip
       t.integer :last_question_group_id

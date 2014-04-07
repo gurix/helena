@@ -21,6 +21,7 @@
 
         = link_to t('.edit'), edit_admin_survey_path(survey), class: 'btn btn-primary'
         = link_to Helena::QuestionGroup.model_name.human(count: 2), admin_survey_question_groups_path(survey), class: 'btn btn-primary'
+        = link_to Helena::Session.model_name.human(count: 2), admin_survey_sessions_path(survey), class: 'btn btn-primary'
         = link_to t('.delete'), admin_survey_path(survey), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question')}
 
 %br

@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140406190014) do
 
   create_table "helena_sessions", force: true do |t|
     t.integer  "version_id"
+    t.integer  "survey_id"
     t.string   "token"
     t.inet     "ip"
     t.integer  "last_question_group_id"

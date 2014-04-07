@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    models:
+      'helena/session':
+        one: Session
+        other: Sessions

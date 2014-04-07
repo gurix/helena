@@ -1,0 +1,22 @@
+%h2
+  = Helena::Session.model_name.human(count: 2)
+  = "(#{@sessions.count})"
+- if @sessions.empty?
+  .alert.alert-warning
+    = t '.empty'
+- else
+  %table.table.sessions
+    %thead
+      %tr
+        %th.updated_at= Helena::Session.human_attribute_name(:updated_at)
+        %th.token= Helena::Session.human_attribute_name(:token)
+        %th.ip= Helena::Session.human_attribute_name(:ip)
+        %th.answers= Helena::Session.human_attribute_name(:answers)
+    %tbody
+      - @sessions.each do |session|
+        %tr[session]
+          %td.updated_at
+            = l session.updated_at, format: :short
+          %td.title= session.token
+          %td.ip= session.ip
+          %td.answers= session.answers.count
