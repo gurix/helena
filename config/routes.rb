@@ -8,7 +8,7 @@ Helena::Engine.routes.draw do
     end
 
     resources :surveys, concerns: :movable do
-      resources :versions, only: [:index] # TODO: make an index
+      resources :versions, only: [:index, :create]
       resources :question_groups, concerns: :movable do
         resources :questions, concerns: :movable
         resource :questions do

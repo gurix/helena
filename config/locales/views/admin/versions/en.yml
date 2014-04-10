@@ -1,0 +1,8 @@
+en:
+  helena:
+    admin:
+      versions:
+        index:
+          empty: No versions published at the moment.
+          publish: Publish changes as new Version...
+          publish_btn: Publish

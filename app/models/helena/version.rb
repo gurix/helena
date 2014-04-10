@@ -8,6 +8,8 @@ module Helena
 
     accepts_nested_attributes_for :survey_detail
 
+    scope :without_base, -> { where('version > 0') }
+
     validates :survey, presence: true
     validates :version, presence: true
     validates :version, uniqueness: { scope: :survey_id }

@@ -1,0 +1,30 @@
+%h2
+  = Helena::Version.model_name.human(count: 2)
+  = "(#{@versions.count})"
+- if @versions.empty?
+  .alert.alert-warning
+    = t('.empty')
+- else
+  %table.table.versions
+    %thead
+      %tr
+        %th.version= Helena::Version.human_attribute_name(:version)
+        %th.notes= Helena::Version.human_attribute_name(:notes)
+        %th.created_at= Helena::Version.human_attribute_name(:created_at)
+        %th
+    %tbody
+      - @versions.each do |version|
+        %tr
+          %td.version= version.version
+          %td.notes= version.notes
+          %td.created_at= time_ago_in_words(version.created_at)
+          %td
+            SOME BUTTONS
+
+%fieldset
+  %legend= t '.publish'
+  = simple_form_for([:admin, @survey, Helena::Version.new]) do |f|
+    = f.input :notes
+    %br
+    = f.submit t('.publish_btn'), class: 'btn btn-success'
+
