@@ -7,18 +7,18 @@ module Helena
 
       before_filter :load_survey, :add_breadcrumbs
 
-      def index # TODO: Test this!
+      def index
         @versions = @survey.versions.without_base
       end
 
-      def create # TODO: Test this!
+      def create
         base_version = @survey.versions.find_by(version: 0)
 
         @version = Helena::VersionPublisher.publish(base_version)
         @version.notes = version_params['notes']
 
         if @version.save
-          notify_successful_create_for(@version.id)
+          notify_successful_create_for(@version.version)
         else
           notify_error @version
         end

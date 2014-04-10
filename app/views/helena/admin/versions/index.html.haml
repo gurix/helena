@@ -14,7 +14,7 @@
         %th
     %tbody
       - @versions.each do |version|
-        %tr
+        %tr[version]
           %td.version= version.version
           %td.notes= version.notes
           %td.created_at= time_ago_in_words(version.created_at)
