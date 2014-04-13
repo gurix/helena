@@ -16,18 +16,18 @@ puts 'Seeding surveys ...'.green
 
 def create_satisfaction_survey
   satisfaction_survey = create :survey, name: 'The Satisfaction with Life Scale'
-  satisfaction_survey_base_version = satisfaction_survey.versions.create version: 0
-  satisfaction_survey_base_version.survey_detail = create :survey_detail, title:       'The Satisfaction with Life Scale',
-                                                                          description: 'A 5-item scale designed to measure global cognitive judgments of ones life satisfaction.',
-                                                                          version:     satisfaction_survey_base_version
+  base_version = satisfaction_survey.versions.create version: 0
+  base_version.survey_detail = create :survey_detail, title:       'The Satisfaction with Life Scale',
+                                                      description: 'A 5-item scale designed to measure global cognitive judgments of ones life satisfaction.',
+                                                      version:     base_version
 
-  satisfaction_details = create :question_group, version: satisfaction_survey_base_version
+  satisfaction_details = create :question_group, version: base_version
 
   satisfaction_matrix = satisfaction_details.questions.create code:           :satisfaction,
                                                               question_text:  'Below are five statements with which you may agree or disagree. Using the 1-7 scale below, indicate your agreement with each item by placing the appropriate number in the line preceding that item. Please be open and honest in your responding.',
                                                               validation_rules: { presence: true },
                                                               position:       1,
-                                                              version:        satisfaction_survey_base_version,
+                                                              version:        base_version,
                                                               type:           'Helena::Questions::RadioMatrix'
 
   satisfaction_matrix.labels.create position: 1, text: 'Strongly Disagree', value: 1
@@ -43,6 +43,8 @@ def create_satisfaction_survey
   satisfaction_matrix.sub_questions.create text: 'I am satisfied with life.', code: 'satisfied_with_life', position: 3
   satisfaction_matrix.sub_questions.create text: 'So far I have gotten the important things I want in life.', code: 'important_things', position: 4
   satisfaction_matrix.sub_questions.create text: 'If I could live my life over, I would change almost nothing.', code: 'nothing_to_change', position: 5
+
+  publish(base_version)
 end
 
 def create_restaurant_survey
@@ -53,30 +55,30 @@ Please help us by completing this short survey."
 EOF
 
   restaurant_survey = create :survey, name: 'Restaurant customer satisfaction'
-  restaurant_survey_base_version = restaurant_survey.versions.create version: 0
-  restaurant_survey_base_version.survey_detail.create :survey_detail, title:       '5-star Swiss Cheese Restaurant customer satisfaction',
-                                                                      version:     restaurant_survey_base_version,
+  base_version = restaurant_survey.versions.create version: 0
+  base_version.survey_detail.create :survey_detail, title:       '5-star Swiss Cheese Restaurant customer satisfaction',
+                                                                      version:     base_version,
                                                                       description: description
 
-  personal_details = restaurant_survey_base_version.question_groups.create title: 'Personal Details', position: 1
+  personal_details = base_version.question_groups.create title: 'Personal Details', position: 1
 
   personal_details.questions.create code:           :name,
                                     question_text:  "What's your name?",
                                     position:       1,
-                                    version:        restaurant_survey_base_version,
+                                    version:        base_version,
                                     type:           'Helena::Questions::ShortText'
 
   personal_details.questions.create code:           :email,
                                     question_text:  "What's your E-Mail-Address?",
                                     position:       2,
-                                    version:        restaurant_survey_base_version,
+                                    version:        base_version,
                                     question_group: personal_details,
                                     type:           'Helena::Questions::ShortText'
 
   visit_interval = personal_details.questions.create code:           :visit_interval,
                                                      question_text:  'How often do you visit the Swiss Chees Restaurant?',
                                                      position:       3,
-                                                     version:        restaurant_survey_base_version,
+                                                     version:        base_version,
                                                      question_group: personal_details,
                                                      type:           'Helena::Questions::RadioGroup'
 
@@ -89,7 +91,7 @@ EOF
   food_allergy = personal_details.questions.create code:           :food_allergy,
                                                    question_text:  'What kind of food allergy do you have?',
                                                    position:       4,
-                                                   version:        restaurant_survey_base_version,
+                                                   version:        base_version,
                                                    question_group: personal_details,
                                                    type:           'Helena::Questions::CheckboxGroup'
 
@@ -105,29 +107,29 @@ EOF
   food_allergy.sub_questions.create text: 'Egg', code: 'egg', position: 11
   food_allergy.sub_questions.create text: 'Sulfites', code: 'sulfites',  position: 12
 
-  dinner = restaurant_survey_base_version.question_groups.create title: 'About the dinner', position: 2
+  dinner = base_version.question_groups.create title: 'About the dinner', position: 2
 
   dinner.questions.create code:             :catchphrase,
                           question_text:    'How would you describe the dinner with one word?',
                           validation_rules: { presence: true },
                           position:         1,
-                          version:          restaurant_survey_base_version,
+                          version:          base_version,
                           question_group:   dinner,
                           type:             'Helena::Questions::ShortText'
 
   dinner.questions.create code:             :feedback,
                           question_text:    'Feel free to give us additional feedback ...',
                           position:         2,
-                          version:          restaurant_survey_base_version,
+                          version:          base_version,
                           question_group:   dinner,
                           type:             'Helena::Questions::LongText'
 
-  restaurant = restaurant_survey_base_version.question_groups.create title: 'About the restaurant', position: 3
+  restaurant = base_version.question_groups.create title: 'About the restaurant', position: 3
 
   brand_attributes = restaurant.questions.create code: :brand_attributes,
                                                  question_text: 'What words describe the following topics best?',
                                                  position:         1,
-                                                 version: restaurant_survey_base_version,
+                                                 version: base_version,
                                                  question_group: restaurant,
                                                  type: 'Helena::Questions::CheckboxMatrix'
 
@@ -145,6 +147,14 @@ EOF
   brand_attributes.sub_questions.create position: 3, text: 'Food', code: 'food'
   brand_attributes.sub_questions.create position: 4, text: 'Drinks', code: 'drinks'
   brand_attributes.sub_questions.create position: 5, text: 'Atmosphere', code: 'atmosphere'
+
+  publish(base_version)
+end
+
+def publish(version)
+  published_version = Helena::VersionPublisher.publish(version)
+  published_version.notes = Faker::Lorem.paragraph(1)
+  published_version.save
 end
 
 create_satisfaction_survey

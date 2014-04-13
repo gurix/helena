@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    models:
+      'helena/version':
+        one: Version
+        other: Versions
+
+    attributes:
+      'helena/version':
+        version: Version
+        notes: Notes
+        created_at: Created
