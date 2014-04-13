@@ -26,6 +26,12 @@ module Helena
         respond_with @version, location: admin_survey_versions_path(@survey)
       end
 
+      def destroy
+        @version = @survey.versions.find_by id: params[:id]
+        notify_successful_delete_for(@version.version) if @version.destroy
+        respond_with @version, location: admin_survey_versions_path(@survey)
+      end
+
       private
 
       def load_survey

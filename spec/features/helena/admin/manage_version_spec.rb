@@ -39,4 +39,15 @@ feature 'Version management' do
       expect(page).to have_text '1 Luke, I am your father! less than a minute'
     end
   end
+
+  scenario 'deletes a version' do
+    published_version = Helena::VersionPublisher.publish(@baseversion)
+    published_version.notes = 'bla bla'
+    published_version.save
+
+    visit helena.admin_survey_versions_path(@survey)
+    within "#helena_#{dom_id(published_version)}" do
+      expect { click_link 'Delete' }.to change { @survey.versions.count }.by(-1)
+    end
+  end
 end
