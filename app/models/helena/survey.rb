@@ -23,7 +23,7 @@ module Helena
       versions.find_by(version: 0)
     end
 
-    def last_version
+    def newest_version
       versions.find_by version: versions.maximum(:version)
     end
 

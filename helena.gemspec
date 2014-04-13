@@ -18,7 +18,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.files        = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
 
-  s.add_dependency 'rails', '~> 4.0.2'
+  s.add_dependency 'rails', '~> 4.1.0'
   s.add_dependency 'pg'
   s.add_dependency 'haml'
   s.add_dependency 'haml-rails'
@@ -28,6 +28,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'simple_form'
   s.add_dependency 'breadcrumbs_on_rails'
   s.add_dependency 'rails-i18n'
+  s.add_dependency 'deep_cloneable'
 
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda-matchers'
