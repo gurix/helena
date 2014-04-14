@@ -14,9 +14,9 @@ DatabaseCleaner.clean
 
 puts 'Seeding surveys ...'.green
 
-def create_satisfaction_survey
-  satisfaction_survey = create :survey, name: 'The Satisfaction with Life Scale'
-  base_version = satisfaction_survey.versions.create version: 0
+def create_satisfaction_scale_survey
+  survey = create :survey, name: 'The Satisfaction with Life Scale'
+  base_version = survey.versions.create version: 0
   base_version.survey_detail = create :survey_detail, title:       'The Satisfaction with Life Scale',
                                                       description: 'A 5-item scale designed to measure global cognitive judgments of ones life satisfaction.',
                                                       version:     base_version
@@ -44,8 +44,10 @@ def create_satisfaction_survey
   satisfaction_matrix.sub_questions.create text: 'So far I have gotten the important things I want in life.', code: 'important_things', position: 4
   satisfaction_matrix.sub_questions.create text: 'If I could live my life over, I would change almost nothing.', code: 'nothing_to_change', position: 5
 
-  publish(base_version)
-end
+  published_version = publish(base_version)
+
+  rand(9).times { generate_sessions(survey, base_version) }
+ end
 
 def create_restaurant_survey
   description = <<EOF
@@ -54,8 +56,8 @@ We're conducting a short survey to find out about your dining experience and wha
 Please help us by completing this short survey."
 EOF
 
-  restaurant_survey = create :survey, name: 'Restaurant customer satisfaction'
-  base_version = restaurant_survey.versions.create version: 0
+  survey = create :survey, name: 'Restaurant customer satisfaction'
+  base_version = survey.versions.create version: 0
   base_version.survey_detail.create :survey_detail, title:       '5-star Swiss Cheese Restaurant customer satisfaction',
                                                                       version:     base_version,
                                                                       description: description
@@ -149,13 +151,19 @@ EOF
   brand_attributes.sub_questions.create position: 5, text: 'Atmosphere', code: 'atmosphere'
 
   publish(base_version)
+  rand(9).times { generate_sessions(survey, base_version) }
 end
 
 def publish(version)
   published_version = Helena::VersionPublisher.publish(version)
   published_version.notes = Faker::Lorem.paragraph(1)
   published_version.save
+  published_version
 end
 
-create_satisfaction_survey
+def generate_sessions(survey, version)
+  survey.sessions.create version: version , ip: Faker::Internet.ip_v4_address, updated_at: DateTime.now - rand(999)
+end
+
+create_satisfaction_scale_survey
 create_restaurant_survey
