@@ -40,7 +40,7 @@ module Helena
 
       def add_breadcrumbs
         add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
-        add_breadcrumb @survey.name, admin_survey_question_groups_path(@survey)
+        add_breadcrumb @survey.name, admin_survey_versions_path(@survey)
       end
 
       def version_params
