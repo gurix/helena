@@ -48,7 +48,7 @@ feature 'Version management' do
     visit helena.admin_survey_versions_path @survey
 
     within "#helena_#{dom_id published_version }" do
-      expect { click_link 'Delete' }.to change { @survey.versions.count }.by -1
+      expect { click_link 'Delete' }.to change { @survey.versions.count }.by(-1)
     end
   end
 end

@@ -34,7 +34,7 @@ feature 'Session management' do
     visit helena.admin_survey_sessions_path @survey
 
     within "#helena_#{dom_id(session)}" do
-      expect { click_link 'Delete' }.to change { @survey.sessions.count }.by -1
+      expect { click_link 'Delete' }.to change { @survey.sessions.count }.by(-1)
     end
   end
 end
