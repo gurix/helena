@@ -8,7 +8,7 @@ Helena::Engine.routes.draw do
     end
 
     resources :surveys, concerns: :movable do
-      resources :sessions
+      resources :sessions, only: [:index, :destroy]
       resources :versions, only: [:index, :create, :destroy]
       resources :question_groups, concerns: :movable do
         resources :questions, concerns: :movable
