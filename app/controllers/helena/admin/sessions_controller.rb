@@ -6,7 +6,7 @@ module Helena
       before_filter :load_survey, :add_breadcrumbs
 
       def index
-        @sessions = Helena::Session.where survey: @survey
+        @sessions = @survey.sessions
       end
 
       def destroy

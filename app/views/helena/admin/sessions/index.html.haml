@@ -15,8 +15,7 @@
     %tbody
       - @sessions.each do |session|
         %tr[session]
-          %td.updated_at
-            = time_ago_in_words(session.updated_at)
+          %td.updated_at= time_ago_in_words(session.updated_at)
           %td.title= session.token
           %td.completed
             .label{class: "label-#{session.completed? ? 'success' : 'danger'}"}
