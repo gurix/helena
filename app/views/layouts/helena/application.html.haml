@@ -9,7 +9,7 @@
   %body
     .container
       - flash.each do |name, messages|
-        %div{class: "alert alert-#{name == :notice ? "success" : "danger"}"}
+        %div{class: "alert alert-#{name == 'notice' ? 'success' : 'danger'}"}
           - if messages.is_a?(String)
             = messages
           - else
