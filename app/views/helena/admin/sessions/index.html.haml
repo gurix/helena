@@ -10,13 +10,18 @@
       %tr
         %th.updated_at= Helena::Session.human_attribute_name(:updated_at)
         %th.token= Helena::Session.human_attribute_name(:token)
-        %th.ip= Helena::Session.human_attribute_name(:ip)
-        %th.answers= Helena::Session.human_attribute_name(:answers)
+        %th.completed= Helena::Session.human_attribute_name(:completed)
+        %th
     %tbody
       - @sessions.each do |session|
         %tr[session]
           %td.updated_at
-            = l session.updated_at, format: :short
+            = time_ago_in_words(session.updated_at)
           %td.title= session.token
-          %td.ip= session.ip
-          %td.answers= session.answers.count
+          %td.completed
+            .label{class: "label-#{session.completed? ? 'success' : 'danger'}"}
+              = t ".#{session.completed.to_s}"
+          %td
+            = link_to t('.delete'), admin_survey_session_path(@survey, session), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
+
+

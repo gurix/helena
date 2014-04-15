@@ -162,7 +162,7 @@ def publish(version)
 end
 
 def generate_sessions(survey, version)
-  survey.sessions.create version: version , ip: Faker::Internet.ip_v4_address, updated_at: DateTime.now - rand(999)
+  survey.sessions.create version: version, updated_at: DateTime.now - rand(999)
 end
 
 create_satisfaction_scale_survey

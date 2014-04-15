@@ -1,4 +1,7 @@
 en:
+  'true': Yes
+  'false': No
+
   shared:
     delete_question: Are you sure?
     delete: Delete

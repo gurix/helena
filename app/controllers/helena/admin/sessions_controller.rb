@@ -9,6 +9,12 @@ module Helena
         @sessions = Helena::Session.where survey: @survey
       end
 
+      def destroy
+        @session = @survey.sessions.find_by id: params[:id]
+        notify_successful_delete_for(@session.token) if @session.destroy
+        respond_with @session, location: admin_survey_sessions_path(@survey)
+      end
+
       private
 
       def load_survey
@@ -17,7 +23,7 @@ module Helena
 
       def add_breadcrumbs
         add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
-        add_breadcrumb @survey.name, admin_survey_question_groups_path(@survey)
+        add_breadcrumb @survey.name, admin_survey_sessions_path(@survey)
       end
     end
   end

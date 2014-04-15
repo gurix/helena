@@ -1,17 +1,15 @@
 common: &common
-  adapter: postgresql
-  username: postgres
-  host: localhost
+  adapter: sqlite3
 
 development:
   <<: *common
-  database: helena_dev
+  database: db/development.sqlite3
 
 test:
   <<: *common
-  database: helena_test
+  database: db/test.sqlite3
 
 production:
   <<: *common
-  database: helena
+  database: db/production.sqlite3
 

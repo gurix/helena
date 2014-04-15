@@ -19,7 +19,6 @@ survey/test development, longitudinal studies and instant feedback.'
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
 
   s.add_dependency 'rails', '~> 4.1.0'
-  s.add_dependency 'pg'
   s.add_dependency 'haml'
   s.add_dependency 'haml-rails'
   s.add_dependency 'jquery-rails'
@@ -31,6 +30,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'deep_cloneable'
 
   s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'database_cleaner'

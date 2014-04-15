@@ -13,16 +13,18 @@
 
 ActiveRecord::Schema.define(version: 20140406190014) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "hstore"
-
   create_table "helena_labels", force: true do |t|
     t.integer  "question_id"
     t.string   "text",                        null: false
     t.string   "value",                       null: false
     t.integer  "position",    default: 1
     t.boolean  "preselected", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "helena_participants", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,10 +54,8 @@ ActiveRecord::Schema.define(version: 20140406190014) do
     t.integer  "version_id"
     t.integer  "survey_id"
     t.string   "token"
-    t.inet     "ip"
     t.integer  "last_question_group_id"
     t.boolean  "completed",              default: false
-    t.hstore   "answers"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -4,3 +4,7 @@ en:
       'helena/session':
         one: Session
         other: Sessions
+
+    attributes:
+      'helena/session':
+        completed: Completed?

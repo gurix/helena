@@ -1,0 +1,7 @@
+en:
+  helena:
+    admin:
+      sessions:
+        index:
+          'false': "No"
+          'true': "Yes"
