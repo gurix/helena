@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      'helena/session':
+        one: Session
+        other: Sessions
+
+    attributes:
+      'helena/session':
+        completed: Completed?

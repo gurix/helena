@@ -1,0 +1,8 @@
+en:
+  helena:
+    admin:
+      sessions:
+        index:
+          empty: This survey has no sessions.
+          'false': "No"
+          'true': "Yes"

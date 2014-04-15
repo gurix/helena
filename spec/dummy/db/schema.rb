@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312204736) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20140406190014) do
 
   create_table "helena_labels", force: true do |t|
     t.integer  "question_id"
@@ -22,6 +19,12 @@ ActiveRecord::Schema.define(version: 20140312204736) do
     t.string   "value",                       null: false
     t.integer  "position",    default: 1
     t.boolean  "preselected", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "helena_participants", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,6 +48,16 @@ ActiveRecord::Schema.define(version: 20140312204736) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "version_id"
+  end
+
+  create_table "helena_sessions", force: true do |t|
+    t.integer  "version_id"
+    t.integer  "survey_id"
+    t.string   "token"
+    t.integer  "last_question_group_id"
+    t.boolean  "completed",              default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "helena_sub_questions", force: true do |t|

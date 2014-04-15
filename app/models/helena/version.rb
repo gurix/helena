@@ -4,6 +4,7 @@ module Helena
 
     has_many :question_groups, dependent: :destroy, inverse_of: :version
     has_many :questions, dependent: :destroy, inverse_of: :version
+    has_many :sessions, dependent: :destroy, inverse_of: :version
     has_one :survey_detail, dependent: :destroy, inverse_of: :version
 
     accepts_nested_attributes_for :survey_detail

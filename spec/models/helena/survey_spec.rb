@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Helena::Survey do
   it { expect(subject).to have_many(:versions).dependent(:destroy) }
+  it { expect(subject).to have_many(:sessions).dependent(:destroy) }
   it { expect(subject).to validate_presence_of(:name) }
   it { expect(subject).to validate_uniqueness_of(:name) }
 

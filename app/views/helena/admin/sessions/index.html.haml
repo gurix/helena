@@ -1,0 +1,25 @@
+%h2
+  = Helena::Session.model_name.human(count: 2)
+  = "(#{@sessions.count})"
+- if @sessions.empty?
+  .alert.alert-warning
+    = t '.empty'
+- else
+  %table.table.sessions
+    %thead
+      %tr
+        %th.updated_at= Helena::Session.human_attribute_name(:updated_at)
+        %th.token= Helena::Session.human_attribute_name(:token)
+        %th.completed= Helena::Session.human_attribute_name(:completed)
+        %th
+    %tbody
+      - @sessions.each do |session|
+        %tr[session]
+          %td.updated_at= time_ago_in_words(session.updated_at)
+          %td.title= session.token
+          %td.completed
+            .label{class: "label-#{session.completed? ? 'success' : 'danger'}"}
+              = t ".#{session.completed.to_s}"
+          %td
+            = link_to t('.delete'), admin_survey_session_path(@survey, session),
+              method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
