@@ -24,4 +24,3 @@ gem 'better_errors'
 gem 'launchy'
 gem 'binding_of_caller'
 gem 'coveralls', require: false
-

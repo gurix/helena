@@ -1,5 +1,10 @@
 module Helena
-  class Session < ActiveRecord::Base
+  class Session
+    include Helena::Concerns::ApplicationModel
+
+    field :token, type: String
+    field :completed, type: Boolean, default: false
+
     belongs_to :survey, inverse_of: :sessions
     belongs_to :version, inverse_of: :sessions
 

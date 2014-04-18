@@ -23,12 +23,11 @@ def create_satisfaction_scale_survey
 
   satisfaction_details = create :question_group, version: base_version
 
-  satisfaction_matrix = satisfaction_details.questions.create code:           :satisfaction,
-                                                              question_text:  'Below are five statements with which you may agree or disagree. Using the 1-7 scale below, indicate your agreement with each item by placing the appropriate number in the line preceding that item. Please be open and honest in your responding.',
+  satisfaction_matrix = satisfaction_details.questions.create code:             :satisfaction,
+                                                              question_text:    'Below are five statements with which you may agree or disagree. Using the 1-7 scale below, indicate your agreement with each item by placing the appropriate number in the line preceding that item. Please be open and honest in your responding.',
                                                               validation_rules: { presence: true },
-                                                              position:       1,
-                                                              version:        base_version,
-                                                              type:           'Helena::Questions::RadioMatrix'
+                                                              _type:            Helena::Questions::RadioMatrix,
+                                                              position:         1
 
   satisfaction_matrix.labels.create position: 1, text: 'Strongly Disagree', value: 1
   satisfaction_matrix.labels.create position: 2, text: 'Disagree', value: 2
@@ -58,31 +57,26 @@ EOF
 
   survey = create :survey, name: 'Restaurant customer satisfaction'
   base_version = survey.versions.create version: 0
-  base_version.survey_detail.create :survey_detail, title:       '5-star Swiss Cheese Restaurant customer satisfaction',
-                                                                      version:     base_version,
-                                                                      description: description
+  base_version.survey_detail.create :survey_detail, title:      '5-star Swiss Cheese Restaurant customer satisfaction',
+                                                    version:     base_version,
+                                                    description: description
 
   personal_details = base_version.question_groups.create title: 'Personal Details', position: 1
 
   personal_details.questions.create code:           :name,
                                     question_text:  "What's your name?",
                                     position:       1,
-                                    version:        base_version,
-                                    type:           'Helena::Questions::ShortText'
+                                    _type:          Helena::Questions::ShortText
 
   personal_details.questions.create code:           :email,
                                     question_text:  "What's your E-Mail-Address?",
                                     position:       2,
-                                    version:        base_version,
-                                    question_group: personal_details,
-                                    type:           'Helena::Questions::ShortText'
+                                    _type:           Helena::Questions::ShortText
 
   visit_interval = personal_details.questions.create code:           :visit_interval,
                                                      question_text:  'How often do you visit the Swiss Chees Restaurant?',
                                                      position:       3,
-                                                     version:        base_version,
-                                                     question_group: personal_details,
-                                                     type:           'Helena::Questions::RadioGroup'
+                                                     _type:          Helena::Questions::RadioGroup
 
   visit_interval.labels.create position: 1, text: 'Just once', value: 1
   visit_interval.labels.create position: 2, text: 'Once a year', value: 2
@@ -93,9 +87,7 @@ EOF
   food_allergy = personal_details.questions.create code:           :food_allergy,
                                                    question_text:  'What kind of food allergy do you have?',
                                                    position:       4,
-                                                   version:        base_version,
-                                                   question_group: personal_details,
-                                                   type:           'Helena::Questions::CheckboxGroup'
+                                                   _type:          Helena::Questions::CheckboxGroup
 
   food_allergy.sub_questions.create text: 'Garlic', code: 'garlic', position: 1
   food_allergy.sub_questions.create text: 'Oats', code: 'oat', position: 2
@@ -115,25 +107,19 @@ EOF
                           question_text:    'How would you describe the dinner with one word?',
                           validation_rules: { presence: true },
                           position:         1,
-                          version:          base_version,
-                          question_group:   dinner,
-                          type:             'Helena::Questions::ShortText'
+                          _type:             Helena::Questions::ShortText
 
   dinner.questions.create code:             :feedback,
                           question_text:    'Feel free to give us additional feedback ...',
                           position:         2,
-                          version:          base_version,
-                          question_group:   dinner,
-                          type:             'Helena::Questions::LongText'
+                          _type:            Helena::Questions::LongText
 
   restaurant = base_version.question_groups.create title: 'About the restaurant', position: 3
 
-  brand_attributes = restaurant.questions.create code: :brand_attributes,
+  brand_attributes = restaurant.questions.create code:          :brand_attributes,
                                                  question_text: 'What words describe the following topics best?',
-                                                 position:         1,
-                                                 version: base_version,
-                                                 question_group: restaurant,
-                                                 type: 'Helena::Questions::CheckboxMatrix'
+                                                 position:       1,
+                                                 _type:          Helena::Questions::CheckboxMatrix
 
   brand_attributes.labels.create position: 1, text: 'calm', value: 'calm'
   brand_attributes.labels.create position: 2, text: 'energetic', value: 'energetic'

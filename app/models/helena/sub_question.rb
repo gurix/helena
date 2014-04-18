@@ -1,8 +1,14 @@
 module Helena
-  class SubQuestion < ActiveRecord::Base
-    belongs_to :question, inverse_of: :sub_questions
+  class SubQuestion
+    include Helena::Concerns::ApplicationModel
 
-    default_scope { order(position: :asc) }
+    field :position, type: Integer, default: 1
+    field :text,     type: String
+    field :code,     type: String
+
+    embedded_in :question, inverse_of: :sub_questions
+
+    default_scope -> { asc :position }
 
     validates :question, presence: true
     validates :text, presence: true

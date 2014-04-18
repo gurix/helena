@@ -5,7 +5,7 @@ module Helena
         extend ActiveSupport::Concern
 
         included do
-          serialize :validation_rules
+          field :validation_rules, type: Hash
         end
 
         def rules

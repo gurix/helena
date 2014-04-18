@@ -1,5 +1,12 @@
 module Helena
-  class Question < ActiveRecord::Base
+  class Question
+    include Helena::Concerns::ApplicationModel
+
+    field :code,          type: String
+    field :question_text, type: String
+    field :position,      type: Integer, default: 1
+    field :validation_rules, type: Hash
+
     TYPES = [
       Helena::Questions::ShortText,
       Helena::Questions::LongText,
@@ -10,19 +17,18 @@ module Helena
       Helena::Questions::CheckboxMatrix
     ]
 
-    belongs_to :question_group, inverse_of: :questions
-    belongs_to :version, inverse_of: :questions
+    embedded_in :question_group, inverse_of: :questions
 
-    has_many :labels, dependent: :destroy
-    has_many :sub_questions, dependent: :destroy
+    embeds_many :labels, class_name: 'Helena::Label'
+    embeds_many :sub_questions, class_name: 'Helena::SubQuestion'
 
     accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: :reject_labels
     accepts_nested_attributes_for :sub_questions, allow_destroy: true, reject_if: :reject_sub_questions
 
-    default_scope { order(position: :asc) }
+    default_scope -> { asc :position }
 
     validates :question_group, :code, presence: true
-    validates :code, uniqueness: { scope: :version_id }
+    validates :code, uniqueness: true
 
     after_destroy :resort
 

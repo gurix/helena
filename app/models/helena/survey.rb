@@ -1,11 +1,17 @@
 module Helena
-  class Survey < ActiveRecord::Base
-    default_scope { order(position: :asc) }
+  class Survey
+    include Helena::Concerns::ApplicationModel
+
+    default_scope -> { asc :position }
 
     after_destroy :resort
 
-    has_many :versions, inverse_of: :survey, dependent: :destroy
-    has_many :sessions, inverse_of: :survey, dependent: :destroy
+    field :name,        type: String
+    field :description, type: String
+    field :position,    type: Integer, default: 1
+
+    embeds_many :versions, inverse_of: :survey, class_name: 'Helena::Version'
+    has_many :sessions, inverse_of: :survey, dependent: :destroy, class_name: 'Helena::Session'
 
     accepts_nested_attributes_for :versions
 
@@ -20,11 +26,11 @@ module Helena
     end
 
     def draft_version
-      versions.find_by(version: 0)
+      versions.find_by version: 0
     end
 
     def newest_version
-      versions.find_by version: versions.maximum(:version)
+      versions.find_by version: versions.max(:version)
     end
 
     def self.resort
@@ -34,7 +40,7 @@ module Helena
     end
 
     def self.maximum_position
-      maximum(:position) || 0
+      max(:position) || 0
     end
 
     private

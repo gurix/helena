@@ -22,7 +22,7 @@ module Helena
         add_breadcrumb t('.new')
 
         @question_group = @version.question_groups.new question_group_params
-        @question_group.position = Helena::QuestionGroup.maximum_position(@version) + 1
+        @question_group.position = Helena::QuestionGroup.maximum_position + 1
 
         if @question_group.save
           notify_successful_create_for(@question_group.title)

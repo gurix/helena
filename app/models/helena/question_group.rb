@@ -1,11 +1,17 @@
 module Helena
-  class QuestionGroup < ActiveRecord::Base
-    belongs_to :version, inverse_of: :question_groups
-    has_many :questions
+  class QuestionGroup
+    include Helena::Concerns::ApplicationModel
+
+    field :title, type: String
+    field :position, type: Integer, default: 1
+
+    embedded_in :version, inverse_of: :question_groups
+
+    embeds_many :questions, class_name: 'Helena::Question'
 
     after_destroy :resort
 
-    default_scope { order(position: :asc) }
+    default_scope -> { asc :position }
 
     def swap_position(new_position)
       other_version = self.class.find_by(position: new_position, version: version)
@@ -16,13 +22,13 @@ module Helena
     end
 
     def self.resort(version)
-      where(version: version).each_with_index do | question_group, index |
+      version.question_groups.each_with_index do | question_group, index |
         question_group.update_attribute(:position, index + 1)
       end
     end
 
-    def self.maximum_position(version)
-      where(version: version).maximum(:position) || 0
+    def self.maximum_position
+      max(:position) || 0
     end
 
     private

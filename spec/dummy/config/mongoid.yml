@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: helena
+      hosts:
+        - localhost:27017
