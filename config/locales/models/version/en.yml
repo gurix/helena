@@ -1,5 +1,5 @@
 en:
-  activerecord:
+  mongoid:
     models:
       'helena/version':
         one: Version
