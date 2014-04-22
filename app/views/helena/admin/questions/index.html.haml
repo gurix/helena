@@ -21,18 +21,18 @@
           %td.code
             = question.code
           %td.type
-            = question_type_translation_for question.type
+            = question.class.model_name.human
             - if question.try :required
               %span.glyphicon.glyphicon-flag{ title: t('.required')}
           %td.question_text= question.question_text
           %td
             .btn-group.btn-group-sm
-              - if question.position < Helena::Question.maximum_position(@question_group)
+              - unless question.last?
                 = link_to move_down_admin_survey_question_group_question_path(@survey, @question_group, question), class: 'btn btn-primary',
                                                                                                method: :patch,
                                                                                                title: t('.move_down')  do
                   %i.glyphicon.glyphicon-chevron-down
-              - if question.position > 1
+              - unless question.first?
                 = link_to move_up_admin_survey_question_group_question_path(@survey, @question_group, question), class: 'btn btn-primary',
                                                                                              method: :patch,
                                                                                              title: t('.move_up')  do

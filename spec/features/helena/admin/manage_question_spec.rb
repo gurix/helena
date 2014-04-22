@@ -5,16 +5,16 @@ feature 'Question management' do
   let!(:question_group) { create :question_group, version: draft_version }
 
   scenario 'lists all question groups of a certain survey' do
-    create :question, question_text: 'Who are you?', question_group: question_group, position: 1
-    create :question, question_text: 'Imagine an inivisible pony. What color has ist?', question_group: question_group, position: 2
+    first_question = create :question, question_text: 'Who are you?', question_group: question_group, position: 1
+    second_question = create :question, question_text: 'Imagine an inivisible pony. What color has ist?', question_group: question_group, position: 2
 
     visit helena.admin_survey_question_group_questions_path(draft_version.survey, question_group)
 
-    within '#helena_question_1' do
+    within "#helena_#{dom_id first_question}" do
       expect(page).to have_text 'Who are you?'
     end
 
-    within '#helena_question_2' do
+    within "#helena_#{dom_id second_question}" do
       expect(page).to have_text 'Imagine an inivisible pony. What color has ist?'
     end
 
@@ -35,9 +35,7 @@ feature 'Question management' do
       expect(page).to have_text 'New question'
     end
 
-    expect { click_button 'Save' }.to change { Helena::Question.count }.by(1)
-
-    expect(Helena::Question.last.version).to eq question_group.version
+    expect { click_button 'Save' }.to change { question_group.reload.questions.count }.by(1)
   end
 
   scenario 'edits a question' do
@@ -60,30 +58,30 @@ feature 'Question management' do
 
     visit helena.admin_survey_question_group_questions_path(draft_version.survey, question_group)
 
-    within '#helena_question_1' do
+    within "#helena_#{dom_id first_question}" do
       expect { click_link 'Move down' }.to change { first_question.reload.position }.from(1).to(2)
     end
 
-    within '#helena_question_2' do
+    within "#helena_#{dom_id second_question}" do
       expect { click_link 'Move down' }.to change { second_question.reload.position }.from(1).to(2)
     end
 
-    within '#helena_question_2' do
+    within  "#helena_#{dom_id second_question}" do
       expect { click_link 'Move up' }.to change { second_question.reload.position }.from(2).to(1)
     end
 
-    within '#helena_question_1' do
+    within "#helena_#{dom_id first_question}" do
       expect { click_link 'Move up' }.to change { first_question.reload.position }.from(2).to(1)
     end
   end
 
   scenario 'deletes a question' do
-    create :question, question_group: question_group
+    question = create :question, question_group: question_group
 
     visit helena.admin_survey_question_group_questions_path(draft_version.survey, question_group)
 
-    within '#helena_question_1' do
-      expect { click_link 'Delete' }.to change { question_group.questions.count }.by(-1)
+    within"#helena_#{dom_id question}" do
+      expect { click_link 'Delete' }.to change { question_group.reload.questions.count }.by(-1)
     end
   end
 end

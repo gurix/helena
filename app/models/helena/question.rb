@@ -1,11 +1,7 @@
 module Helena
   class Question
     include Helena::Concerns::ApplicationModel
-
-    field :code,          type: String
-    field :question_text, type: String
-    field :position,      type: Integer, default: 1
-    field :validation_rules, type: Hash
+    include Mongoid::Orderable
 
     TYPES = [
       Helena::Questions::ShortText,
@@ -25,30 +21,16 @@ module Helena
     accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: :reject_labels
     accepts_nested_attributes_for :sub_questions, allow_destroy: true, reject_if: :reject_sub_questions
 
-    default_scope -> { asc :position }
+    field :code,          type: String
+    field :question_text, type: String
+    field :validation_rules, type: Hash
 
-    validates :question_group, :code, presence: true
-    validates :code, uniqueness: true
+    orderable
+
+    validates :code, presence: true
+    validates :code, uniqueness: true # TODO: This should be uniqe scoped over all questions
 
     after_destroy :resort
-
-    def swap_position(new_position)
-      other_question = self.class.find_by(position: new_position, question_group: question_group)
-      if other_question
-        other_question.update_attribute :position, position
-        update_attribute :position, new_position
-      end
-    end
-
-    def self.resort(question_group)
-      where(question_group: question_group).each_with_index do | question, index |
-        question.update_attribute(:position, index + 1)
-      end
-    end
-
-    def self.maximum_position(question_group)
-      where(question_group: question_group).maximum(:position) || 0
-    end
 
     def includes_labels?
       false
@@ -69,10 +51,6 @@ module Helena
       attributed['code'].blank? &&
           attributed['default_value'].blank? &&
           attributed['question_text'].blank?
-    end
-
-    def resort
-      self.class.resort question_group
     end
   end
 end

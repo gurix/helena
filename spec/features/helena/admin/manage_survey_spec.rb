@@ -55,7 +55,7 @@ feature 'Survey management' do
 
     click_button 'Save'
 
-     within "#helena_#{dom_id survey}" do
+    within "#helena_#{dom_id survey}" do
       expect(page).to have_text 'This is crazy'
       expect(page).to have_text 'More crazy stuff...'
       expect(page).to have_text 'Once upon a time.'

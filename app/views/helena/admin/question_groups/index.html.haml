@@ -12,19 +12,19 @@
         %th= Helena::QuestionGroup.human_attribute_name(:title)
         %th
     %tbody
-      - @question_groups.each_with_index do |question_group, index|
+      - @question_groups.each do |question_group|
         %tr[question_group]
           %td.position
             = question_group.position
           %td.title= question_group.title
           %td
             .btn-group.btn-group-sm
-              - if question_group.position < Helena::QuestionGroup.maximum_position
+              - unless question_group.last?
                 = link_to move_down_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary',
                                                                                                method: :patch,
                                                                                                title: t('.move_down')  do
                   %i.glyphicon.glyphicon-chevron-down
-              - if question_group.position > 1
+              - unless question_group.first?
                 = link_to move_up_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary',
                                                                                              method: :patch,
                                                                                              title: t('.move_up')  do

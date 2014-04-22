@@ -1,13 +1,15 @@
 require 'spec_helper'
 
 describe Helena::SubQuestion do
-  let(:question_group) { create :question_group }
-  let(:question) { create :question, question_group: question_group }
+  let(:version) { create :version, survey: create(:survey) }
+  let(:question_group) { build :question_group, version: version }
+  let(:question) { build :question, question_group: question_group }
 
-  it { expect(subject).to belong_to(:question) }
-  it { expect(subject).to validate_presence_of(:question) }
-  it { expect(subject).to validate_uniqueness_of(:code).scoped_to(:question_id) }
-  it { expect(create :sub_question, question: question).to validate_uniqueness_of(:text).scoped_to(:question_id) }
+  it { expect(subject).to be_embedded_in(:question) }
+  it { expect(subject).to validate_uniqueness_of(:code) }
+  it { expect(subject).to validate_presence_of(:code) }
+  it { expect(subject).to validate_uniqueness_of(:code) }
+  it { expect(subject).to validate_presence_of(:text) }
 
   it 'has a valid factory' do
     expect(build :sub_question, question: question).to be_valid

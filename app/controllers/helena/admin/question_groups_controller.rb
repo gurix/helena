@@ -7,10 +7,9 @@ module Helena
 
       before_filter :load_resources, :add_breadcrumbs
       before_filter :find_question_group, only: [:edit, :destroy, :move_up, :move_down]
-      before_filter :resort, only: [:move_up, :move_down, :create]
 
       def index
-        @question_groups = @version.question_groups
+        @question_groups = @version.question_groups.asc(:position)
       end
 
       def new
@@ -22,7 +21,6 @@ module Helena
         add_breadcrumb t('.new')
 
         @question_group = @version.question_groups.new question_group_params
-        @question_group.position = Helena::QuestionGroup.maximum_position + 1
 
         if @question_group.save
           notify_successful_create_for(@question_group.title)
@@ -54,28 +52,16 @@ module Helena
       end
 
       def move_up
-        if @question_group.reload.position > 1
-          @question_group.swap_position @question_group.position - 1
-          notify_successful_update_for(@question_group.title)
-        end
-
+        @question_group.move_to! :higher
         respond_with @survey, location: admin_survey_question_groups_path(@survey)
       end
 
       def move_down
-        if @question_group.reload.position < Helena::QuestionGroup.maximum_position(@version)
-          @question_group.swap_position @question_group.position + 1
-          notify_successful_update_for(@question_group.title)
-        end
-
+        @question_group.move_to! :lower
         respond_with @survey, location: admin_survey_question_groups_path(@survey)
       end
 
       private
-
-      def resort
-        Helena::QuestionGroup.resort @version
-      end
 
       def load_resources
         @survey = Helena::Survey.find params['survey_id']
