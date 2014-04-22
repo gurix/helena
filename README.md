@@ -17,8 +17,6 @@ Add this line to your application's Gemfile:
 And then execute:
 
     $ bundle install
-    $ bundle exec rake helena:install:migrations
-    $ bundle exec rake db:migrate
 
 ## Usage
 
