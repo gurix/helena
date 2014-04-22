@@ -15,15 +15,10 @@ DatabaseCleaner.clean
 puts 'Seeding surveys ...'.green
 
 def create_satisfaction_scale_survey
-
-
-
-
-  satisfaction_matrix = build :question, code:             :satisfaction,
-                                         question_text:    'Below are five statements with which you may agree or disagree. Using the 1-7 scale below, indicate your agreement with each item by placing the appropriate number in the line preceding that item. Please be open and honest in your responding.',
-                                         validation_rules: { presence: true },
-                                         _type:            Helena::Questions::RadioMatrix,
-                                         position:         1
+  satisfaction_matrix = build :radio_matrix_question, code:             :satisfaction,
+                                                      question_text:    'Below are five statements with which you may agree or disagree. Using the 1-7 scale below, indicate your agreement with each item by placing the appropriate number in the line preceding that item. Please be open and honest in your responding.',
+                                                      validation_rules: { presence: true },
+                                                      position:         1
 
   satisfaction_matrix.labels << build(:label, position: 1, text: 'Strongly Disagree', value: 1)
   satisfaction_matrix.labels << build(:label, position: 2, text: 'Disagree', value: 2)
@@ -56,20 +51,17 @@ def create_satisfaction_scale_survey
 def create_restaurant_survey
   personal_details = build :question_group,title: 'Personal Details', position: 1
 
-  personal_details.questions << build(:question, code:           :name,
-                                                  question_text:  "What's your name?",
-                                                  position:       1,
-                                                  _type:          Helena::Questions::ShortText)
+  personal_details.questions << build(:short_text_question, code:           :name,
+                                                            question_text:  "What's your name?",
+                                                            position:       1)
 
-  personal_details.questions << build(:question, code:           :email,
-                                                  question_text:  "What's your E-Mail-Address?",
-                                                  position:       2,
-                                                  _type:           Helena::Questions::ShortText)
+  personal_details.questions << build(:short_text_question, code:           :email,
+                                                            question_text:  "What's your E-Mail-Address?",
+                                                            position:       2)
 
-  visit_interval = build :question, code:           :visit_interval,
-                                    question_text:  'How often do you visit the Swiss Chees Restaurant?',
-                                    position:       3,
-                                    _type:          Helena::Questions::RadioGroup
+  visit_interval = build :radio_group_question, code:           :visit_interval,
+                                                question_text:  'How often do you visit the Swiss Chees Restaurant?',
+                                                position:       3
 
   visit_interval.labels << build(:label, position: 1, text: 'Just once', value: 1)
   visit_interval.labels << build(:label, position: 2, text: 'Once a year', value: 2)
@@ -77,10 +69,9 @@ def create_restaurant_survey
   visit_interval.labels << build(:label, position: 4, text: 'Once a week', value: 4)
   visit_interval.labels << build(:label, position: 5, text: 'Daily', value:5)
 
-  food_allergy = build :question, code:           :food_allergy,
-                                  question_text:  'What kind of food allergy do you have?',
-                                  position:       4,
-                                  _type:          Helena::Questions::CheckboxGroup
+  food_allergy = build :checkbox_group_question, code:           :food_allergy,
+                                                 question_text:  'What kind of food allergy do you have?',
+                                                 position:       4
 
   food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic', position: 1)
   food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat', position: 2)
@@ -100,23 +91,20 @@ def create_restaurant_survey
 
   dinner = build :question_group, title: 'About the dinner', position: 2
 
-  dinner.questions << build(:question, code:             :catchphrase,
-                                       question_text:    'How would you describe the dinner with one word?',
-                                       validation_rules: { presence: true },
-                                       position:         1,
-                                       _type:             Helena::Questions::ShortText)
+  dinner.questions << build(:short_text_question, code:             :catchphrase,
+                                                  question_text:    'How would you describe the dinner with one word?',
+                                                  validation_rules: { presence: true },
+                                                  position:         1)
 
-  dinner.questions << build(:question,  code:             :feedback,
-                                        question_text:    'Feel free to give us additional feedback ...',
-                                        position:         2,
-                                        _type:            Helena::Questions::LongText)
+  dinner.questions << build(:long_text_question, code:             :feedback,
+                                                question_text:    'Feel free to give us additional feedback ...',
+                                                position:         2)
 
   restaurant = build :question_group, title: 'About the restaurant', position: 3
 
-  brand_attributes = build :question, code:          :brand_attributes,
-                                      question_text: 'What words describe the following topics best?',
-                                      position:       1,
-                                      _type:          Helena::Questions::CheckboxMatrix
+  brand_attributes = build :checkbox_matrix_question, code:          :brand_attributes,
+                                                      question_text: 'What words describe the following topics best?',
+                                                      position:       1
 
   brand_attributes.labels << build(:label, position: 1, text: 'calm', value: 'calm')
   brand_attributes.labels << build(:label, position: 2, text: 'energetic', value: 'energetic')
