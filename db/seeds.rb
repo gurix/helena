@@ -15,10 +15,10 @@ DatabaseCleaner.clean
 puts 'Seeding surveys ...'.green
 
 def create_satisfaction_scale_survey
-  satisfaction_matrix = build :radio_matrix_question, code:             :satisfaction,
-                                                      question_text:    'Below are five statements with which you may agree or disagree. Using the 1-7 scale below, indicate your agreement with each item by placing the appropriate number in the line preceding that item. Please be open and honest in your responding.',
-                                                      validation_rules: { presence: true },
-                                                      position:         1
+  satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
+                                                      question_text: 'Below are five statements with which you may agree or disagree. Using the 1-7 scale below, indicate your agreement with each item by placing the appropriate number in the line preceding that item. Please be open and honest in your responding.',
+                                                      required:      true,
+                                                      position:      1
 
   satisfaction_matrix.labels << build(:label, position: 1, text: 'Strongly Disagree', value: 1)
   satisfaction_matrix.labels << build(:label, position: 2, text: 'Disagree', value: 2)
@@ -91,10 +91,10 @@ def create_restaurant_survey
 
   dinner = build :question_group, title: 'About the dinner', position: 2
 
-  dinner.questions << build(:short_text_question, code:             :catchphrase,
-                                                  question_text:    'How would you describe the dinner with one word?',
-                                                  validation_rules: { presence: true },
-                                                  position:         1)
+  dinner.questions << build(:short_text_question, code:          :catchphrase,
+                                                  question_text: 'How would you describe the dinner with one word?',
+                                                  required:      true,
+                                                  position:      1)
 
   dinner.questions << build(:long_text_question, code:             :feedback,
                                                 question_text:    'Feel free to give us additional feedback ...',

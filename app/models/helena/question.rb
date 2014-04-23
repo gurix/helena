@@ -23,7 +23,6 @@ module Helena
 
     field :code,          type: String
     field :question_text, type: String
-    field :validation_rules, type: Hash
 
     orderable
 

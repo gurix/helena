@@ -4,12 +4,8 @@ module Helena
       module Requirable
         extend ActiveSupport::Concern
 
-        def required
-          rules[:presence].present?
-        end
-
-        def required=(value)
-          rules[:presence] = (value.to_i == 1)
+        included do
+          field :required, type: Boolean, default: false
         end
       end
     end
