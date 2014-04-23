@@ -6,7 +6,7 @@ feature 'Radio group question management' do
 
   scenario 'edits a question' do
     question = create :radio_group_question, question_group: question_group
-    question.labels << create(:label, text: 'Male', value: 'm', position: 1)
+    question.labels << build(:label, text: 'Male', value: 'm', position: 1)
 
     visit helena.edit_admin_survey_question_group_question_path(draft_version.survey, question.question_group, question)
 
@@ -46,7 +46,7 @@ feature 'Radio group question management' do
 
   scenario 'removes an option' do
     question = create :radio_group_question, question_group: question_group
-    question.labels << create(:label, text: 'Male', value: 'm', position: 1)
+    question.labels << build(:label, text: 'Male', value: 'm', position: 1)
 
     visit helena.edit_admin_survey_question_group_questions_radio_group_path(draft_version.survey, question.question_group, question)
 

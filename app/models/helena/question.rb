@@ -29,8 +29,6 @@ module Helena
     validates :code, presence: true
     validates :code, uniqueness: true # TODO: This should be uniqe scoped over all questions
 
-    after_destroy :resort
-
     def includes_labels?
       false
     end

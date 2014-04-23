@@ -3,8 +3,10 @@ module Helena
     include Helena::Concerns::ApplicationModel
     include Mongoid::Orderable
 
-    field :text,     type: String
-    field :code,     type: String
+    field :text,        type: String
+    field :value,       type: String
+    field :code,        type: String
+    field :preselected, type: Boolean
 
     embedded_in :question
 
