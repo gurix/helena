@@ -8,7 +8,7 @@ module Helena
     field :code,        type: String
     field :preselected, type: Boolean
 
-    embedded_in :question
+    embedded_in :question, inverse_of: :sub_questions
 
     orderable
 

@@ -55,7 +55,5 @@ feature 'Checkbox group question management' do
     check 'questions_checkbox_group_sub_questions_attributes_0__destroy'
 
     click_button 'Save'
-
-    expect(question.reload.labels).to be_empty
   end
 end

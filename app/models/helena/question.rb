@@ -15,11 +15,11 @@ module Helena
 
     embedded_in :question_group, inverse_of: :questions
 
-    embeds_many :labels, class_name: 'Helena::Label'
-    embeds_many :sub_questions, class_name: 'Helena::SubQuestion'
-
-    accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: :reject_labels
-    accepts_nested_attributes_for :sub_questions, allow_destroy: true, reject_if: :reject_sub_questions
+    # embeds_many :labels, class_name: 'Helena::Label'
+#     embeds_many :sub_questions, class_name: 'Helena::SubQuestion'
+#
+#     accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: :reject_labels
+#     accepts_nested_attributes_for :sub_questions, allow_destroy: true, reject_if: :reject_sub_questions
 
     field :code,          type: String
     field :question_text, type: String

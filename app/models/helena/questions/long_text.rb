@@ -3,7 +3,7 @@ module Helena
     class LongText < Helena::Question
       include Helena::Concerns::Questions::Requirable
 
-       field :default_value, type: String
+      field :default_value, type: String
     end
   end
 end
