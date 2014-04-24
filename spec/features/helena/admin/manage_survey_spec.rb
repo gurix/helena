@@ -11,13 +11,13 @@ feature 'Survey management' do
 
     visit helena.admin_surveys_path
 
-    within '#helena_survey_1' do
+    within "#helena_#{dom_id first_survey}" do
       expect(page).to have_text 'first'
       expect(page).to have_text 'My first survey'
       expect(page).to have_text 'I am very proud of it'
     end
 
-    within '#helena_survey_2' do
+    within "#helena_#{dom_id second_survey}" do
       expect(page).to have_text 'second'
       expect(page).to have_text 'Another cool survey'
       expect(page).to have_text 'Everybody likes it'
@@ -38,12 +38,8 @@ feature 'Survey management' do
       expect(page).to have_text 'New Survey'
     end
 
-    click_button 'Save'
+    expect { click_button 'Save' }.to change { Helena::Survey.count }.by 1
 
-    within '#helena_survey_1' do
-      expect(page).to have_text 'More crazy stuff...'
-      expect(page).to have_text 'Once upon a time.'
-    end
   end
 
   scenario 'edits a survey' do
@@ -59,7 +55,7 @@ feature 'Survey management' do
 
     click_button 'Save'
 
-    within '#helena_survey_1' do
+    within "#helena_#{dom_id survey}" do
       expect(page).to have_text 'This is crazy'
       expect(page).to have_text 'More crazy stuff...'
       expect(page).to have_text 'Once upon a time.'
@@ -91,7 +87,7 @@ feature 'Survey management' do
 
     visit helena.admin_surveys_path
 
-    within '#helena_survey_1' do
+    within "#helena_#{dom_id survey}" do
       expect { click_link 'Delete' }.to change { Helena::Survey.count }.by(-1)
     end
   end
@@ -102,7 +98,7 @@ feature 'Survey management' do
 
     visit helena.admin_surveys_path
 
-    within '#helena_survey_1' do
+    within "#helena_#{dom_id survey}" do
       expect(page).to have_link 'Question Groups', href: helena.admin_survey_question_groups_path(survey)
     end
   end
@@ -115,19 +111,19 @@ feature 'Survey management' do
 
     visit helena.admin_surveys_path
 
-    within '#helena_survey_1' do
+    within "#helena_#{dom_id first_survey}" do
       expect { click_link 'Move down' }.to change { first_survey.reload.position }.from(1).to(2)
     end
 
-    within '#helena_survey_2' do
+    within "#helena_#{dom_id second_survey}" do
       expect { click_link 'Move down' }.to change { second_survey.reload.position }.from(1).to(2)
     end
 
-    within '#helena_survey_2' do
+    within "#helena_#{dom_id second_survey}" do
       expect { click_link 'Move up' }.to change { second_survey.reload.position }.from(2).to(1)
     end
 
-    within '#helena_survey_1' do
+    within "#helena_#{dom_id first_survey}" do
       expect { click_link 'Move up' }.to change { first_survey.reload.position }.from(2).to(1)
     end
   end

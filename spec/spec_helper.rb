@@ -1,5 +1,6 @@
 require 'ffaker'
 require 'coveralls'
+
 Coveralls.wear!
 
 # Configure Rails Envinronment
@@ -9,7 +10,7 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'factory_girl_rails'
 require 'database_cleaner'
-require 'shoulda/matchers'
+require 'mongoid-rspec'
 require 'capybara/rspec'
 
 ENGINE_RAILS_ROOT = File.join(File.dirname(__FILE__), '../')
@@ -20,8 +21,9 @@ Dir[File.join(ENGINE_RAILS_ROOT, 'spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.order = :random
+  config.include ActionView::RecordIdentifier, type: :feature
 
-  config.use_transactional_fixtures = false
+  config.include Mongoid::Matchers, type: :model
 
   # We don't want write FactoryGirl all the time
   config.include FactoryGirl::Syntax::Methods

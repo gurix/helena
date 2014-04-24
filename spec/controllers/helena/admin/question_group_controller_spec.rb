@@ -6,8 +6,8 @@ describe Helena::Admin::QuestionGroupsController  do
   let!(:survey) { create :survey }
   let!(:draft_version) { create :version, version: 0, survey: survey }
   let!(:first_question_group) { create :question_group, position: 1, version: draft_version }
-  let!(:second_question_group) { create :question_group, position: 12, version: draft_version }
-  let!(:third_question_group) { create :question_group, position: 33, version: draft_version }
+  let!(:second_question_group) { create :question_group, position: 2, version: draft_version }
+  let!(:third_question_group) { create :question_group, position: 3, version: draft_version }
 
   it 'moves a question group down with resort' do
     patch :move_down, survey_id: survey, id: first_question_group
@@ -43,9 +43,9 @@ describe Helena::Admin::QuestionGroupsController  do
 
   it 'resort after deleting a question group' do
     delete :destroy, survey_id: survey, id: first_question_group
-
-    expect(second_question_group.reload.position).to eq 1
-    expect(third_question_group.reload.position).to eq 2
+    # Note: first is destroyed, the others moving along so second_question_group becomes first_question_group and so on.
+    expect(first_question_group.reload.position).to eq 1
+    expect(second_question_group.reload.position).to eq 2
   end
 
   it 'counts position up when creating a new survey' do
@@ -54,6 +54,6 @@ describe Helena::Admin::QuestionGroupsController  do
     expect(first_question_group.reload.position).to eq 1
     expect(second_question_group.reload.position).to eq 2
     expect(third_question_group.reload.position).to eq 3
-    expect(draft_version.question_groups.last.position).to eq 4
+    expect(draft_version.reload.question_groups.last.position).to eq 4
   end
 end

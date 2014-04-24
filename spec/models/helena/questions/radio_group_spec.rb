@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe Helena::Questions::RadioGroup do
-  let(:question_group) { create :question_group }
+  let!(:version) { build :version, survey: build(:survey) }
 
-  it 'deserializes the hash' do
-    question = create :radio_group_question, question_group: question_group, validation_rules: { a: 1, b: 2, c: 3 }
+  let(:question_group) { build :question_group, version: version }
 
-    expect(question.reload.validation_rules).to eq(a: 1, b: 2, c: 3)
+  it 'has a valid factory' do
+    expect(build :radio_group_question, question_group: question_group).to be_valid
   end
 
   it 'validates uniquness of label preselection' do

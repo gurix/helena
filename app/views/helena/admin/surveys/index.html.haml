@@ -12,10 +12,10 @@
         %h4= survey.draft_version.survey_detail.title
         %p= survey.draft_version.survey_detail.description
       .btn-group
-        - if survey.position < Helena::Survey.maximum_position
+        - unless survey.last?
           = link_to move_down_admin_survey_path(survey), class: 'btn btn-primary', method: :patch, title: t('.move_down')  do
             %i.glyphicon.glyphicon-chevron-down
-        - if survey.position  > 1
+        - unless survey.first?
           = link_to move_up_admin_survey_path(survey), class: 'btn btn-primary', method: :patch, title: t('.move_up')   do
             %i.glyphicon.glyphicon-chevron-up
 

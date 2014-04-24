@@ -14,13 +14,12 @@
     = form.simple_fields_for :sub_questions  do |sub_question|
       %tr[sub_question.object]
         %td.position
-          = sub_question.input :id, as: :hidden, label: false
           = sub_question.input :position, as: :integer, label: false
         %td.code
           = sub_question.input :code, label: false
         - if @question.is_a?(Helena::Questions::CheckboxGroup)
           %td.preselected
-            = sub_question.input :preselected, wrapper: :checkbox
+            = sub_question.input :preselected, as: :boolean, wrapper: :checkbox
         %td.text
           = sub_question.input :text, label: false
         - if @question.is_a?(Helena::Questions::CheckboxGroup)

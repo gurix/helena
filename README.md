@@ -4,6 +4,11 @@
 
 # Helena
 
+## Requirements
+* Rails (4.1 or higher)
+* Mongoid (4.0.0 or higher)
+* MongoDB 2.4.10 (2.6 does not work atm because of an intolerance with mongoid https://github.com/mongoid/mongoid/issues/3611)
+
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -12,9 +17,7 @@ Add this line to your application's Gemfile:
 And then execute:
 
     $ bundle install
-    $ bundle exec rake helena:install:migrations
-    $ bundle exec rake db:migrate
-    
+
 ## Usage
 
 Add this line to your routes will and you will be good to go!

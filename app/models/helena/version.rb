@@ -1,18 +1,32 @@
 module Helena
-  class Version < ActiveRecord::Base
-    belongs_to :survey, inverse_of: :versions
+  class Version
+    include Helena::Concerns::ApplicationModel
+    include Mongoid::Orderable # Needed, because the embedded objects needs this, see
 
-    has_many :question_groups, dependent: :destroy, inverse_of: :version
-    has_many :questions, dependent: :destroy, inverse_of: :version
-    has_many :sessions, dependent: :destroy, inverse_of: :version
-    has_one :survey_detail, dependent: :destroy, inverse_of: :version
+    field :version, type: Integer, default: 0
+    field :notes,   type: String
+
+    embedded_in :survey
+
+    embeds_many :question_groups, class_name: 'Helena::QuestionGroup'
+    embeds_many :sessions, class_name: 'Helena::Session'
+
+    embeds_one :survey_detail, class_name: 'Helena::SurveyDetail'
 
     accepts_nested_attributes_for :survey_detail
+    accepts_nested_attributes_for :question_groups
 
-    scope :without_base, -> { where('version > 0') }
+    scope :without_base, -> { where(:version.gt => 0) }
 
-    validates :survey, presence: true
     validates :version, presence: true
     validates :version, uniqueness: { scope: :survey_id }
+
+    def question_codes
+      questions.map { |question| question.code }
+    end
+
+    def questions
+      question_groups.map(&:questions).flatten
+    end
   end
 end

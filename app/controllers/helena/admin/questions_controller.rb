@@ -4,11 +4,10 @@ module Helena
       respond_to :html
 
       before_filter :load_resources, :add_breadcrumbs
-      before_filter :resort, only: [:move_up, :move_down, :create]
       before_filter :load_question, only: [:edit, :update, :destroy, :move_up, :move_down]
 
       def index
-        @questions = @question_group.questions
+        @questions = @question_group.questions.asc :position
       end
 
       def new
@@ -17,7 +16,6 @@ module Helena
 
       def create
         @question = @question_group.questions.new question_params
-        @question.position = Helena::Question.maximum_position(@question_group) + 1
 
         if @question.save
           notify_successful_create_for(@question.code)
@@ -49,30 +47,22 @@ module Helena
         respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
       end
 
-      def move_down
-        if @question.position < Helena::Question.maximum_position(@question_group)
-          @question.swap_position @question.position + 1
-          notify_successful_update_for(@question.code)
-        end
-
+      def move_up
+        @question.move_to! :higher
         respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
       end
 
-      def move_up
-        if @question.position > 1
-          @question.swap_position @question.position - 1
-          notify_successful_update_for(@question.code)
-        end
-
+      def move_down
+        @question.move_to! :lower
         respond_with @question, location: admin_survey_question_group_questions_path(@survey, @question_group)
       end
 
       private
 
       def load_resources
-        @question_group = Helena::QuestionGroup.find params[:question_group_id]
-        @version = @question_group.version
-        @survey = @version.survey
+        @survey = Helena::Survey.find params['survey_id']
+        @version = @survey.versions.find_by(version: 0)
+        @question_group = @version.question_groups.find params[:question_group_id]
       end
 
       def add_breadcrumbs
@@ -82,12 +72,8 @@ module Helena
         add_breadcrumb t('.new') if action_name == 'new' || action_name == 'create'
       end
 
-      def resort
-        Helena::Question.resort @question_group
-      end
-
       def question_params
-        required_param.permit(permited_params + [:question_text,  :code, :type]).merge(version_id: @version.id)
+        required_param.permit(permited_params + [:question_text,  :code, :_type])
       end
 
       def required_param

@@ -11,12 +11,12 @@ feature 'Survey management' do
 
     visit helena.surveys_path
 
-    within '#helena_survey_1' do
+    within "#helena_#{dom_id first_survey}" do
       expect(page).to have_text 'My first survey'
       expect(page).to have_text 'I am very proud of it'
     end
 
-    within '#helena_survey_2' do
+    within "#helena_#{dom_id second_survey}" do
       expect(page).to have_text 'Another cool survey'
       expect(page).to have_text 'Everybody likes it'
     end

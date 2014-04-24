@@ -1,5 +1,5 @@
 en:
-  activerecord:
+  mongoid:
     models:
       'helena/question':
         one: Question
@@ -37,7 +37,7 @@ en:
       'helena/question':
         position: Position
         code: Code
-        type: Type
+        _type: Type
         default_value: Default value
 
       'helena/questions/static_text':

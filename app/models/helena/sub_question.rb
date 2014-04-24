@@ -1,13 +1,18 @@
 module Helena
-  class SubQuestion < ActiveRecord::Base
-    belongs_to :question, inverse_of: :sub_questions
+  class SubQuestion
+    include Helena::Concerns::ApplicationModel
+    include Mongoid::Orderable
 
-    default_scope { order(position: :asc) }
+    field :text,        type: String
+    field :value,       type: String
+    field :code,        type: String
+    field :preselected, type: Boolean
 
-    validates :question, presence: true
-    validates :text, presence: true
-    validates :text, uniqueness: { scope: :question_id }
-    validates :code, presence: true
-    validates :code, uniqueness: { scope: :question_id }
+    embedded_in :question, inverse_of: :sub_questions
+
+    orderable
+
+    validates :text, presence: true, uniqueness: true
+    validates :code, presence: true, uniqueness: true
   end
 end

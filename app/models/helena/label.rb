@@ -1,8 +1,15 @@
 module Helena
-  class Label < ActiveRecord::Base
-    belongs_to :question, inverse_of: :labels
+  class Label
+    include Helena::Concerns::ApplicationModel
+    include Mongoid::Orderable
 
-    default_scope { order(position: :asc) }
+    field :text,        type: String
+    field :value,       type: String
+    field :preselected, type: Boolean, default: false
+
+    embedded_in :question, inverse_of: :labels
+
+    orderable
 
     validates :text, presence: true
     validates :value, presence: true

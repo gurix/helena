@@ -11,10 +11,9 @@
     = form.simple_fields_for :labels  do |label|
       %tr[label.object]
         %td.position
-          = label.input :id, as: :hidden, label: false
           = label.input :position, as: :integer, label: false
         %td.preselected
-          = label.input :preselected, wrapper: :checkbox
+          = label.input :preselected, as: :boolean, wrapper: :checkbox
         %td.text
           = label.input :text, label: false
         %td.value
