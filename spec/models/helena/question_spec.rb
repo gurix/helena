@@ -5,6 +5,8 @@ describe Helena::Question do
 
   it { expect(subject).to be_embedded_in(:question_group) }
 
+  it { expect(subject).to validate_presence_of(:code) }
+
   it 'validates uniqness of code across different question_groups' do
     a_question = build :question, question_group: build(:question_group, version: version), code: :cannabis4u
     expect(a_question).to be_valid
