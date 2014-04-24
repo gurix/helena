@@ -28,7 +28,7 @@ feature 'Question management' do
   scenario 'creates a new question' do
     visit helena.new_admin_survey_question_group_question_path(draft_version.survey, question_group)
 
-    fill_in 'Code', with: 'A38'
+    fill_in 'Code', with: 'a38'
     fill_in 'Question text', with: 'Shall we go?'
 
     within '.breadcrumb' do
@@ -44,12 +44,12 @@ feature 'Question management' do
     visit helena.edit_admin_survey_question_group_question_path(draft_version.survey, question.question_group, question)
 
     fill_in 'Question text', with: 'Are you sure?'
-    fill_in 'Code', with: 'B12'
+    fill_in 'Code', with: 'b12'
 
     click_button 'Save'
 
     expect(question.reload.question_text).to eq 'Are you sure?'
-    expect(question.reload.code).to eq 'B12'
+    expect(question.reload.code).to eq 'b12'
   end
 
   scenario 'moving a question' do

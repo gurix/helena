@@ -50,7 +50,7 @@ describe Helena::Admin::QuestionsController  do
   end
 
   it 'counts position up when creating a new survey' do
-    post :create, survey_id: survey, question_group_id: question_group, question: { question_text: 'something?', code: 'A38' }
+    post :create, survey_id: survey, question_group_id: question_group, question: { question_text: 'something?', code: 'a38' }
 
     expect(first_question.reload.position).to eq 1
     expect(second_question.reload.position).to eq 2

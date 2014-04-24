@@ -1,6 +1,6 @@
 = simple_form_for [:admin, @survey, @question_group, @question] do |f|
   = f.input :question_text
-  = f.input :code
+  = f.input :code, hint: t('.code_hint')
   - if @question.instance_of? Helena::Question
     = f.input :_type, collection: Helena::Question::TYPES.map { |type| [type.model_name.human, type]}
   - if @question.respond_to? :required

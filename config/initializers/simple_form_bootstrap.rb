@@ -5,7 +5,7 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.use :label
     b.use :input
-    b.use :error, wrap_with: { tag: 'span', class: 'form-control-feedback' }
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block text-danger' }
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
