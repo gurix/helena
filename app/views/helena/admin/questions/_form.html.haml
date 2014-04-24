@@ -1,8 +1,8 @@
 = simple_form_for [:admin, @survey, @question_group, @question] do |f|
   = f.input :question_text
   = f.input :code
-  / needs a translation
-  = f.input :_type, collection: Helena::Question::TYPES.map { |type| [type.model_name.human, type]}
+  - if @question.instance_of? Helena::Question
+    = f.input :_type, collection: Helena::Question::TYPES.map { |type| [type.model_name.human, type]}
   - if @question.respond_to? :required
     = f.input :required, as: :boolean, wrapper: :checkbox
   - if @question.is_a?(Helena::Questions::LongText) || @question.is_a?(Helena::Questions::StaticText)
