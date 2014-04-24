@@ -3,6 +3,7 @@
 [![Dependency Status](https://gemnasium.com/gurix/helena.png)](https://gemnasium.com/gurix/helena)
 
 # Helena
+Helena is an online survey/test framework designed for agile survey/test development, longitudinal studies and instant feedback.
 
 ## Requirements
 * Rails (4.1 or higher)
