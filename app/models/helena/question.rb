@@ -15,13 +15,19 @@ module Helena
 
     embedded_in :question_group, inverse_of: :questions
 
+    embeds_many :labels, class_name: 'Helena::Label'
+    embeds_many :sub_questions, class_name: 'Helena::SubQuestion'
+
+    accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: :reject_labels
+    accepts_nested_attributes_for :sub_questions, allow_destroy: true, reject_if: :reject_sub_questions
+
     field :code,          type: String
     field :question_text, type: String
 
     orderable
 
     validates :code, presence: true
-    validates :code, uniqueness: true # TODO: This should be uniqe scoped over all questions
+
      # consist of lowercase characters or digits, not starting with a digit or underscore and not ending with an underscore
      # foo_32: correct, 32_foo: incorrect, _bar: incorrect, bar_: incorrect, FooBaar: incorrect
     validates :code, format: { with: /\A[a-z]([-\w]{,498}[a-z\d])?\Z/ }
