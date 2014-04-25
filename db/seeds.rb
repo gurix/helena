@@ -45,7 +45,7 @@ def create_satisfaction_scale_survey
   base_version.question_groups << satisfaction_details
   published_version = publish(base_version)
 
-  rand(9).times { generate_sessions(survey, base_version) }
+  generate_sessions(survey, published_version)
  end
 
 def create_restaurant_survey
@@ -133,8 +133,8 @@ EOF
                                                       version:     base_version,
                                                       description: description
 
-  publish(base_version)
-  rand(9).times { generate_sessions(survey, base_version) }
+  published_version = publish(base_version)
+  generate_sessions(survey, published_version)
 end
 
 def publish(version)
@@ -145,7 +145,38 @@ def publish(version)
 end
 
 def generate_sessions(survey, version)
-  survey.sessions.create version: version, updated_at: DateTime.now - rand(999)
+  rand(9).times {
+    session = build :session, version: version, updated_at: DateTime.now - rand(999), completed: true
+    version.questions.each do |question|
+
+      case question
+        when Helena::Questions::ShortText
+          session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill )
+        when Helena::Questions::LongText
+          session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill )
+        when Helena::Questions::RadioGroup
+          value = cast(question.labels.sample.value)
+          session.answers << build((value.is_a?(Fixnum) ? :integer_answer : :string_answer), code: question.code, value: value)
+        when Helena::Questions::CheckboxGroup
+          question.sub_questions.sample(question.sub_questions.count).each do |sub_question|
+          session.answers << build(:boolean_answer, code: sub_question.code, value: true)
+        end
+      end
+    end
+    survey.sessions << session
+  }
+end
+
+def cast(value)
+  if integer?(value)
+    value.to_i
+  else
+    value.to_s
+  end
+end
+
+def integer?(str)
+  !!Integer(str) rescue false
 end
 
 create_satisfaction_scale_survey
