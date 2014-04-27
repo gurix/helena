@@ -14,9 +14,10 @@
     %tbody
       - @question_groups.each do |question_group|
         %tr[question_group]
-          %td.position
+          %td.position{ data: {title: Helena::QuestionGroup.human_attribute_name(:position) } }
             = question_group.position
-          %td.title= question_group.title
+          %td.title{ data: {title: Helena::QuestionGroup.human_attribute_name(:title) } }
+            = question_group.title
           %td
             .btn-group.btn-group-sm
               - unless question_group.last?
