@@ -1,0 +1,3 @@
+.form-group
+  %label= question.question_text
+  = form.text_field "answers[#{question.code}]", value: answers[question.code], class: 'form-control'

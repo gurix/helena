@@ -1,0 +1,18 @@
+.form-group
+  %label= question.question_text
+
+  %table.table
+    %thead
+      %tr
+        %th
+        - question.labels.each do |label|
+          %th= label.text
+    %tbody
+      - question.sub_questions.each do |sub_question|
+        %tr
+          %td= sub_question.text
+          - question.labels.each do |label|
+            - checked = answers[sub_question.code] == label.value
+            - checked = checked || (label.preselected? ? true : false)
+            %td
+              %input{type: :radio, name: "answer[#{sub_question.code}]", value: label.value, checked: checked }

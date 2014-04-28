@@ -6,3 +6,4 @@ en:
           empty: This survey has no sessions.
           'false': "No"
           'true': "Yes"
+          edit: Edit

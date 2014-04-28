@@ -1,0 +1,11 @@
+.form-group
+  %label= question.question_text
+  - question.sub_questions.each do |sub_question|
+    .checkbox
+      %label
+        - checked = (answers[sub_question.code].to_s == sub_question.value.to_s) || sub_question.preselected
+        = form.input_field "answers[#{sub_question.code}]", as:      :boolean,
+                                                            value:   sub_question.value,
+                                                            checked: checked,
+                                                            class:   'form-control'
+        = sub_question.text

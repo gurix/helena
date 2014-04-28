@@ -1,5 +1,7 @@
 Helena::Engine.routes.draw do
-  resources :surveys
+  resources :surveys do
+    resources :sessions, only: [:edit, :update]
+  end
 
   scope :admin, as: :admin, module: :admin do
     concern :movable do
