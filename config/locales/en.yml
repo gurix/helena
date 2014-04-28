@@ -3,6 +3,7 @@ en:
     delete_question: Are you sure?
     delete: Delete
     save: Save
+    code_hint: The code must consist only of lowercase letters, numbers and underscores. Don't begin with a digit or an underscore and don't end with an underscore.
 
   actions:
     deleted: "'%{resource}' successfully deleted"

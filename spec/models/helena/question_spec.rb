@@ -8,10 +8,10 @@ describe Helena::Question do
   it { expect(subject).to validate_presence_of(:code) }
 
   it 'validates uniqness of code across different question_groups' do
-    a_question = build :question, question_group: build(:question_group, version: version), code: :cannabis4u
+    a_question = build :question, question_group: build(:question_group, version: version), code: :preferred_color
     expect(a_question).to be_valid
 
-    another_question = build :question, question_group: build(:question_group, version: version), code: :cannabis4u
+    another_question = build :question, question_group: build(:question_group, version: version), code: :preferred_color
     expect(another_question).not_to be_valid
   end
 

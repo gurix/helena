@@ -1,5 +1,5 @@
 %h3= t '.options'
-%table.table.labels
+%table.table.sub_questions
   %thead
     %tr
       %th.position= Helena::SubQuestion.human_attribute_name :position
@@ -13,17 +13,20 @@
   %tbody
     = form.simple_fields_for :sub_questions  do |sub_question|
       %tr[sub_question.object]
-        %td.position
+        %td.position{ data: {title: Helena::SubQuestion.human_attribute_name(:position) } }
           = sub_question.input :position, as: :integer, label: false
-        %td.code
-          = sub_question.input :code, label: false
+        %td.code{ data: {title: Helena::SubQuestion.human_attribute_name(:code) } }
+          = sub_question.input :code, label: false, hint: t('shared.code_hint')
         - if @question.is_a?(Helena::Questions::CheckboxGroup)
-          %td.preselected
+          %td.preselected{ data: {title: Helena::SubQuestion.human_attribute_name(:preselected) } }
             = sub_question.input :preselected, as: :boolean, wrapper: :checkbox
-        %td.text
+        %td.text{ data: {title: Helena::SubQuestion.human_attribute_name(:text) } }
           = sub_question.input :text, label: false
         - if @question.is_a?(Helena::Questions::CheckboxGroup)
-          %td.value
+          %td.value{ data: {title: Helena::SubQuestion.human_attribute_name(:value) } }
             = sub_question.input :value, label: false, as: :string
         %td.delete
-          = sub_question.input :_destroy, as: :boolean, wrapper: :checkbox unless sub_question.object.new_record?
+          - unless sub_question.object.new_record?
+            = sub_question.input :_destroy, as:      :boolean,
+                                            wrapper: :checkbox,
+                                            label:   Helena::SubQuestion.human_attribute_name(:_destroy)

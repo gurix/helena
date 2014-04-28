@@ -1,0 +1,14 @@
+en:
+  mongoid:
+    models:
+      'helena/label':
+        one: Label
+        other: Labels
+
+    attributes:
+      'helena/label':
+        preselected: Selected
+        position: Position
+        _destroy: Delete
+        text: Text
+        value: Value

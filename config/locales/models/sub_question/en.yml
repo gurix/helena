@@ -1,0 +1,14 @@
+en:
+  mongoid:
+    models:
+      'helena/sub_question':
+        one: Sub Question
+        other: Sub Questions
+
+    attributes:
+      'helena/sub_question':
+        selected: Selected
+        position: Position
+        _destroy: Delete
+        text: Text
+        value: Value
