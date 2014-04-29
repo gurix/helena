@@ -21,12 +21,8 @@ module Helena
     validates :version, presence: true
     validates :version, uniqueness: { scope: :survey_id }
 
-    def questions
-      question_groups.map(&:questions).flatten
-    end
-
     def question_codes
-      questions.map { |question| [question.code] +  question.sub_questions.map(&:code) }.flatten
+      question_groups.map(&:question_codes).flatten
     end
 
     def question_code_occurences
