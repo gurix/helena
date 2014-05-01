@@ -4,5 +4,6 @@
     .radio
       %label
         - checked = (answers[question.code].to_s == label.value.to_s) || label.preselected
-        %input{type: :radio, name: "session[answer[#{question.code}]]", value: label.value, checked: checked }
+        = form.simple_fields_for :answers do |answer_form|
+          = answer_form.radio_button question.code, label.value, checked: checked
         = label.text

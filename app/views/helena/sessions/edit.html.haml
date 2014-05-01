@@ -6,6 +6,6 @@
     - @questions.each do |question|
       = render "#{question.class.to_s.underscore}", form: f, question: question, answers: @answers
 
-    = f.hidden_field :question_group, value: @question_group.next_item.id unless @question_group.last?
-    = link_to :back , t('.back'), class: 'btn' unless @question_group.first?
-    = f.submit class: 'btn', value: @question_group.last? ? t('.save') : t('.next')
+    = hidden_field_tag :question_group, @question_group.id
+    = link_to t('.back'), edit_survey_session_path(@survey, @session, question_group: @question_group.previous_item), class: 'btn' unless @question_group.first?
+    = f.submit class: 'btn btn-success pull-right', value: @question_group.last? ? t('.save') : t('.next')
