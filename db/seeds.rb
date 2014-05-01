@@ -155,7 +155,7 @@ def generate_sessions(survey, version)
         when Helena::Questions::LongText
           session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill )
         when Helena::Questions::RadioGroup
-          value = cast(question.labels.sample.value)
+          value = Helena::Answer.cast_value(question.labels.sample.value)
           session.answers << build((value.is_a?(Fixnum) ? :integer_answer : :string_answer), code: question.code, value: value)
         when Helena::Questions::CheckboxGroup
           question.sub_questions.sample(question.sub_questions.count).each do |sub_question|
@@ -165,18 +165,6 @@ def generate_sessions(survey, version)
     end
     survey.sessions << session
   }
-end
-
-def cast(value)
-  if integer?(value)
-    value.to_i
-  else
-    value.to_s
-  end
-end
-
-def integer?(str)
-  !!Integer(str) rescue false
 end
 
 create_satisfaction_scale_survey

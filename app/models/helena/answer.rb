@@ -10,5 +10,17 @@ module Helena
 
     validates :code, :ip_address, presence: true
     validates :code, uniqueness: true
+
+    def self.cast_value(value)
+      if integer?(value)
+        value.to_i
+      else
+        value.to_s
+      end
+    end
+
+    def self.integer?(str)
+      Integer(str) rescue false
+    end
   end
 end
