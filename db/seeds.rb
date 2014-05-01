@@ -73,17 +73,17 @@ def create_restaurant_survey
                                                  question_text:  'What kind of food allergy do you have?',
                                                  position:       4
 
-  food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic', position: 1)
-  food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat', position: 2)
-  food_allergy.sub_questions << build(:sub_question, text: 'Meat', code: 'meat', position: 3)
-  food_allergy.sub_questions << build(:sub_question, text: 'Milk', code: 'milk', position: 4)
-  food_allergy.sub_questions << build(:sub_question, text: 'Peanut', code: 'peanut', position: 5)
-  food_allergy.sub_questions << build(:sub_question, text: 'Fish / Shellfish', code: 'fish', position: 6)
-  food_allergy.sub_questions << build(:sub_question, text: 'Soy', code: 'soy', position: 7)
-  food_allergy.sub_questions << build(:sub_question, text: 'Wheat', code: 'wheat', position: 9)
-  food_allergy.sub_questions << build(:sub_question, text: 'Gluten', code: 'gluten', position: 10)
-  food_allergy.sub_questions << build(:sub_question, text: 'Egg', code: 'egg', position: 11)
-  food_allergy.sub_questions << build(:sub_question, text: 'Sulfites', code: 'sulfites',  position: 12)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Garlic', code: 'garlic', position: 1)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Oats', code: 'oat', position: 2)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Meat', code: 'meat', position: 3)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Milk', code: 'milk', position: 4)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Peanut', code: 'peanut', position: 5)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Fish / Shellfish', code: 'fish', position: 6)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Soy', code: 'soy', position: 7)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Wheat', code: 'wheat', position: 9)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Gluten', code: 'gluten', position: 10)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Egg', code: 'egg', position: 11)
+  food_allergy.sub_questions << build(:sub_question, value: 'true', text: 'Sulfites', code: 'sulfites',  position: 12)
 
   personal_details.questions << visit_interval
   personal_details.questions << food_allergy
@@ -145,21 +145,28 @@ def publish(version)
 end
 
 def generate_sessions(survey, version)
+  rand(3).times {
+   survey.sessions << build(:session, version: version, updated_at: DateTime.now - rand(999), completed: false)
+  }
+
   rand(9).times {
     session = build :session, version: version, updated_at: DateTime.now - rand(999), completed: true
     version.questions.each do |question|
 
       case question
-        when Helena::Questions::ShortText
-          session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill )
-        when Helena::Questions::LongText
-          session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill )
-        when Helena::Questions::RadioGroup
-          value = Helena::Answer.cast_value(question.labels.sample.value)
-          session.answers << build((value.is_a?(Fixnum) ? :integer_answer : :string_answer), code: question.code, value: value)
-        when Helena::Questions::CheckboxGroup
-          question.sub_questions.sample(question.sub_questions.count).each do |sub_question|
-          session.answers << build(:boolean_answer, code: sub_question.code, value: true)
+      when Helena::Questions::ShortText
+        session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill )
+      when Helena::Questions::LongText
+        session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill )
+      when Helena::Questions::RadioGroup
+        session.answers << Helena::Answer.build_generic(question.code, question.labels.sample.value, Faker::Internet.ip_v4_address)
+      when Helena::Questions::CheckboxGroup
+        question.sub_questions.sample.each do |sub_question|
+          session.answers << Helena::Answer.build_generic(sub_question.code, sub_question.value, Faker::Internet.ip_v4_address)
+        end
+      when Helena::Questions::RadioMatrix
+        question.sub_questions.each do |sub_question|
+          session.answers << Helena::Answer.build_generic(sub_question.code, question.labels.sample.value, Faker::Internet.ip_v4_address)
         end
       end
     end

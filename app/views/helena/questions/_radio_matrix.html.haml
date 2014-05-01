@@ -13,7 +13,7 @@
           %tr
             %td= sub_question.text
             - question.labels.each do |label|
-              - checked = answers[sub_question.code] == label.value
+              - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
               - checked = checked || (label.preselected? ? true : false)
               %td
                 = form.simple_fields_for :answers do |answer_form|

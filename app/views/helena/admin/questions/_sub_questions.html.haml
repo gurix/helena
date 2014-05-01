@@ -24,7 +24,7 @@
           = sub_question.input :text, label: false
         - if @question.is_a?(Helena::Questions::CheckboxGroup)
           %td.value{ data: {title: Helena::SubQuestion.human_attribute_name(:value) } }
-            = sub_question.input :value, label: false, as: :string
+            = sub_question.input :value, label: false, as: :hidden, value: 1
         %td.delete
           - unless sub_question.object.new_record?
             = sub_question.input :_destroy, as:      :boolean,

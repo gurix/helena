@@ -14,7 +14,8 @@ module Helena
       @answers = update_answers
 
       if @question_group.last?
-        @session.update_attribute :complete, true
+
+        @session.update_attribute :completed, true
 
         render 'end_message'
       else
@@ -60,16 +61,13 @@ module Helena
 
     def update_answers
       @question_group.question_codes.each do |question_code|
-        answer = session_params[:answers][question_code]
-        value = Helena::Answer.cast_value answer
-
-        answer_class = value.is_a?(Fixnum) ? Helena::IntegerAnswer : Helena::StringAnswer
-        if session_params[:question_types][question_code].present?
-          answer_class = "Helena::#{session_params[:question_types][question_code]}.".classify
-        end
-
         @session.answers.where(code: question_code).delete
-        @session.answers << answer_class.new(code: question_code, value: value, ip_address: request.remote_ip) unless value.blank?
+        value = session_params[:answers][question_code]
+
+        if value.present?
+          answer = Helena::Answer.build_generic(question_code, value, request.remote_ip)
+          @session.answers << answer unless value.blank?
+        end
       end
       session_answers
     end

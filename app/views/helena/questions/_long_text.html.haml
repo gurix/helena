@@ -2,5 +2,3 @@
   %label= question.question_text
   = form.simple_fields_for :answers do |answer_form|
     = answer_form.text_area question.code, value: answers[question.code], class: 'form-control'
-  = form.simple_fields_for :question_types do |question_type_form|
-    = question_type_form.hidden_field question.code, value: 'StringAnswer'

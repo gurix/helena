@@ -11,8 +11,30 @@ module Helena
     validates :code, :ip_address, presence: true
     validates :code, uniqueness: true
 
+    def self.build_generic(code, value, ip_address)
+      value = cast_value(value)
+      answer_class_for(value).new(code: code, value: value, ip_address: ip_address)
+    end
+
+    def self.answer_class_for(value)
+      case value
+      when Fixnum
+        Helena::IntegerAnswer
+      when TrueClass
+        Helena::BooleanAnswer
+      when FalseClass
+        Helena::BooleanAnswer
+      when String
+        Helena::StringAnswer
+      end
+    end
+
     def self.cast_value(value)
-      if integer?(value)
+      if value == 'true'
+        true
+      elsif value == 'false'
+        false
+      elsif integer?(value)
         value.to_i
       else
         value.to_s
