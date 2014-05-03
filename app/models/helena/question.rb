@@ -3,6 +3,8 @@ module Helena
     include Helena::Concerns::ApplicationModel
     include Mongoid::Orderable
 
+    CODE_FORMAT = /\A[a-z]([-\w]{,498}[a-z\d])?\Z/
+
     TYPES = [
       Helena::Questions::ShortText,
       Helena::Questions::LongText,
@@ -30,7 +32,7 @@ module Helena
 
      # consist of lowercase characters or digits, not starting with a digit or underscore and not ending with an underscore
      # foo_32: correct, 32_foo: incorrect, _bar: incorrect, bar_: incorrect, FooBaar: incorrect
-    validates :code, format: { with: /\A[a-z]([-\w]{,498}[a-z\d])?\Z/ }
+    validates :code, format: { with: CODE_FORMAT }
     validate :uniqueness_of_code
 
     def includes_labels?
@@ -44,11 +46,8 @@ module Helena
     private
 
     def uniqueness_of_code
-      question_codes = question_group.version.question_codes
-
-      if question_codes.count > question_codes.uniq.count
-        errors.add :code, :taken, value: code
-      end
+      question_code_occurences = question_group.version.question_code_occurences
+      errors.add :code, :taken if question_code_occurences[code] > 1
     end
 
     def reject_labels(attributed)

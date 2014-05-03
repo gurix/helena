@@ -15,5 +15,3 @@ en:
         new: &new_question
           new: New question
         create: *new_question
-        form:
-          code_hint: The code must consist only of lowercase letters, numbers and underscores. Don't begin with a digit or an underscore and don't end with an underscore.

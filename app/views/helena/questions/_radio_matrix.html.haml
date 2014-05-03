@@ -1,0 +1,22 @@
+.form-group
+  %label= question.question_text
+
+  %table.table
+    %thead
+      %tr
+        %th
+        - question.labels.each do |label|
+          %th= label.text
+    %tbody
+      = form.simple_fields_for :answers do |answer_form|
+        - question.sub_questions.each do |sub_question|
+          %tr
+            %td= sub_question.text
+            - question.labels.each do |label|
+              - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
+              - checked = checked || (label.preselected? ? true : false)
+              %td{ data: { title: label.text}, width: "#{80/question.labels.count}%" }
+                %label
+                  = form.simple_fields_for :answers do |answer_form|
+                    = answer_form.radio_button sub_question.code, label.value, checked: checked
+                  %span.hide-text= label.text

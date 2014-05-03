@@ -1,0 +1,11 @@
+%h1.survey_title
+  = @version.survey_detail.title
+%fieldset[@question_group]
+  %legend= @question_group.title
+  = simple_form_for([@survey, @session]) do |f|
+    - @questions.each do |question|
+      = render "#{question.class.to_s.underscore}", form: f, question: question, answers: @answers
+
+    = hidden_field_tag :question_group, @question_group.id
+    = link_to t('.back'), edit_survey_session_path(@survey, @session, question_group: @question_group.previous_item), class: 'btn' unless @question_group.first?
+    = f.submit class: 'btn btn-success pull-right', value: @question_group.last? ? t('.save') : t('.next')

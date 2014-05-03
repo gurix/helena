@@ -15,9 +15,12 @@
     %tbody
       - @versions.each do |version|
         %tr[version]
-          %td.version= version.version
-          %td.notes= version.notes
-          %td.created_at= time_ago_in_words(version.created_at)
+          %td.version{ data: { title: Helena::Version.human_attribute_name(:version) } }
+            = version.version
+          %td.notes{ data: { title: Helena::Version.human_attribute_name(:notes) } }
+            = version.notes
+          %td.created_at{ data: { title: Helena::Version.human_attribute_name(:created_at) } }
+            = time_ago_in_words(version.created_at)
           %td
             = link_to t('.delete'), admin_survey_version_path(@survey, version), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 

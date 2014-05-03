@@ -8,6 +8,10 @@ module Helena
     belongs_to :survey, inverse_of: :sessions
     belongs_to :version, inverse_of: :sessions
 
+    embeds_many :answers, inverse_of: :session, class_name: 'Helena::Answer'
+
+    validates :token, uniqueness: true
+
     before_create :reset_token
 
     def reset_token

@@ -1,0 +1,9 @@
+en:
+  helena:
+    sessions:
+      edit:
+        next: Next
+        save: Save
+        back: Back
+      end_message:
+        message: Thank you for participating.

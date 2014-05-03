@@ -14,7 +14,6 @@ feature 'Checkbox group question management' do
 
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_position', with: '2'
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_text', with: 'Avec Shop'
-    fill_in 'questions_checkbox_group_sub_questions_attributes_0_value', with: 'Avec'
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_code', with: 'avec'
     check 'questions_checkbox_group_sub_questions_attributes_0_preselected'
 
@@ -22,7 +21,6 @@ feature 'Checkbox group question management' do
 
     expect(question.reload.sub_questions.first.position).to eq 2
     expect(question.reload.sub_questions.first.text).to eq 'Avec Shop'
-    expect(question.reload.sub_questions.first.value).to eq 'Avec'
     expect(question.reload.sub_questions.first.code).to eq 'avec'
     expect(question.reload.required).to be_true
   end
@@ -34,7 +32,6 @@ feature 'Checkbox group question management' do
 
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_position', with: '2'
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_text', with: 'Avec Shop'
-    fill_in 'questions_checkbox_group_sub_questions_attributes_0_value', with: 'Avec'
     fill_in 'questions_checkbox_group_sub_questions_attributes_0_code', with: 'avec'
     check 'questions_checkbox_group_sub_questions_attributes_0_preselected'
 
@@ -42,7 +39,6 @@ feature 'Checkbox group question management' do
 
     expect(question.reload.sub_questions.first.position).to eq 2
     expect(question.reload.sub_questions.first.text).to eq 'Avec Shop'
-    expect(question.reload.sub_questions.first.value).to eq 'Avec'
     expect(question.reload.sub_questions.first.code).to eq 'avec'
   end
 

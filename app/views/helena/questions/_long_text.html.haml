@@ -1,0 +1,4 @@
+.form-group
+  %label= question.question_text
+  = form.simple_fields_for :answers do |answer_form|
+    = answer_form.text_area question.code, value: answers[question.code], class: 'form-control'

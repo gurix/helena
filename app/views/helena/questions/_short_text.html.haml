@@ -1,0 +1,6 @@
+.form-group
+  %label
+    = question.question_text
+    = ' *' if question.required
+  = form.simple_fields_for :answers do |answer_form|
+    = answer_form.text_field question.code, value: answers[question.code], class: 'form-control'

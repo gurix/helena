@@ -1,0 +1,9 @@
+.form-group
+  %label= question.question_text
+  - question.labels.each do |label|
+    .radio
+      %label
+        - checked = (answers[question.code].to_s == label.value.to_s) || label.preselected
+        = form.simple_fields_for :answers do |answer_form|
+          = answer_form.radio_button question.code, label.value, checked: checked
+        = label.text

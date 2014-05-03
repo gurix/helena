@@ -10,5 +10,9 @@ module Helena
     orderable
 
     field :title, type: String
+
+    def question_codes
+      questions.map { |question| [question.code] +  question.sub_questions.map(&:code) }.flatten
+    end
   end
 end
