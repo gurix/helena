@@ -4,6 +4,7 @@
     %title= strip_tags(render_breadcrumbs separator: '/')
     = stylesheet_link_tag    'helena/application', media: 'all'
     = javascript_include_tag 'helena/application'
+    %meta{ name: 'viewport', content: 'initial-scale=1.0' }
     = csrf_meta_tags
 
   %body

@@ -2,6 +2,7 @@
   .table
     table, thead, tbody, th, td, tr
       display: block
+      width: 100%
 
     thead tr
       position: absolute
@@ -11,25 +12,20 @@
     tr
       border: 1px solid #ccc
 
-
-
     td:before
+      content: attr(data-title)
       position: absolute
       top: 6px
       left: 6px
       width: 45%
       padding-right: 10px
-      white-space: nowrap
+      white-space: break-word
       text-align: left
       font-weight: bold
-
-    td:before
-      content: attr(data-title)
 
   table.table > tbody > tr > td
     border: none
     border-bottom: 1px solid #eee
     position: relative
     padding-left: 50%
-    white-space: normal
     text-align: left
