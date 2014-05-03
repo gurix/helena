@@ -15,7 +15,7 @@
             - question.labels.each do |label|
               - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
               - checked = checked || (label.preselected? ? true : false)
-              %td{ data: {title: label.text}, width: "#{80/question.labels.count}%"}
+              %td{ data: { title: label.text}, width: "#{80/question.labels.count}%" }
                 %label
                   = form.simple_fields_for :answers do |answer_form|
                     = answer_form.radio_button sub_question.code, label.value, checked: checked

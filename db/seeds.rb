@@ -152,7 +152,6 @@ def generate_sessions(survey, version)
   rand(9).times {
     session = build :session, version: version, updated_at: DateTime.now - rand(999), completed: true
     version.questions.each do |question|
-
       case question
       when Helena::Questions::ShortText
         session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill )
