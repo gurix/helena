@@ -93,15 +93,32 @@ def create_restaurant_survey
 
 
   dinner = build :question_group, title: 'About the dinner', position: 2
+  dinner_satisfaction = build :radio_matrix_question, code:          :satisfaction,
+                                                      required:      true,
+                                                      question_text: 'Please rate the quality for each topic',
+                                                      required:      true,
+                                                      position:      1
+
+  dinner_satisfaction.labels << build(:label, position: 1, text: ':-(', value: -1)
+  dinner_satisfaction.labels << build(:label, position: 2, text: ':-|', value: 0, preselected: true)
+  dinner_satisfaction.labels << build(:label, position: 3, text: ':-)', value: 1)
+
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Food', code: 'food', position: 1)
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Beverages', code: 'beverages', position: 2)
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Service', code: 'service', position: 3)
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Snacks', code: 'snacks', position: 4)
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Cleanliness', code: 'cleanliness', position: 4)
+
+  dinner.questions << dinner_satisfaction
 
   dinner.questions << build(:short_text_question, code:          :catchphrase,
                                                   question_text: 'How would you describe the dinner with one word?',
                                                   required:      true,
-                                                  position:      1)
+                                                  position:      2)
 
   dinner.questions << build(:long_text_question, code:             :feedback,
                                                  question_text:    'Feel free to give us additional feedback ...',
-                                                 position:         2)
+                                                 position:         3)
 
   description = <<EOF
 Thank you for your recent stay at our hotel. During your stay you dined at our 5-star Swiss Cheese Restaurant.
@@ -110,7 +127,7 @@ Please help us by completing this short survey."
 EOF
 
   survey = create :survey, name: 'Restaurant customer satisfaction'
-  base_version = survey.versions.create version: 0, question_groups: [personal_details, dinner, restaurant]
+  base_version = survey.versions.create version: 0, question_groups: [personal_details, dinner]
   base_version.survey_detail = create :survey_detail, title:      '5-star Swiss Cheese Restaurant customer satisfaction',
                                                       version:     base_version,
                                                       description: description
@@ -127,11 +144,11 @@ def publish(version)
 end
 
 def generate_sessions(survey, version)
-  rand(3).times {
+  3.times {
    survey.sessions << build(:session, version: version, updated_at: DateTime.now - rand(999), completed: false)
   }
 
-  rand(9).times {
+  3.times {
     session = build :session, version: version, updated_at: DateTime.now - rand(999), completed: true
     version.questions.each do |question|
       case question
