@@ -16,6 +16,7 @@ puts 'Seeding surveys ...'.green
 
 def create_satisfaction_scale_survey
   satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
+                                                      required:      true,
                                                       question_text: 'Below are five statements with which you may agree or disagree. Using the 1-7 scale below, indicate your agreement with each item by placing the appropriate number in the line preceding that item. Please be open and honest in your responding.',
                                                       required:      true,
                                                       position:      1
@@ -40,7 +41,7 @@ def create_satisfaction_scale_survey
   survey = create :survey, name: 'The Satisfaction with Life Scale'
   base_version = survey.versions.create version: 0
   base_version.survey_detail = build :survey_detail, title:       'The Satisfaction with Life Scale',
-                                                      description: 'A 5-item scale designed to measure global cognitive judgments of ones life satisfaction.'
+                                                     description: 'A 5-item scale designed to measure global cognitive judgments of ones life satisfaction.'
 
   base_version.question_groups << satisfaction_details
   published_version = publish(base_version)
@@ -51,17 +52,19 @@ def create_satisfaction_scale_survey
 def create_restaurant_survey
   personal_details = build :question_group,title: 'Personal Details', position: 1
 
-  personal_details.questions << build(:short_text_question, code:           :name,
-                                                            question_text:  "What's your name?",
-                                                            position:       1)
+  personal_details.questions << build(:short_text_question, code:          :name,
+                                                            question_text: "What's your name?",
+                                                            required:      true,
+                                                            position:      1)
 
-  personal_details.questions << build(:short_text_question, code:           :email,
-                                                            question_text:  "What's your E-Mail-Address?",
-                                                            position:       2)
+  personal_details.questions << build(:short_text_question, code:          :email,
+                                                            question_text: "What's your E-Mail-Address?",
+                                                            position:      2)
 
-  visit_interval = build :radio_group_question, code:           :visit_interval,
-                                                question_text:  'How often do you visit the Swiss Chees Restaurant?',
-                                                position:       3
+  visit_interval = build :radio_group_question, code:          :visit_interval,
+                                                question_text: 'How often do you visit the Swiss Chees Restaurant?',
+                                                required:      true,
+                                                position:      3
 
   visit_interval.labels << build(:label, position: 1, text: 'Just once', value: 1)
   visit_interval.labels << build(:label, position: 2, text: 'Once a year', value: 2)
@@ -90,36 +93,32 @@ def create_restaurant_survey
 
 
   dinner = build :question_group, title: 'About the dinner', position: 2
+  dinner_satisfaction = build :radio_matrix_question, code:          :satisfaction,
+                                                      required:      true,
+                                                      question_text: 'Please rate the quality for each topic',
+                                                      required:      true,
+                                                      position:      1
+
+  dinner_satisfaction.labels << build(:label, position: 1, text: ':-(', value: -1)
+  dinner_satisfaction.labels << build(:label, position: 2, text: ':-|', value: 0, preselected: true)
+  dinner_satisfaction.labels << build(:label, position: 3, text: ':-)', value: 1)
+
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Food', code: 'food', position: 1)
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Beverages', code: 'beverages', position: 2)
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Service', code: 'service', position: 3)
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Snacks', code: 'snacks', position: 4)
+  dinner_satisfaction.sub_questions << build(:sub_question, text: 'Cleanliness', code: 'cleanliness', position: 4)
+
+  dinner.questions << dinner_satisfaction
 
   dinner.questions << build(:short_text_question, code:          :catchphrase,
                                                   question_text: 'How would you describe the dinner with one word?',
                                                   required:      true,
-                                                  position:      1)
+                                                  position:      2)
 
   dinner.questions << build(:long_text_question, code:             :feedback,
-                                                question_text:    'Feel free to give us additional feedback ...',
-                                                position:         2)
-
-  restaurant = build :question_group, title: 'About the restaurant', position: 3
-
-  brand_attributes = build :checkbox_matrix_question, code:          :brand_attributes,
-                                                      question_text: 'What words describe the following topics best?',
-                                                      position:       1
-
-  brand_attributes.labels << build(:label, position: 1, text: 'calm', value: 'calm')
-  brand_attributes.labels << build(:label, position: 2, text: 'energetic', value: 'energetic')
-  brand_attributes.labels << build(:label, position: 3, text: 'friendly', value: 'friendly')
-  brand_attributes.labels << build(:label, position: 4, text: 'funny', value: 'funny')
-  brand_attributes.labels << build(:label, position: 5, text: 'modest', value: 'modest')
-  brand_attributes.labels << build(:label, position: 6, text: 'warmhearted', value: 'warmhearted')
-  brand_attributes.labels << build(:label, position: 7, text: 'sociable', value: 'sociable')
-  brand_attributes.labels << build(:label, position: 8, text: 'romantic', value: 'romantic')
-
-  brand_attributes.sub_questions << build(:sub_question, position: 1, text: 'Restaurant', code: 'restaurant')
-  brand_attributes.sub_questions << build(:sub_question, position: 2, text: 'Staff', code: 'staff')
-  brand_attributes.sub_questions << build(:sub_question, position: 3, text: 'Food', code: 'food')
-  brand_attributes.sub_questions << build(:sub_question, position: 4, text: 'Drinks', code: 'drinks')
-  brand_attributes.sub_questions << build(:sub_question, position: 5, text: 'Atmosphere', code: 'atmosphere')
+                                                 question_text:    'Feel free to give us additional feedback ...',
+                                                 position:         3)
 
   description = <<EOF
 Thank you for your recent stay at our hotel. During your stay you dined at our 5-star Swiss Cheese Restaurant.
@@ -128,7 +127,7 @@ Please help us by completing this short survey."
 EOF
 
   survey = create :survey, name: 'Restaurant customer satisfaction'
-  base_version = survey.versions.create version: 0, question_groups: [personal_details, dinner, restaurant]
+  base_version = survey.versions.create version: 0, question_groups: [personal_details, dinner]
   base_version.survey_detail = create :survey_detail, title:      '5-star Swiss Cheese Restaurant customer satisfaction',
                                                       version:     base_version,
                                                       description: description
@@ -145,11 +144,11 @@ def publish(version)
 end
 
 def generate_sessions(survey, version)
-  rand(3).times {
+  3.times {
    survey.sessions << build(:session, version: version, updated_at: DateTime.now - rand(999), completed: false)
   }
 
-  rand(9).times {
+  3.times {
     session = build :session, version: version, updated_at: DateTime.now - rand(999), completed: true
     version.questions.each do |question|
       case question
@@ -160,7 +159,7 @@ def generate_sessions(survey, version)
       when Helena::Questions::RadioGroup
         session.answers << Helena::Answer.build_generic(question.code, question.labels.sample.value, Faker::Internet.ip_v4_address)
       when Helena::Questions::CheckboxGroup
-        question.sub_questions.sample.each do |sub_question|
+        question.sub_questions.sample(2).each do |sub_question|
           session.answers << Helena::Answer.build_generic(sub_question.code, sub_question.value, Faker::Internet.ip_v4_address)
         end
       when Helena::Questions::RadioMatrix
