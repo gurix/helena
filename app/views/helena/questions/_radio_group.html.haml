@@ -10,5 +10,4 @@
           = answer_form.radio_button question.code, label.value, checked: checked
         = label.text
   - if errors[question.code]
-    .help-block.text-danger
-      = errors[question.code]
+    .help-block.text-danger= errors[question.code]

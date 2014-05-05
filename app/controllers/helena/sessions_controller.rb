@@ -51,7 +51,9 @@ module Helena
     end
 
     def session_params
-      params.require(:session).permit(answers: @question_group.question_codes, question_types: @question_group.question_codes) if params[:session]
+      if params[:session]
+        params.require(:session).permit(answers: @question_group.question_codes, question_types: @question_group.question_codes)
+      end
     end
 
     def question_group_questions
