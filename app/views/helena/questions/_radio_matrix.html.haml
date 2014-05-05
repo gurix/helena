@@ -1,6 +1,7 @@
-.form-group
-  %label= question.question_text
-
+.form-group{ class: "#{'has-error' if errors[question.code]}" }
+  %label
+    = question.question_text
+    = ' *' if question.required
   %table.table
     %thead
       %tr
@@ -11,7 +12,10 @@
       = form.simple_fields_for :answers do |answer_form|
         - question.sub_questions.each do |sub_question|
           %tr
-            %td= sub_question.text
+            %td
+              = sub_question.text
+              - if errors[sub_question.code]
+                .help-block.text-danger= errors[sub_question.code]
             - question.labels.each do |label|
               - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
               - checked = checked || (label.preselected? ? true : false)

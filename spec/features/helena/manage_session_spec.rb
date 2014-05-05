@@ -1,14 +1,16 @@
 require 'spec_helper'
 
 feature 'Session management' do
-  scenario 'edits a session' do
-    survey = create :survey, name: 'dummy'
-    base_version = survey.versions.create version: 0
+  let(:survey) { create :survey, name: 'dummy' }
+  let(:base_version) { survey.versions.create version: 0 }
+  let(:first_question_group) { build(:question_group, title: 'Page 1', position: 1) }
+
+  background do
     base_version.survey_detail = build :survey_detail, title: 'Dummy Survey'
-
-    first_question_group = build(:question_group, title: 'Page 1', position: 1)
     base_version.question_groups << first_question_group
+  end
 
+  scenario 'edits a session' do
     short_text_question  = build :short_text_question, code: 'a_name', question_text: "What's your name?"
     first_question_group.questions << short_text_question
 
@@ -135,5 +137,149 @@ feature 'Session management' do
     choose('session_answers_satisfied_with_life_7')
 
     expect { click_button 'Save' }.to change { session.reload.answers.count }.from(6).to(11)
+  end
+
+  scenario 'does not save an empty short text field when required' do
+    short_text_question  = build :short_text_question, code: 'a_name', question_text: "What's your name?", required: true
+    first_question_group.questions << short_text_question
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    visit helena.edit_survey_session_path(survey, session)
+
+    expect(page).to have_content "What's your name? *"
+    expect { click_button 'Save' }.not_to change { session.reload.answers.count }
+    expect(page).to have_content("can't be blank")
+  end
+
+  scenario 'does not save an empty long text field when required' do
+    long_text_question  = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself', required: true
+    first_question_group.questions << long_text_question
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    visit helena.edit_survey_session_path(survey, session)
+
+    expect(page).to have_content 'Give a brief description of yourself *'
+    expect { click_button 'Save' }.not_to change { session.reload.answers.count }
+    expect(page).to have_content("can't be blank")
+  end
+
+  scenario 'does not save a non selected radio group when required' do
+    all_and_everything = build :radio_group_question, code:           :all_and_everything,
+                                                      question_text:  'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
+                                                      position:       1,
+                                                      required:       true
+
+    all_and_everything.labels << build(:label, position: 1, text: 'Just Chuck Norris knows it', value: 'norris')
+    all_and_everything.labels << build(:label, position: 2, text: 'God', value: 'god')
+    all_and_everything.labels << build(:label, position: 3, text: '42', value: 42)
+    all_and_everything.labels << build(:label, position: 4, text: 'Your mom', value: 'mom')
+
+    first_question_group.questions << all_and_everything
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    visit helena.edit_survey_session_path(survey, session)
+
+    expect(page).to have_content 'What is the answer to the Ultimate Question of Life, the Universe, and Everything? *'
+    expect { click_button 'Save' }.not_to change { session.reload.answers.count }
+    expect(page).to have_content("can't be blank")
+  end
+
+  scenario 'does not save when no subquestion of a checkbox group is selected if required' do
+    food_allergy = build :checkbox_group_question, code:           :food_allergy,
+                                                   question_text:  'What kind of food allergy do you have?',
+                                                   position:       2,
+                                                   required:       true
+
+    food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic', position: 1)
+    food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat', position: 2)
+    food_allergy.sub_questions << build(:sub_question, text: 'Meat', code: 'meat', position: 3)
+
+    first_question_group.questions << food_allergy
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    visit helena.edit_survey_session_path(survey, session)
+
+    expect(page).to have_content 'What kind of food allergy do you have? *'
+    expect { click_button 'Save' }.to change { session.reload.answers.map(&:value) }.from([]).to([0, 0, 0])
+    expect(page).to have_content("can't be blank")
+  end
+
+  scenario 'saves when subquestion of a checkbox group is selected if required' do
+    food_allergy = build :checkbox_group_question, code:           :food_allergy,
+                                                   question_text:  'What kind of food allergy do you have?',
+                                                   position:       2,
+                                                   required:       true
+
+    food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic', position: 1)
+    food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat', position: 2)
+    food_allergy.sub_questions << build(:sub_question, text: 'Meat', code: 'meat', position: 3)
+
+    first_question_group.questions << food_allergy
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    visit helena.edit_survey_session_path(survey, session)
+
+    expect(page).to have_content 'What kind of food allergy do you have? *'
+    check('Oats')
+    expect { click_button 'Save' }.to change { session.reload.answers.count }.from(0).to(3)
+    expect(page).not_to have_content("can't be blank")
+  end
+
+  scenario 'does not save when radio matrix is filled out completely if required' do
+    satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
+                                                        question_text: 'Below are five statements with which you may agree or disagree.',
+                                                        required:      true,
+                                                        position:      1
+
+    satisfaction_matrix.labels << build(:label, position: 1, text: 'Strongly Disagree', value: 1)
+    satisfaction_matrix.labels << build(:label, position: 2, text: 'Disagree', value: 2)
+    satisfaction_matrix.labels << build(:label, position: 3, text: 'Slightly Disagree', value: 3)
+    satisfaction_matrix.labels << build(:label, position: 4, text: 'Neither Agree or Disagree', value: 4)
+    satisfaction_matrix.labels << build(:label, position: 5, text: 'Slightly Agree', value: 5)
+    satisfaction_matrix.labels << build(:label, position: 6, text: 'Agree', value: 6)
+    satisfaction_matrix.labels << build(:label, position: 7, text: 'Strongly Agree', value: 7)
+
+    satisfaction_matrix.sub_questions << build(:sub_question, text: 'In most ways my life is close to my ideal.', code: 'life_is_ideal', position: 1)
+    satisfaction_matrix.sub_questions << build(:sub_question, text: 'The conditions of my life are excellent.', code: 'condition', position: 2)
+    satisfaction_matrix.sub_questions << build(:sub_question, text: 'I am satisfied with life.', code: 'satisfied_with_life', position: 3)
+    satisfaction_matrix.sub_questions << build(:sub_question, text:     'So far I have gotten the important things I want in life.',
+                                                              code:     'important_things',
+                                                              position: 4)
+    satisfaction_matrix.sub_questions << build(:sub_question, text: 'If I could live my life over, I would change almost nothing.',
+                                                              code: 'nothing_to_change',
+                                                              position: 5)
+
+    first_question_group.questions << satisfaction_matrix
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    visit helena.edit_survey_session_path(survey, session)
+
+    expect(page).to have_content 'Below are five statements with which you may agree or disagree. *'
+    expect { click_button 'Save' }.not_to change { session.reload.answers.count }
+    expect(page).not_to have_content("can't be blank")
   end
 end

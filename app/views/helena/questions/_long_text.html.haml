@@ -1,4 +1,9 @@
-.form-group
-  %label= question.question_text
+.form-group{ class: "#{'has-error' if errors[question.code]}" }
+  %label
+    = question.question_text
+    = ' *' if question.required
   = form.simple_fields_for :answers do |answer_form|
     = answer_form.text_area question.code, value: answers[question.code], class: 'form-control'
+  - if errors[question.code]
+    .help-block.text-danger
+      = errors[question.code]

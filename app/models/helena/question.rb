@@ -10,9 +10,7 @@ module Helena
       Helena::Questions::LongText,
       Helena::Questions::StaticText,
       Helena::Questions::RadioGroup,
-      Helena::Questions::CheckboxGroup,
-      Helena::Questions::RadioMatrix,
-      Helena::Questions::CheckboxMatrix
+      Helena::Questions::CheckboxGroup
     ]
 
     embedded_in :question_group, inverse_of: :questions

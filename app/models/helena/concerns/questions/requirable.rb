@@ -7,6 +7,10 @@ module Helena
         included do
           field :required, type: Boolean, default: false
         end
+
+        def validate_presence_in(answers)
+          answers[code]
+        end
       end
     end
   end

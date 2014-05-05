@@ -10,6 +10,5 @@ FactoryGirl.define do
     factory :radio_group_question, class: Helena::Questions::RadioGroup
     factory :checkbox_group_question, class: Helena::Questions::CheckboxGroup
     factory :radio_matrix_question, class: Helena::Questions::RadioMatrix
-    factory :checkbox_matrix_question, class: Helena::Questions::CheckboxMatrix
   end
 end

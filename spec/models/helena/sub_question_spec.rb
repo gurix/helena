@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Helena::SubQuestion do
   let(:version) { create :version, survey: create(:survey) }
   let(:question_group) { build :question_group, version: version }
-  let(:question) { build :checkbox_matrix_question, question_group: question_group }
+  let(:question) { build :radio_matrix_question, question_group: question_group }
 
   it { expect(subject).to be_embedded_in(:question) }
   it { expect(subject).to validate_uniqueness_of(:text) }

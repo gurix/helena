@@ -1,13 +1,18 @@
-.form-group
-  %label= question.question_text
+.form-group{ class: "#{'has-error' if errors[question.code]}" }
+  %label
+    = question.question_text
+    = ' *' if question.required
   = form.simple_fields_for :answers do |answer_form|
     - question.sub_questions.each do |sub_question|
       .checkbox
         %label
-          - checked = (answers[sub_question.code].to_s == sub_question.value.to_s) || sub_question.preselected
-
+          - checked = (answers[sub_question.code].to_s == sub_question.value.to_s) if sub_question.value
+          - checked = checked || sub_question.preselected
           = answer_form.input_field sub_question.code, as:      :boolean,
                                                        value:   sub_question.value,
                                                        checked: checked,
                                                        class:   'form-control'
           = sub_question.text
+  - if errors[question.code]
+    .help-block.text-danger
+      = errors[question.code]

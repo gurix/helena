@@ -5,5 +5,6 @@ en:
         next: Next
         save: Save
         back: Back
+        required: '* = required fields'
       end_message:
         message: Thank you for participating.
