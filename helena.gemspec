@@ -18,7 +18,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.files        = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
 
-  s.add_dependency 'rails', '~> 4.1.0'
+  s.add_dependency 'rails', '~> 4.1.1'
   s.add_dependency 'mongoid', '~> 4.0.0.beta1'
   s.add_dependency 'mongoid_orderable'
   s.add_dependency 'haml'
