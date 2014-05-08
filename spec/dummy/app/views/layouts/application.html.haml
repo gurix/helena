@@ -19,4 +19,6 @@
               %li= message
       %h1.hidden
         Helena
+      %ol.breadcrumb
+        = render_breadcrumbs tag: :li, separator: ''
       = yield

@@ -1,5 +1,3 @@
-require_dependency 'helena/application_controller'
-
 module Helena
   module Admin
     class QuestionGroupsController < Admin::ApplicationController

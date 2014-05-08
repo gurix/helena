@@ -2,7 +2,6 @@ module Helena
   module Admin
     class ApplicationController < Helena::ApplicationController
       before_filter :authenticate_administrator
-      layout 'helena/admin'
 
       def notify_successful_create_for(resource_name)
         flash[:notice] = t('actions.created', resource: resource_name)
