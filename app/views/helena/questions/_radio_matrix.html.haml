@@ -1,5 +1,5 @@
-.form-group{ class: "#{'has-error' if errors}" }
-  %label
+.form-group{ class: "#{'has-error' if errors.present?}" }
+  %label{class: "#{'text-danger' if errors.present?}"}
     = question.question_text
     = ' *' if question.required
   %table.table
