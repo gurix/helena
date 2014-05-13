@@ -1,7 +1,7 @@
 = simple_form_for [:admin, @survey, @question_group, @question] do |f|
   = f.input :question_text
   = f.input :code, hint: t('shared.code_hint')
-  = f.input :_type, collection: Helena::Question::TYPES.map { |type| [type.model_name.human, type]}
+  = f.input :_type, collection: Helena::Question::TYPES.map { |type| [type.model_name.human, type] }
   - if @question.respond_to? :required
     = f.input :required, as: :boolean, wrapper: :checkbox
   - if @question.is_a?(Helena::Questions::LongText) || @question.is_a?(Helena::Questions::StaticText)

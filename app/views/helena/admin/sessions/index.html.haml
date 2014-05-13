@@ -22,7 +22,7 @@
             = session.token
           %td.completed{ data: { title: Helena::Session.human_attribute_name(:completed) } }
             .label{class: "label-#{session.completed? ? 'success' : 'danger'}"}
-              = t ".#{session.completed.to_s}"
+              = t ".#{session.completed}"
           %td.answers{ data: { title: Helena::Session.human_attribute_name(:answers) } }
             = session.answers.count
 

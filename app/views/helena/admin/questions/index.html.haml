@@ -16,15 +16,15 @@
     %tbody
       - @questions.each_with_index do |question, index|
         %tr[question]
-          %td.position{ data: {title: Helena::Question.human_attribute_name(:position) } }
+          %td.position{ data: { title: Helena::Question.human_attribute_name(:position) } }
             = question.position
-          %td.code{ data: {title: Helena::Question.human_attribute_name(:code) } }
+          %td.code{ data: { title: Helena::Question.human_attribute_name(:code) } }
             = question.code
-          %td.type{ data: {title: Helena::Question.human_attribute_name(:type) } }
+          %td.type{ data: { title: Helena::Question.human_attribute_name(:type) } }
             = question.class.model_name.human
             - if question.try :required
               %span.glyphicon.glyphicon-flag{ title: t('.required')}
-          %td.question_text{ data: {title: Helena::Question.human_attribute_name(:question_text) } }
+          %td.question_text{ data: { title: Helena::Question.human_attribute_name(:question_text) } }
             = question.question_text
           %td
             .btn-group.btn-group-sm
