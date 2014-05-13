@@ -12,8 +12,12 @@ module Helena
         true
       end
 
-      def validate_presence_in(answers)
-        sub_questions.map { |sub_question| answers[sub_question.code] }.any?
+      def validate_answers_in(answers)
+        errors = {}
+        sub_questions.each do |sub_question|
+          errors[sub_question.code] = :blank if answers[sub_question.code].blank? && required
+        end
+        errors
       end
     end
   end

@@ -174,13 +174,12 @@ feature 'Session management' do
   scenario 'does not save a non selected radio group when required' do
     all_and_everything = build :radio_group_question, code:           :all_and_everything,
                                                       question_text:  'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
-                                                      position:       1,
                                                       required:       true
 
-    all_and_everything.labels << build(:label, position: 1, text: 'Just Chuck Norris knows it', value: 'norris')
-    all_and_everything.labels << build(:label, position: 2, text: 'God', value: 'god')
-    all_and_everything.labels << build(:label, position: 3, text: '42', value: 42)
-    all_and_everything.labels << build(:label, position: 4, text: 'Your mom', value: 'mom')
+    all_and_everything.labels << build(:label, value: 'norris')
+    all_and_everything.labels << build(:label, value: 'god')
+    all_and_everything.labels << build(:label, value: 42)
+    all_and_everything.labels << build(:label, value: 'mom')
 
     first_question_group.questions << all_and_everything
 
@@ -199,12 +198,11 @@ feature 'Session management' do
   scenario 'does not save when no subquestion of a checkbox group is selected if required' do
     food_allergy = build :checkbox_group_question, code:           :food_allergy,
                                                    question_text:  'What kind of food allergy do you have?',
-                                                   position:       2,
                                                    required:       true
 
-    food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic', position: 1)
-    food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat', position: 2)
-    food_allergy.sub_questions << build(:sub_question, text: 'Meat', code: 'meat', position: 3)
+    food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic')
+    food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat')
+    food_allergy.sub_questions << build(:sub_question, text: 'Meat', code: 'meat')
 
     first_question_group.questions << food_allergy
 
@@ -223,12 +221,11 @@ feature 'Session management' do
   scenario 'saves when subquestion of a checkbox group is selected if required' do
     food_allergy = build :checkbox_group_question, code:           :food_allergy,
                                                    question_text:  'What kind of food allergy do you have?',
-                                                   position:       2,
                                                    required:       true
 
-    food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic', position: 1)
-    food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat', position: 2)
-    food_allergy.sub_questions << build(:sub_question, text: 'Meat', code: 'meat', position: 3)
+    food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic')
+    food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat')
+    food_allergy.sub_questions << build(:sub_question, text: 'Meat', code: 'meat')
 
     first_question_group.questions << food_allergy
 
@@ -248,26 +245,21 @@ feature 'Session management' do
   scenario 'does not save when radio matrix is filled out completely if required' do
     satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
                                                         question_text: 'Below are five statements with which you may agree or disagree.',
-                                                        required:      true,
-                                                        position:      1
+                                                        required:      true
 
-    satisfaction_matrix.labels << build(:label, position: 1, text: 'Strongly Disagree', value: 1)
-    satisfaction_matrix.labels << build(:label, position: 2, text: 'Disagree', value: 2)
-    satisfaction_matrix.labels << build(:label, position: 3, text: 'Slightly Disagree', value: 3)
-    satisfaction_matrix.labels << build(:label, position: 4, text: 'Neither Agree or Disagree', value: 4)
-    satisfaction_matrix.labels << build(:label, position: 5, text: 'Slightly Agree', value: 5)
-    satisfaction_matrix.labels << build(:label, position: 6, text: 'Agree', value: 6)
-    satisfaction_matrix.labels << build(:label, position: 7, text: 'Strongly Agree', value: 7)
+    satisfaction_matrix.labels << build(:label, value: 1)
+    satisfaction_matrix.labels << build(:label, value: 2)
+    satisfaction_matrix.labels << build(:label, value: 3)
+    satisfaction_matrix.labels << build(:label, value: 4)
+    satisfaction_matrix.labels << build(:label, value: 5)
+    satisfaction_matrix.labels << build(:label, value: 6)
+    satisfaction_matrix.labels << build(:label, value: 7)
 
-    satisfaction_matrix.sub_questions << build(:sub_question, text: 'In most ways my life is close to my ideal.', code: 'life_is_ideal', position: 1)
-    satisfaction_matrix.sub_questions << build(:sub_question, text: 'The conditions of my life are excellent.', code: 'condition', position: 2)
-    satisfaction_matrix.sub_questions << build(:sub_question, text: 'I am satisfied with life.', code: 'satisfied_with_life', position: 3)
-    satisfaction_matrix.sub_questions << build(:sub_question, text:     'So far I have gotten the important things I want in life.',
-                                                              code:     'important_things',
-                                                              position: 4)
-    satisfaction_matrix.sub_questions << build(:sub_question, text: 'If I could live my life over, I would change almost nothing.',
-                                                              code: 'nothing_to_change',
-                                                              position: 5)
+    satisfaction_matrix.sub_questions << build(:sub_question, code: 'life_is_ideal')
+    satisfaction_matrix.sub_questions << build(:sub_question, code: 'condition')
+    satisfaction_matrix.sub_questions << build(:sub_question, code: 'satisfied_with_life')
+    satisfaction_matrix.sub_questions << build(:sub_question, code: 'important_things')
+    satisfaction_matrix.sub_questions << build(:sub_question, code: 'nothing_to_change')
 
     first_question_group.questions << satisfaction_matrix
 
@@ -279,7 +271,10 @@ feature 'Session management' do
     visit helena.edit_survey_session_path(survey, session)
 
     expect(page).to have_content 'Below are five statements with which you may agree or disagree. *'
-    expect { click_button 'Save' }.not_to change { session.reload.answers.count }
-    expect(page).not_to have_content("can't be blank")
+
+    choose('session_answers_satisfied_with_life_3')
+
+    expect { click_button 'Save' }.to change { session.reload.answers.count }.from(0).to(1)
+    expect(page).to have_content("can't be blank")
   end
 end

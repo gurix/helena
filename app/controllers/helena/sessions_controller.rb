@@ -77,7 +77,9 @@ module Helena
     def answer_errors
       errors = {}
       @question_group.questions.where(required: true).each do |question|
-        errors[question.code] = t('errors.messages.blank') unless question.validate_presence_in session_answers
+        question.validate_answers_in(session_answers).each do |question_code, error_message|
+          errors[question_code] = t("errors.messages.#{error_message}")
+        end
       end
       errors
     end

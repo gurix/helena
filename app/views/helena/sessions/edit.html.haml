@@ -7,7 +7,10 @@
       = render "#{question.class.to_s.underscore}", form: f, question: question, answers: @answers, errors: @errors
 
     = hidden_field_tag :question_group, @question_group.id
-    = link_to t('.back'), edit_survey_session_path(@survey, @session, question_group: @question_group.previous_item), class: 'btn' unless @question_group.first?
+
+    - unless @question_group.first?
+      = link_to t('.back'), edit_survey_session_path(@survey, @session, question_group: @question_group.previous_item), class: 'btn'
+
     = f.submit class: 'btn btn-success pull-right', value: @question_group.last? ? t('.save') : t('.next')
 
   = t('.required')

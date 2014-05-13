@@ -8,8 +8,10 @@ module Helena
           field :required, type: Boolean, default: false
         end
 
-        def validate_presence_in(answers)
-          answers[code]
+        def validate_answers_in(answers)
+          errors = {}
+          errors[code] = :blank if answers[code].blank? && required
+          errors
         end
       end
     end
