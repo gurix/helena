@@ -67,7 +67,7 @@ module Helena
       end
 
       def survey_params
-        params.require(:survey).permit(:name, versions_attributes: [:version, :id, survey_detail_attributes: [:title, :description]])
+        params.require(:survey).permit(:name, :tag_list, versions_attributes: [:version, :id, survey_detail_attributes: [:title, :description]])
       end
 
       def load_survey

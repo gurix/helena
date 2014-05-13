@@ -2,10 +2,10 @@ require 'spec_helper'
 
 feature 'Survey management' do
   scenario 'lists all surveys' do
-    first_survey = create :survey, name: 'first'
+    first_survey = create :survey, name: 'first', tag_list: 'foo, bar'
     first_survey.versions.create version: 0
     first_survey.versions.first.survey_detail = Helena::SurveyDetail.new(title: 'My first survey', description: 'I am very proud of it')
-    second_survey = create :survey, name: 'second'
+    second_survey = create :survey, name: 'second', tag_list: 'cumulus, nimbus'
     second_survey.versions.create version: 0
     second_survey.versions.first.survey_detail = Helena::SurveyDetail.new(title: 'Another cool survey', description: 'Everybody likes it')
 
@@ -15,12 +15,14 @@ feature 'Survey management' do
       expect(page).to have_text 'first'
       expect(page).to have_text 'My first survey'
       expect(page).to have_text 'I am very proud of it'
+      expect(page).to have_text 'foo, bar'
     end
 
     within "#helena_#{dom_id second_survey}" do
       expect(page).to have_text 'second'
       expect(page).to have_text 'Another cool survey'
       expect(page).to have_text 'Everybody likes it'
+      expect(page).to have_text 'cumulus, nimbus'
     end
 
     within '.breadcrumb' do
@@ -33,6 +35,7 @@ feature 'Survey management' do
 
     fill_in 'Name', with: 'More crazy stuff...'
     fill_in 'Description', with: 'Once upon a time.'
+    fill_in 'Tag list', with: 'english, foo, 42'
 
     within '.breadcrumb' do
       expect(page).to have_text 'New Survey'
@@ -52,6 +55,7 @@ feature 'Survey management' do
     fill_in 'Name', with: 'This is crazy'
     fill_in 'Title', with: 'More crazy stuff...'
     fill_in 'Description', with: 'Once upon a time.'
+    fill_in 'Tag list', with: 'english, foo, 42'
 
     click_button 'Save'
 

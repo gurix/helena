@@ -2,6 +2,7 @@ module Helena
   class Survey
     include Helena::Concerns::ApplicationModel
     include Mongoid::Orderable
+    include Mongoid::Document::Taggable
 
     orderable
 
