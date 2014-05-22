@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/gurix/helena.png)](https://codeclimate.com/github/gurix/helena) 
+[![Code Climate](https://codeclimate.com/github/gurix/helena.png)](https://codeclimate.com/github/gurix/helena)
 [![Build Status](https://travis-ci.org/gurix/helena.png?branch=master)](https://travis-ci.org/gurix/helena)
 [![Coverage Status](https://coveralls.io/repos/gurix/helena/badge.png)](https://coveralls.io/r/gurix/helena)
 [![Dependency Status](https://gemnasium.com/gurix/helena.png)](https://gemnasium.com/gurix/helena)
@@ -42,6 +42,12 @@ Typical implementation would be:
     end
   end
 ```
+
+## TODOS
+* Support more question types, i.e Dates, Numeric inputs with validation, emails, ...
+* Individual Report for each version as liquid template
+* Demo App
+* Better admininterface with much better usability
 
 ## Contributing
 
