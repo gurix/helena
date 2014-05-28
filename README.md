@@ -7,6 +7,8 @@
 Helena is an online survey/test framework designed for agile survey/test development, longitudinal studies and instant feedback.
 
 ![swiss made software](https://raw.githubusercontent.com/gurix/helena/master/app/assets/images/helena/swissmadesoftware.png "swiss made software")
+
+Demo: http://helena-demo.herokuapp.com (https://github.com/gurix/helena-demo)
 ## Requirements
 * Rails (4.1 or higher)
 * Mongoid (4.0.0 or higher)
