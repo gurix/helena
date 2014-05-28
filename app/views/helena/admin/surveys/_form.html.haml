@@ -1,6 +1,7 @@
 = simple_form_for [:admin, @survey] do |f|
   = f.input :name
   = f.input :tag_list
+  = f.input :language, collection: I18n.available_locales, include_blank: false
   = f.simple_fields_for :versions do |v|
     = v.input :version, as: :hidden, value: 0 if @survey.new_record?
     = v.simple_fields_for :survey_detail do |detail|

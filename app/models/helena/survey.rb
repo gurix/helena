@@ -7,6 +7,7 @@ module Helena
     orderable
 
     field :name,        type: String
+    field :language,    type: String
     field :description, type: String
 
     embeds_many :versions, inverse_of: :survey, class_name: 'Helena::Version'
@@ -15,6 +16,7 @@ module Helena
     accepts_nested_attributes_for :versions
 
     validates :name, presence: true, uniqueness: true
+    validates :language, presence: true
 
     def draft_version
       versions.find_by version: 0

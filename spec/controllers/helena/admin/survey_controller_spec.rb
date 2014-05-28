@@ -78,7 +78,7 @@ describe Helena::Admin::SurveysController do
     end
 
     it 'counts position up when creating a new survey' do
-      post :create, survey: { name: 'New Survey' }
+      post :create, survey: { name: 'New Survey' , language: 'en' }
 
       expect(first_survey.reload.position).to eq 1
       expect(second_survey.reload.position).to eq 2
