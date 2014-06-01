@@ -27,6 +27,6 @@
             = session.answers.count
 
           %td
-            = link_to t('.delete'), admin_survey_session_path(@survey, session),
+            = link_to t('shared.delete'), admin_survey_session_path(@survey, session),
               method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
             = link_to t('.edit'), edit_survey_session_path(@survey, session), class: 'btn'

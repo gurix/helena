@@ -7,11 +7,10 @@ en:
         index:
           empty: There are no questions in this question group
           add: Add a new question
-          delete: Delete
-          edit: Edit
-          move_up: Move up
-          move_down: Move down
-          required: Required
         new: &new_question
           new: New question
         create: *new_question
+        labels:
+          labels: Labels
+        sub_questions:
+          options: Options

@@ -69,7 +69,7 @@ module Helena
         add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
         add_breadcrumb @survey.name, admin_survey_question_groups_path(@survey)
         add_breadcrumb @question_group.title, admin_survey_question_group_questions_path(@survey, @question_group)
-        add_breadcrumb t('.new') if action_name == 'new' || action_name == 'create'
+        add_breadcrumb t('helena.admin.questions.new') if action_name == 'new' || action_name == 'create'
       end
 
       def question_params

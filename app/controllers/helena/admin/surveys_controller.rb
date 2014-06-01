@@ -13,13 +13,13 @@ module Helena
       end
 
       def new
-        add_breadcrumb t('.new')
+        add_breadcrumb t('helena.admin.surveys.new')
         @survey = Helena::Survey.new
         @survey.versions.build version: 0, survey_detail: Helena::SurveyDetail.new
       end
 
       def create
-        add_breadcrumb t('.new')
+        add_breadcrumb t('helena.admin.surveys.new')
 
         @survey = Helena::Survey.new survey_params
 

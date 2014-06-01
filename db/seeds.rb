@@ -38,7 +38,7 @@ def create_satisfaction_scale_survey
   satisfaction_details = build :question_group, questions: [satisfaction_matrix]
 
 
-  survey = create :survey, name: 'The Satisfaction with Life Scale', tag_list: 'english, psychology'
+  survey = create :survey, name: 'The Satisfaction with Life Scale', tag_list: 'satisfaction, psychology'
   base_version = survey.versions.create version: 0
   base_version.survey_detail = build :survey_detail, title:       'The Satisfaction with Life Scale',
                                                      description: 'A 5-item scale designed to measure global cognitive judgments of ones life satisfaction.'
@@ -126,7 +126,7 @@ We're conducting a short survey to find out about your dining experience and wha
 Please help us by completing this short survey."
 EOF
 
-  survey = create :survey, name: 'Restaurant customer satisfaction', tag_list: 'english, restaurant, survey'
+  survey = create :survey, name: 'Restaurant customer satisfaction', tag_list: 'restaurant, survey'
   base_version = survey.versions.create version: 0, question_groups: [personal_details, dinner]
   base_version.survey_detail = create :survey_detail, title:      '5-star Swiss Cheese Restaurant customer satisfaction',
                                                       version:     base_version,

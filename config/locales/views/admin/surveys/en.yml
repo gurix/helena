@@ -4,12 +4,7 @@ en:
       surveys:
         index:
           add: Add a new survey
-          edit: Edit
           empty: There are no surveys available
-          delete_question: Are you sure?
-          delete: Delete
-          move_up: Move up
-          move_down: Move down
         new: &new_survey
           new: New Survey
         create: *new_survey

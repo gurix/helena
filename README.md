@@ -51,6 +51,14 @@ Typical implementation would be:
 * Demo App
 * Better admininterface with much better usability
 
+## Dummy site for development
+
+```
+rake -f spec/dummy/Rakefile db:seed
+cd spec/dummy
+rails s
+open http://localhost:3000/helena/admin/surveys
+```
 ## Contributing
 
 1. Fork it

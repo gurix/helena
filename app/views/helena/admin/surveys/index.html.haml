@@ -17,17 +17,17 @@
             = survey.tag_list
       .btn-group
         - unless survey.last?
-          = link_to move_down_admin_survey_path(survey), class: 'btn btn-primary', method: :patch, title: t('.move_down')  do
+          = link_to move_down_admin_survey_path(survey), class: 'btn btn-primary', method: :patch, title: t('shared.move_down')  do
             %i.glyphicon.glyphicon-chevron-down
         - unless survey.first?
-          = link_to move_up_admin_survey_path(survey), class: 'btn btn-primary', method: :patch, title: t('.move_up')   do
+          = link_to move_up_admin_survey_path(survey), class: 'btn btn-primary', method: :patch, title: t('shared.move_up')   do
             %i.glyphicon.glyphicon-chevron-up
 
-        = link_to t('.edit'), edit_admin_survey_path(survey), class: 'btn btn-primary'
+        = link_to t('shared.edit'), edit_admin_survey_path(survey), class: 'btn btn-primary'
         = link_to Helena::QuestionGroup.model_name.human(count: 2), admin_survey_question_groups_path(survey), class: 'btn btn-primary'
         = link_to Helena::Session.model_name.human(count: 2), admin_survey_sessions_path(survey), class: 'btn btn-primary'
         = link_to Helena::Version.model_name.human(count: 2), admin_survey_versions_path(survey), class: 'btn btn-primary'
-        = link_to t('.delete'), admin_survey_path(survey), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
+        = link_to t('shared.delete'), admin_survey_path(survey), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 
 %br
 %a.btn.btn-success{ href:  new_admin_survey_path}

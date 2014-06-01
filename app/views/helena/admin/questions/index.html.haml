@@ -23,7 +23,7 @@
           %td.type{ data: { title: Helena::Question.human_attribute_name(:type) } }
             = question.class.model_name.human
             - if question.try :required
-              %span.glyphicon.glyphicon-flag{ title: t('.required')}
+              %span.glyphicon.glyphicon-flag{ title: t('shared.required')}
           %td.question_text{ data: { title: Helena::Question.human_attribute_name(:question_text) } }
             = question.question_text
           %td
@@ -31,17 +31,17 @@
               - unless question.last?
                 = link_to move_down_admin_survey_question_group_question_path(@survey, @question_group, question), class: 'btn btn-primary',
                                                                                                method: :patch,
-                                                                                               title: t('.move_down')  do
+                                                                                               title: t('shared.move_down')  do
                   %i.glyphicon.glyphicon-chevron-down
               - unless question.first?
                 = link_to move_up_admin_survey_question_group_question_path(@survey, @question_group, question), class: 'btn btn-primary',
                                                                                              method: :patch,
-                                                                                             title: t('.move_up')  do
+                                                                                             title: t('shared.move_up')  do
                   %i.glyphicon.glyphicon-chevron-up
 
-              = link_to t('.edit'), [:edit, :admin, @survey, @question_group, question], class: 'btn btn-primary'
+              = link_to t('shared.edit'), [:edit, :admin, @survey, @question_group, question], class: 'btn btn-primary'
 
-              = link_to t('.delete'), admin_survey_question_group_question_path(@survey, @question_group, question), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
+              = link_to t('shared.delete'), admin_survey_question_group_question_path(@survey, @question_group, question), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 
 %a.btn.btn-success{ href:  new_admin_survey_question_group_question_path(@survey, @question_group) }
   = t '.add'

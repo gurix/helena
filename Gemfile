@@ -25,3 +25,4 @@ gem 'launchy'
 gem 'binding_of_caller'
 gem 'coveralls', require: false
 gem 'selenium-webdriver'
+gem 'i18n-tasks'
