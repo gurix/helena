@@ -2,24 +2,26 @@
   %label{class: "#{'text-danger' if errors.present?}"}
     = question.question_text
     = ' *' if question.required
-  %table.table
-    %thead
-      %tr
-        %th
-        - question.labels.each do |label|
-          %th= label.text
-    %tbody
-      - question.sub_questions.each do |sub_question|
+  .table-responsive
+    %table.table
+      %thead
         %tr
-          %td
-            = sub_question.text
-            - if errors[sub_question.code]
-              .help-block.text-danger= errors[sub_question.code]
+          %th
           - question.labels.each do |label|
-            - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
-            - checked ||= (label.preselected? ? true : false)
-            %td{ data: { title: label.text }, width: "#{80 / question.labels.count}%" }
-              %label
-                = form.simple_fields_for :answers do |answer_form|
-                  = answer_form.radio_button sub_question.code, label.value, checked: checked
-                %span.hide-text= label.text
+            %th{ width: "#{80 / question.labels.count}%" }
+              = label.text
+      %tbody
+        - question.sub_questions.each do |sub_question|
+          %tr
+            %td
+              = sub_question.text
+              - if errors[sub_question.code]
+                .help-block.text-danger= errors[sub_question.code]
+            - question.labels.each do |label|
+              - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
+              - checked ||= (label.preselected? ? true : false)
+              %td{ width: "#{80 / question.labels.count}%" }
+                %label
+                  = form.simple_fields_for :answers do |answer_form|
+                    = answer_form.radio_button sub_question.code, label.value, checked: checked
+                  %span.hide-text= label.text

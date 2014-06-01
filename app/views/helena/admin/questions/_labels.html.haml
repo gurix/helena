@@ -1,23 +1,24 @@
 %h3= t '.labels'
-%table.table.labels
-  %thead
-    %tr
-      %th.position= Helena::Label.human_attribute_name :position
-      %th.preselected
-      %th.text= Helena::Label.human_attribute_name :text
-      %th.value= Helena::Label.human_attribute_name :value
-      %th.delete
-  %tbody
-    = form.simple_fields_for :labels  do |label|
-      %tr[label.object]
-        %td.position{ data: { title: Helena::Label.human_attribute_name(:position) } }
-          = label.input :position, as: :integer, label: false
-        %td.preselected{ data: { title: Helena::Label.human_attribute_name(:preselected) } }
-          = label.input :preselected, as: :boolean, wrapper: :checkbox, label: Helena::Label.human_attribute_name(:preselected)
-        %td.text{ data: { title: Helena::Label.human_attribute_name(:text) } }
-          = label.input :text, label: false
-        %td.value{ data: { title: Helena::Label.human_attribute_name(:value) } }
-          = label.input :value, label: false
-        %td.delete
-          - unless label.object.new_record?
-            = label.input :_destroy, as: :boolean, label: Helena::Label.human_attribute_name(:_destroy), wrapper: :checkbox
+.table-responsive
+  %table.table.labels
+    %thead
+      %tr
+        %th.position= Helena::Label.human_attribute_name :position
+        %th.preselected
+        %th.text= Helena::Label.human_attribute_name :text
+        %th.value= Helena::Label.human_attribute_name :value
+        %th.delete
+    %tbody
+      = form.simple_fields_for :labels  do |label|
+        %tr[label.object]
+          %td.position{ data: { title: Helena::Label.human_attribute_name(:position) } }
+            = label.input :position, as: :integer, label: false
+          %td.preselected{ data: { title: Helena::Label.human_attribute_name(:preselected) } }
+            = label.input :preselected, as: :boolean, wrapper: :checkbox, label: Helena::Label.human_attribute_name(:preselected)
+          %td.text{ data: { title: Helena::Label.human_attribute_name(:text) } }
+            = label.input :text, label: false
+          %td.value{ data: { title: Helena::Label.human_attribute_name(:value) } }
+            = label.input :value, label: false
+          %td.delete
+            - unless label.object.new_record?
+              = label.input :_destroy, as: :boolean, label: Helena::Label.human_attribute_name(:_destroy), wrapper: :checkbox

@@ -1,39 +1,41 @@
-%h2
-  = Helena::QuestionGroup.model_name.human(count: 2)
-  = "(#{@question_groups.count})"
-- if @question_groups.empty?
-  .alert.alert-warning
-    = t '.empty'
-- else
-  %table.table.question_groups
-    %thead
-      %tr
-        %th.position= Helena::QuestionGroup.human_attribute_name(:position)
-        %th= Helena::QuestionGroup.human_attribute_name(:title)
-        %th
-    %tbody
-      - @question_groups.each do |question_group|
-        %tr[question_group]
-          %td.position{ data: { title: Helena::QuestionGroup.human_attribute_name(:position) } }
-            = question_group.position
-          %td.title{ data: { title: Helena::QuestionGroup.human_attribute_name(:title) } }
-            = question_group.title
-          %td
-            .btn-group.btn-group-sm
-              - unless question_group.last?
-                = link_to move_down_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary',
-                                                                                               method: :patch,
-                                                                                               title: t('shared.move_down')  do
-                  %i.glyphicon.glyphicon-chevron-down
-              - unless question_group.first?
-                = link_to move_up_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary',
-                                                                                             method: :patch,
-                                                                                             title: t('shared.move_up')  do
-                  %i.glyphicon.glyphicon-chevron-up
+.helena-admin
+  %h2
+    = Helena::QuestionGroup.model_name.human(count: 2)
+    = "(#{@question_groups.count})"
+  - if @question_groups.empty?
+    .alert.alert-warning
+      = t '.empty'
+  - else
+    .table-responsive
+      %table.table.question_groups
+        %thead
+          %tr
+            %th.position= Helena::QuestionGroup.human_attribute_name(:position)
+            %th= Helena::QuestionGroup.human_attribute_name(:title)
+            %th
+        %tbody
+          - @question_groups.each do |question_group|
+            %tr[question_group]
+              %td.position{ data: { title: Helena::QuestionGroup.human_attribute_name(:position) } }
+                = question_group.position
+              %td.title{ data: { title: Helena::QuestionGroup.human_attribute_name(:title) } }
+                = question_group.title
+              %td
+                .btn-group.btn-group-sm
+                  - unless question_group.last?
+                    = link_to move_down_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary',
+                                                                                                   method: :patch,
+                                                                                                   title: t('shared.move_down')  do
+                      %i.glyphicon.glyphicon-chevron-down
+                  - unless question_group.first?
+                    = link_to move_up_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary',
+                                                                                                 method: :patch,
+                                                                                                 title: t('shared.move_up')  do
+                      %i.glyphicon.glyphicon-chevron-up
 
-              = link_to t('shared.edit'), edit_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary'
-              = link_to Helena::Question.model_name.human(count: 2), admin_survey_question_group_questions_path(@survey, question_group), class: 'btn btn-primary'
-              = link_to t('shared.delete'), admin_survey_question_group_path(@survey, question_group), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
+                  = link_to t('shared.edit'), edit_admin_survey_question_group_path(@survey, question_group), class: 'btn btn-primary'
+                  = link_to Helena::Question.model_name.human(count: 2), admin_survey_question_group_questions_path(@survey, question_group), class: 'btn btn-primary'
+                  = link_to t('shared.delete'), admin_survey_question_group_path(@survey, question_group), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 
-%a.btn.btn-success{ href:  new_admin_survey_question_group_path}
-  = t '.add'
+  %a.btn.btn-success{ href:  new_admin_survey_question_group_path}
+    = t '.add'

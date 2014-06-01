@@ -1,32 +1,34 @@
-%h2
-  = Helena::Session.model_name.human(count: 2)
-  = "(#{@sessions.count})"
-- if @sessions.empty?
-  .alert.alert-warning
-    = t '.empty'
-- else
-  %table.table.sessions
-    %thead
-      %tr
-        %th.updated_at= Helena::Session.human_attribute_name(:updated_at)
-        %th.token= Helena::Session.human_attribute_name(:token)
-        %th.completed= Helena::Session.human_attribute_name(:completed)
-        %th.answers= Helena::Session.human_attribute_name(:answers)
-        %th
-    %tbody
-      - @sessions.each do |session|
-        %tr[session]
-          %td.updated_at{ data: { title: Helena::Session.human_attribute_name(:updated_at) } }
-            = time_ago_in_words(session.updated_at)
-          %td.token{ data: { title: Helena::Session.human_attribute_name(:token) } }
-            = session.token
-          %td.completed{ data: { title: Helena::Session.human_attribute_name(:completed) } }
-            .label{class: "label-#{session.completed? ? 'success' : 'danger'}"}
-              = t ".#{session.completed}"
-          %td.answers{ data: { title: Helena::Session.human_attribute_name(:answers) } }
-            = session.answers.count
+.helena-admin
+  %h2
+    = Helena::Session.model_name.human(count: 2)
+    = "(#{@sessions.count})"
+  - if @sessions.empty?
+    .alert.alert-warning
+      = t '.empty'
+  - else
+    .table-responsive
+      %table.table.sessions
+        %thead
+          %tr
+            %th.updated_at= Helena::Session.human_attribute_name(:updated_at)
+            %th.token= Helena::Session.human_attribute_name(:token)
+            %th.completed= Helena::Session.human_attribute_name(:completed)
+            %th.answers= Helena::Session.human_attribute_name(:answers)
+            %th
+        %tbody
+          - @sessions.each do |session|
+            %tr[session]
+              %td.updated_at{ data: { title: Helena::Session.human_attribute_name(:updated_at) } }
+                = time_ago_in_words(session.updated_at)
+              %td.token{ data: { title: Helena::Session.human_attribute_name(:token) } }
+                = session.token
+              %td.completed{ data: { title: Helena::Session.human_attribute_name(:completed) } }
+                .label{class: "label-#{session.completed? ? 'success' : 'danger'}"}
+                  = t ".#{session.completed}"
+              %td.answers{ data: { title: Helena::Session.human_attribute_name(:answers) } }
+                = session.answers.count
 
-          %td
-            = link_to t('shared.delete'), admin_survey_session_path(@survey, session),
-              method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
-            = link_to t('.edit'), edit_survey_session_path(@survey, session), class: 'btn'
+              %td
+                = link_to t('shared.delete'), admin_survey_session_path(@survey, session),
+                  method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
+                = link_to t('.edit'), edit_survey_session_path(@survey, session), class: 'btn'

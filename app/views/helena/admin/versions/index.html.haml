@@ -1,33 +1,35 @@
-%h2
-  = Helena::Version.model_name.human(count: 2)
-  = "(#{@versions.count})"
-- if @versions.empty?
-  .alert.alert-warning
-    = t('.empty')
-- else
-  %table.table.versions
-    %thead
-      %tr
-        %th.version= Helena::Version.human_attribute_name(:version)
-        %th.notes= Helena::Version.human_attribute_name(:notes)
-        %th.created_at= Helena::Version.human_attribute_name(:created_at)
-        %th
-    %tbody
-      - @versions.each do |version|
-        %tr[version]
-          %td.version{ data: { title: Helena::Version.human_attribute_name(:version) } }
-            = version.version
-          %td.notes{ data: { title: Helena::Version.human_attribute_name(:notes) } }
-            = version.notes
-          %td.created_at{ data: { title: Helena::Version.human_attribute_name(:created_at) } }
-            = time_ago_in_words(version.created_at)
-          %td
-            = link_to t('shared.delete'), admin_survey_version_path(@survey, version), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
+.helena-admin
+  %h2
+    = Helena::Version.model_name.human(count: 2)
+    = "(#{@versions.count})"
+  - if @versions.empty?
+    .alert.alert-warning
+      = t('.empty')
+  - else
+    .table-responsive
+      %table.table.versions
+        %thead
+          %tr
+            %th.version= Helena::Version.human_attribute_name(:version)
+            %th.notes= Helena::Version.human_attribute_name(:notes)
+            %th.created_at= Helena::Version.human_attribute_name(:created_at)
+            %th
+        %tbody
+          - @versions.each do |version|
+            %tr[version]
+              %td.version{ data: { title: Helena::Version.human_attribute_name(:version) } }
+                = version.version
+              %td.notes{ data: { title: Helena::Version.human_attribute_name(:notes) } }
+                = version.notes
+              %td.created_at{ data: { title: Helena::Version.human_attribute_name(:created_at) } }
+                = time_ago_in_words(version.created_at)
+              %td
+                = link_to t('shared.delete'), admin_survey_version_path(@survey, version), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 
-%fieldset
-  %legend= t '.publish'
-  = simple_form_for([:admin, @survey, Helena::Version.new]) do |f|
-    = f.input :notes
-    %br
-    = f.submit t('.publish_btn'), class: 'btn btn-success'
+  %fieldset
+    %legend= t '.publish'
+    = simple_form_for([:admin, @survey, Helena::Version.new]) do |f|
+      = f.input :notes
+      %br
+      = f.submit t('.publish_btn'), class: 'btn btn-success'
 
