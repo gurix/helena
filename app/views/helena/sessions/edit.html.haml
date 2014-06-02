@@ -8,7 +8,7 @@
 
     = hidden_field_tag :question_group, @question_group.id
 
-    - unless @question_group.first?
+    - if @question_group.previous_items.count == 1
       = link_to t('.back'), edit_survey_session_path(@survey, @session, question_group: @question_group.previous_item), class: 'btn'
 
     = f.submit class: 'btn btn-success pull-right', value: @question_group.last? ? t('.save') : t('.next')

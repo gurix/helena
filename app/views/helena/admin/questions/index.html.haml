@@ -25,7 +25,7 @@
               %td.type{ data: { title: Helena::Question.human_attribute_name(:type) } }
                 = question.class.model_name.human
                 - if question.try :required
-                  %span.glyphicon.glyphicon-flag{ title: t('shared.required')}
+                  %span.glyphicon.glyphicon-flag{ title: Helena::Question.human_attribute_name(:require) }
               %td.question_text{ data: { title: Helena::Question.human_attribute_name(:question_text) } }
                 = question.question_text
               %td

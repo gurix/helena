@@ -86,6 +86,8 @@ feature 'Session management' do
     expect(page).to have_content "What's your name?"
     expect(page).to have_content 'Give a brief description of yourself'
 
+    expect(page).not_to have_link 'Back'
+
     fill_in 'session_answers_a_name', with: 'Hans'
     fill_in 'session_answers_selfdescription', with: 'I am a proud man living in middle earth. Everybody is laughing at me because I do not have hairy feets.'
 
@@ -110,6 +112,7 @@ feature 'Session management' do
     check('Oats')
     check('Meat')
 
+    expect(page).to have_link 'Back'
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(2).to(6)
 
     expect(page).to have_content 'Page 3'

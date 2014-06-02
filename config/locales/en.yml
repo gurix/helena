@@ -5,7 +5,7 @@ en:
     save: Save
     edit: Edit
     add: Add
-    required: Required
+    required: '* indicates required fields'
     code_hint: The code must consist only of lowercase letters, numbers and underscores. Don't begin with a digit or an underscore and don't end with an underscore.
     move_up: Move up
     move_down: Move down
