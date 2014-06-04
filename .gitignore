@@ -9,3 +9,5 @@ spec/dummy/tmp/
 spec/dummy/.sass-cache
 coverage/
 **/*.DS_Store
+
+.DS_Store
