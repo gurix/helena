@@ -2,7 +2,8 @@ module Helena
   class SessionsController < ApplicationController
     respond_to :html
 
-    before_filter :load_survey, :load_session
+    before_filter :load_survey
+    before_filter :load_session, only: [:show, :edit, :update]
 
     def show
       @template = Liquid::Template.parse(@version.session_report)
