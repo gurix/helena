@@ -1,12 +1,12 @@
-%h1 {{ title }}
-%p {{ description }}
+%h1 {{ survey_title }}
+%p {{ survey_description }}
 %table
   %thead
     %tr
       %th Code
       %th Value
   %tbody
-    {% for answer in answers %}
+    {% for answer in survey_answers %}
     %tr
       %td {{ answer.code }}
       %td {{ answer.value }}
@@ -14,4 +14,4 @@
   %tfoot
     %tr
       %td{ colspan: 2}
-        {{ answers.size }} answers
+        {{ survey_answers.size }} answers
