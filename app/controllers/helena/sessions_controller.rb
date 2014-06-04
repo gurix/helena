@@ -94,10 +94,16 @@ module Helena
     end
 
     def variable_mapping
-      { answers: hashed_session_answers,
-        title: @version.survey_detail.title,
-        description: @version.survey_detail.description
+      variables = {
+        survey_answers: hashed_session_answers,
+        survey_title: @version.survey_detail.title,
+        survey_description: @version.survey_detail.description
       }.deep_stringify_keys
+
+      session_answers.each do |answer|
+        variables[answer.first.to_s] = answer.last
+      end
+      variables
     end
   end
 end

@@ -282,8 +282,8 @@ feature 'Session management' do
     expect(page).to have_content("can't be blank")
   end
 
-  scenario 'shows the results' do
-    session_report = '{{ title }} {{ description }} {% for answer in answers %} {{ answer.code }}: {{ answer.value }} {% endfor %}'
+  scenario 'shows the results with survey_answers array' do
+    session_report = '{{ survey_title }} {{ survey_description }} {% for answer in survey_answers %} {{ answer.code }}: {{ answer.value }} {% endfor %}'
 
     version = Helena::VersionPublisher.publish(base_version)
     version.session_report = Haml::Engine.new(session_report).render
@@ -299,5 +299,22 @@ feature 'Session management' do
     expect(page).to have_content 'Dummy Survey'
     expect(page).to have_content 'Leucadendron is a plants in the family Proteaceae.'
     expect(page).to have_content 'country: USA released: 2006'
+  end
+
+  scenario 'shows the results with variable assignment' do
+    session_report = '{{ country }} {{ released }}'
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.session_report = Haml::Engine.new(session_report).render
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    session.answers << build(:string_answer, code: 'country', value: 'USA')
+    session.answers << build(:integer_answer, code: 'released', value: 2006)
+
+    visit helena.survey_session_path(survey, session)
+
+    expect(page).to have_content 'USA 2006'
   end
 end
