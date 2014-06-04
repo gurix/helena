@@ -30,7 +30,7 @@ feature 'Version management' do
 
     visit helena.new_admin_survey_version_path @survey
 
-    expect(find_field('version_session_report').value).to have_content '{{ title }}'
+    expect(find_field('version_session_report').value).to have_content '{{ survey_title }}'
 
     fill_in 'Notes', with: 'Luke, I am your father!'
     fill_in 'version_session_report', with: 'Foo Bar'
