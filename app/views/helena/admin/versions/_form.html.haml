@@ -1,0 +1,5 @@
+= simple_form_for [:admin, @survey, @version] do |f|
+  = f.input :notes
+  = f.input :session_report, as: :text, input_html: { cols: 60, rows: 10 }
+
+  = f.submit t('shared.save'), class: 'btn btn-success'

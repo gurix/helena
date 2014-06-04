@@ -1,0 +1,17 @@
+%h1 Default report for {{ title }}
+
+%table
+  %thead
+    %tr
+      %th Code
+      %th Value
+  %tbody
+    {% for answer in answers %}
+    %tr
+      %td {{ answer.code }}
+      %td {{ answer.value }}
+    {% endfor %}
+  %tfoot
+    %tr
+      %td{ colspan: 2}
+        {{ answers.size }} answers
