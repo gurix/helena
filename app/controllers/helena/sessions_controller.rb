@@ -2,8 +2,12 @@ module Helena
   class SessionsController < ApplicationController
     respond_to :html
 
-    before_filter :load_survey
-    before_filter :load_session, only: [:edit, :update]
+    before_filter :load_survey, :load_session
+
+    def show
+      @template = Liquid::Template.parse(@version.session_report)
+      render html: @template.render(variable_mapping).html_safe, layout: true
+    end
 
     def edit
       @questions = question_group_questions
@@ -50,6 +54,10 @@ module Helena
       Hash[@session.answers.map { |answer| [answer.code, answer.value] }]
     end
 
+    def hashed_session_answers
+      @session.answers.map { |answer| { code: answer.code, value: answer.value }.deep_stringify_keys }
+    end
+
     def session_params
       if params[:session]
         params.require(:session).permit(answers: @question_group.question_codes, question_types: @question_group.question_codes)
@@ -82,6 +90,13 @@ module Helena
         end
       end
       errors
+    end
+
+    def variable_mapping
+      { answers: hashed_session_answers,
+        title: @version.survey_detail.title,
+        description: @version.survey_detail.description
+      }.deep_stringify_keys
     end
   end
 end

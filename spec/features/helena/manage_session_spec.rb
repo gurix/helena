@@ -6,7 +6,7 @@ feature 'Session management' do
   let(:first_question_group) { build(:question_group, title: 'Page 1', position: 1) }
 
   background do
-    base_version.survey_detail = build :survey_detail, title: 'Dummy Survey'
+    base_version.survey_detail = build :survey_detail, title: 'Dummy Survey', description: 'Leucadendron is a plants in the family Proteaceae.'
     base_version.question_groups << first_question_group
   end
 
@@ -278,6 +278,26 @@ feature 'Session management' do
     choose('session_answers_satisfied_with_life_3')
 
     expect { click_button 'Save' }.to change { session.reload.answers.count }.from(0).to(1)
+
     expect(page).to have_content("can't be blank")
+  end
+
+  scenario 'shows the results' do
+    session_report = '{{ title }} {{ description }} {% for answer in answers %} {{ answer.code }}: {{ answer.value }} {% endfor %}'
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.session_report = Haml::Engine.new(session_report).render
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    session.answers << build(:string_answer, code: 'country', value: 'USA')
+    session.answers << build(:integer_answer, code: 'released', value: 2006)
+
+    visit helena.survey_session_path(survey, session)
+
+    expect(page).to have_content 'Dummy Survey'
+    expect(page).to have_content 'Leucadendron is a plants in the family Proteaceae.'
+    expect(page).to have_content 'country: USA released: 2006'
   end
 end

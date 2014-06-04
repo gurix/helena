@@ -1,6 +1,6 @@
 Helena::Engine.routes.draw do
   resources :surveys do
-    resources :sessions, only: [:edit, :update]
+    resources :sessions, only: [:edit, :update, :show]
   end
 
   scope :admin, as: :admin, module: :admin do
