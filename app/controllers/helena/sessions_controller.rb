@@ -96,8 +96,8 @@ module Helena
     def variable_mapping
       variables = {
         survey_answers: hashed_session_answers,
-        survey_title: @version.survey_detail.title,
-        survey_description: @version.survey_detail.description
+        survey_title: @version.survey_detail.try(:title),
+        survey_description: @version.survey_detail.try(:description)
       }.deep_stringify_keys
 
       session_answers.each do |answer|
