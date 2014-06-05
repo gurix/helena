@@ -18,13 +18,8 @@ module Helena
 
       def create
         @version.update_attributes(version_params)
-
-        if @version.save
-          notify_successful_create_for(@version.version)
-        else
-          notify_error @version
-        end
-
+        @version.save
+        notify_successful_create_for(@version.version)
         respond_with @version, location: admin_survey_versions_path(@survey)
       end
 
@@ -32,12 +27,8 @@ module Helena
       end
 
       def update
-        if @version.update_attributes version_params
-          notify_successful_update_for(@version.version)
-        else
-          notify_error @version
-          add_breadcrumb @version.version
-        end
+        @version.update_attributes version_params
+        notify_successful_update_for(@version.version)
         respond_with @version, location: admin_survey_versions_path(@survey)
       end
 

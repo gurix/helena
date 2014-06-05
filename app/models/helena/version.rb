@@ -26,10 +26,6 @@ module Helena
       question_groups.map(&:question_codes).flatten
     end
 
-    def questions
-      question_groups.map(&:questions).flatten
-    end
-
     def question_code_occurences
       question_codes.each_with_object(Hash.new(0)) { |word, counts| counts[word] += 1 }
     end
