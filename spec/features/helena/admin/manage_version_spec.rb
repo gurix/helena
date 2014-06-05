@@ -27,11 +27,37 @@ feature 'Version management' do
   end
 
   scenario 'publishing a new version on the base of base version' do
-    visit helena.admin_survey_versions_path @survey
+
+    visit helena.new_admin_survey_version_path @survey
+
+    expect(find_field('version_session_report').value).to have_content '{{ survey_title }}'
 
     fill_in 'Notes', with: 'Luke, I am your father!'
+    fill_in 'version_session_report', with: 'Foo Bar'
 
-    expect { click_button 'Publish' }.to change { @survey.reload.versions.count }.by(1)
+    expect { click_button 'Save' }.to change { @survey.reload.versions.count }.by(1)
+
+    expect(@survey.reload.versions.last.session_report).to eq 'Foo Bar'
+
+    visit helena.new_admin_survey_version_path @survey
+
+    expect(find_field('version_session_report').value).to have_content 'Foo Bar'
+  end
+
+  scenario 'changing the session report for a version' do
+    published_version = Helena::VersionPublisher.publish @baseversion
+    published_version.notes = 'bla bla'
+    published_version.save
+
+    visit helena.edit_admin_survey_version_path(@survey, published_version)
+
+    fill_in 'Notes', with: 'Michael Knight, a lone crusader in a dangerous world. The world of the Knight Rider.'
+    fill_in 'version_session_report', with: 'A Man, a Car'
+
+    click_button 'Save'
+
+    expect(published_version.reload.notes).to eq 'Michael Knight, a lone crusader in a dangerous world. The world of the Knight Rider.'
+    expect(published_version.reload.session_report).to eq 'A Man, a Car'
   end
 
   scenario 'deletes a version' do

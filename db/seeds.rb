@@ -136,9 +136,15 @@ EOF
   generate_sessions(survey, published_version)
 end
 
+def default_session_report
+  haml = File.read(File.dirname(__FILE__) + '/../app/views/helena/admin/versions/default_session_report.html.haml')
+  Haml::Engine.new(haml).render
+end
+
 def publish(version)
   published_version = Helena::VersionPublisher.publish(version)
   published_version.notes = Faker::Lorem.paragraph(1)
+  published_version.session_report = default_session_report
   published_version.save
   published_version
 end

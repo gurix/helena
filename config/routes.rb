@@ -1,6 +1,6 @@
 Helena::Engine.routes.draw do
   resources :surveys do
-    resources :sessions, only: [:edit, :update]
+    resources :sessions, only: [:edit, :update, :show]
   end
 
   scope :admin, as: :admin, module: :admin do
@@ -11,7 +11,7 @@ Helena::Engine.routes.draw do
 
     resources :surveys, concerns: :movable do
       resources :sessions, only: [:index, :destroy]
-      resources :versions, only: [:index, :create, :destroy]
+      resources :versions
       resources :question_groups, concerns: :movable do
         resources :questions, concerns: :movable
         resource :questions do

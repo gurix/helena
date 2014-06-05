@@ -4,5 +4,7 @@ en:
       versions:
         index:
           empty: No versions published at the moment.
-          publish: Publish changes as new Version...
-          publish_btn: Publish
+        new:
+          new: Publish new version
+        form:
+          session_report_hint: 'You can use HTML in combination with liquid markup. Variables: {{title}}, {{description}}, {{answers}} ({{answers[0].code}}, {{answers[0].value}})'

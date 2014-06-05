@@ -6,23 +6,29 @@ module Helena
       respond_to :html
 
       before_filter :load_survey, :add_breadcrumbs
+      before_filter :build_version, only: [:new, :create]
+      before_filter :load_version,  only: [:edit, :update]
 
       def index
         @versions = @survey.versions.without_base
       end
 
+      def new
+      end
+
       def create
-        base_version = @survey.versions.find_by(version: 0)
+        @version.update_attributes(version_params)
+        @version.save
+        notify_successful_create_for(@version.version)
+        respond_with @version, location: admin_survey_versions_path(@survey)
+      end
 
-        @version = Helena::VersionPublisher.publish(base_version)
-        @version.notes = version_params['notes']
+      def edit
+      end
 
-        if @version.save
-          notify_successful_create_for(@version.version)
-        else
-          notify_error @version
-        end
-
+      def update
+        @version.update_attributes version_params
+        notify_successful_update_for(@version.version)
         respond_with @version, location: admin_survey_versions_path(@survey)
       end
 
@@ -38,13 +44,27 @@ module Helena
         @survey = Helena::Survey.find(params[:survey_id])
       end
 
+      def load_version
+        @version = @survey.versions.find(params[:id])
+      end
+
       def add_breadcrumbs
         add_breadcrumb Helena::Survey.model_name.human(count: 2), :admin_surveys_path
         add_breadcrumb @survey.name, admin_survey_versions_path(@survey)
       end
 
       def version_params
-        params.require(:version).permit(:notes)
+        params.require(:version).permit(:notes, :session_report)
+      end
+
+      def default_session_report
+        render_to_string 'default_session_report', layout: false
+      end
+
+      def build_version
+        base_version = @survey.versions.find_by(version: 0)
+        @version = Helena::VersionPublisher.publish(base_version)
+        @version.session_report = @survey.reload.versions.last.session_report || default_session_report
       end
     end
   end

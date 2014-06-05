@@ -3,8 +3,9 @@ module Helena
     include Helena::Concerns::ApplicationModel
     include Mongoid::Orderable # Needed, because the embedded objects needs this, see
 
-    field :version, type: Integer, default: 0
-    field :notes,   type: String
+    field :version,        type: Integer, default: 0
+    field :notes,          type: String
+    field :session_report, type: String
 
     embedded_in :survey
 
@@ -23,10 +24,6 @@ module Helena
 
     def question_codes
       question_groups.map(&:question_codes).flatten
-    end
-
-    def questions
-      question_groups.map(&:questions).flatten
     end
 
     def question_code_occurences

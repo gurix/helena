@@ -24,12 +24,9 @@
               %td.created_at{ data: { title: Helena::Version.human_attribute_name(:created_at) } }
                 = time_ago_in_words(version.created_at)
               %td
-                = link_to t('shared.delete'), admin_survey_version_path(@survey, version), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
+                .btn-group
+                  = link_to t('shared.edit'), edit_admin_survey_version_path(@survey, version), class: 'btn btn-success'
+                  = link_to t('shared.delete'), admin_survey_version_path(@survey, version), method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }
 
-  %fieldset
-    %legend= t '.publish'
-    = simple_form_for([:admin, @survey, Helena::Version.new]) do |f|
-      = f.input :notes
-      %br
-      = f.submit t('.publish_btn'), class: 'btn btn-success'
-
+  %a.btn.btn-success{ href:  new_admin_survey_version_path(@survey)}
+    = t 'shared.add'

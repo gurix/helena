@@ -1,12 +1,13 @@
 PATH
   remote: .
   specs:
-    helena (0.1.0)
+    helena (0.2.0)
       bootstrap-sass
       breadcrumbs_on_rails
       haml
       haml-rails
       jquery-rails
+      liquid
       mongoid (~> 4.0.0.beta1)
       mongoid-simple-tags
       mongoid_orderable
@@ -120,6 +121,7 @@ GEM
     json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
+    liquid (2.6.1)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
