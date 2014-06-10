@@ -3,9 +3,14 @@ module Helena
     respond_to :html
 
     before_filter :load_survey
-    before_filter :load_session, only: [:show, :edit, :update]
+    before_filter :load_session, only: [:edit, :update]
 
     def show
+      @session = @survey.sessions.find_by view_token: params[:token]
+
+      @version = @survey.versions.find @session.version_id
+      @question_group = question_group
+
       @template = Liquid::Template.parse(@version.session_report)
       render html: @template.render(variable_mapping).html_safe, layout: true
     end
@@ -37,7 +42,7 @@ module Helena
     end
 
     def load_session
-      @session = @survey.sessions.find params[:id]
+      @session = @survey.sessions.find_by token: params[:token]
 
       @version = @survey.versions.find @session.version_id
       @question_group = question_group

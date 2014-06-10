@@ -3,6 +3,7 @@ module Helena
     include Helena::Concerns::ApplicationModel
 
     field :token, type: String
+    field :view_token, type: String
     field :completed, type: Boolean, default: false
 
     belongs_to :survey, inverse_of: :sessions
@@ -10,22 +11,23 @@ module Helena
 
     embeds_many :answers, inverse_of: :session, class_name: 'Helena::Answer'
 
-    validates :token, uniqueness: true
+    validates :token, :view_token, uniqueness: true
 
-    before_create :reset_token
+    before_create :reset_tokens
 
-    def reset_token
-      self.token = generate_token until unique_token?
+    def reset_tokens
+      self.token = generate_token(5) until unique_token_for?
+      self.view_token = generate_token(25) until unique_token_for?(:view_token)
     end
 
     private
 
-    def generate_token
-      SecureRandom.hex(5)
+    def generate_token(size)
+      SecureRandom.base64(size).delete('/+=')[0, size]
     end
 
-    def unique_token?
-      self.class.where(token: token).blank? && token.present?
+    def unique_token_for?(field = :token)
+      self.class.where(field => send(field)).blank? && send(field).present?
     end
   end
 end

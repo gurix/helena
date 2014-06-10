@@ -2,7 +2,7 @@
   = @version.survey_detail.title
 %fieldset[@question_group]
   %legend= @question_group.title
-  = simple_form_for(@session, url: helena.survey_session_path(@survey, @session), as: :session) do |f|
+  = simple_form_for(@session, url: helena.survey_session_path(@survey, @session.token), as: :session) do |f|
     - @questions.each do |question|
       = render "#{question.class.to_s.underscore}", form: f, question: question, answers: @answers, errors: @errors
 
