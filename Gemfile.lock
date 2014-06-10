@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    helena (0.2.0)
+    helena (0.2.1)
       bootstrap-sass
       breadcrumbs_on_rails
       haml
