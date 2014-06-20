@@ -4,7 +4,7 @@ describe Helena::Admin::SurveysController do
   routes { Helena::Engine.routes }
 
   context 'without authorization' do
-    before { ApplicationController.any_instance.stub(:can_administer?).and_return false }
+    before { allow_any_instance_of(ApplicationController).to receive(:can_administer?).and_return false }
 
     specify 'trying to list surveys throws an error' do
       expect { get :index }.to raise_error(ActionController::RoutingError, 'Access Denied')

@@ -22,7 +22,7 @@ feature 'Checkbox group question management' do
     expect(question.reload.sub_questions.first.position).to eq 2
     expect(question.reload.sub_questions.first.text).to eq 'Avec Shop'
     expect(question.reload.sub_questions.first.code).to eq 'avec'
-    expect(question.reload.required).to be_true
+    expect(question.reload.required).to eq true
   end
 
   scenario 'adds a a sub question' do

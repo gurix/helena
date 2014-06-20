@@ -28,6 +28,8 @@ RSpec.configure do |config|
   # We don't want write FactoryGirl all the time
   config.include FactoryGirl::Syntax::Methods
 
+  config.infer_spec_type_from_file_location!
+
   DatabaseCleaner.strategy = :truncation
 
   config.before(:each) do

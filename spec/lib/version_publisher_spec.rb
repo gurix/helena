@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+require 'rspec/collection_matchers'
 describe Helena::VersionPublisher do
   let!(:survey) { create :survey }
   let!(:base_version) { survey.versions.create version: 42 }
@@ -14,9 +14,9 @@ describe Helena::VersionPublisher do
 
     expect(new_version.version).to eq 43
     expect(new_version.survey_detail).to be_a Helena::SurveyDetail
-    expect(new_version.question_groups).to have(1).item
-    expect(new_version.question_groups.first.questions).to have(1).item
-    expect(new_version.question_groups.first.questions.first.labels).to have(1).item
-    expect(new_version.question_groups.first.questions.first.sub_questions).to have(1).item
+    expect(new_version).to have(1).question_groups
+    expect(new_version.question_groups.first).to have_exactly(1).questions
+    expect(new_version.question_groups.first.questions.first).to have_exactly(1).labels
+    expect(new_version.question_groups.first.questions.first).to have_exactly(1).sub_questions
   end
 end

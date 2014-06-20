@@ -27,13 +27,13 @@ feature 'Radio matrix question management' do
     expect(question.reload.labels.first.position).to eq 2
     expect(question.reload.labels.first.text).to eq 'Strongly agree'
     expect(question.reload.labels.first.value).to eq '1'
-    expect(question.reload.labels.first.preselected).to be_true
+    expect(question.reload.labels.first.preselected).to eq true
 
     expect(question.reload.sub_questions.first.position).to eq 2
     expect(question.reload.sub_questions.first.text).to eq 'Avec Shop'
     expect(question.reload.sub_questions.first.code).to eq 'avec'
 
-    expect(question.reload.required).to be_true
+    expect(question.reload.required).to eq true
   end
 
   scenario 'adds a an option' do
@@ -55,7 +55,7 @@ feature 'Radio matrix question management' do
     expect(question.reload.labels.first.position).to eq 2
     expect(question.reload.labels.first.text).to eq 'Strongly agree'
     expect(question.reload.labels.first.value).to eq '1'
-    expect(question.reload.labels.first.preselected).to be_true
+    expect(question.reload.labels.first.preselected).to eq true
 
     expect(question.reload.sub_questions.first.position).to eq 2
     expect(question.reload.sub_questions.first.text).to eq 'Avec Shop'

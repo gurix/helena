@@ -16,6 +16,6 @@ feature 'Long text question management' do
     click_button 'Save'
 
     expect(question.reload.default_value).to eq a_very_long_text
-    expect(question.reload.required).to be_true
+    expect(question.reload.required).to eq true
   end
 end

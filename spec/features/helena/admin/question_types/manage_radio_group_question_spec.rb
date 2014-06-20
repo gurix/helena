@@ -23,7 +23,7 @@ feature 'Radio group question management' do
     expect(question.reload.labels.first.text).to eq 'Female'
     expect(question.reload.labels.first.value).to eq 'f'
     expect(question.reload.labels.first.preselected).to eq true
-    expect(question.reload.required).to be_true
+    expect(question.reload.required).to eq true
   end
 
   scenario 'adds a an option' do
