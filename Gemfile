@@ -11,18 +11,20 @@ gemspec
 # your gem to rubygems.org.
 
 # To use debugger
-gem 'pry'
-gem 'pry-debugger'
-gem 'ruby-progressbar'
-gem 'colorize'
-gem 'jquery-rails'
-gem 'bootstrap-sass'
-gem 'simple_form'
-gem 'breadcrumbs_on_rails'
-gem 'quiet_assets'
-gem 'better_errors'
-gem 'launchy'
-gem 'binding_of_caller'
-gem 'coveralls', require: false
-gem 'selenium-webdriver'
-gem 'i18n-tasks'
+group :development, :test do
+  gem 'pry'
+  gem 'pry-debugger'
+  gem 'ruby-progressbar'
+  gem 'colorize'
+  gem 'jquery-rails'
+  gem 'bootstrap-sass'
+  gem 'simple_form'
+  gem 'breadcrumbs_on_rails'
+  gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'launchy'
+  gem 'binding_of_caller'
+  gem 'coveralls', require: false
+  gem 'selenium-webdriver'
+  gem 'i18n-tasks'
+end
