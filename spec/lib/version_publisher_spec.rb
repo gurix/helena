@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'rspec/collection_matchers'
+
 describe Helena::VersionPublisher do
   let!(:survey) { create :survey }
   let!(:base_version) { survey.versions.create version: 42 }

@@ -12,6 +12,7 @@ require 'factory_girl_rails'
 require 'database_cleaner'
 require 'mongoid-rspec'
 require 'capybara/rspec'
+require 'rspec/collection_matchers'
 
 ENGINE_RAILS_ROOT = File.join(File.dirname(__FILE__), '../')
 
