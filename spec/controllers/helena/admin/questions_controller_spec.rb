@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Helena::Admin::QuestionsController  do
+describe Helena::Admin::QuestionsController do
   routes { Helena::Engine.routes }
 
   let(:survey) { create :survey }

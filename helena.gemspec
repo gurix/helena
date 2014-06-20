@@ -32,7 +32,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'rails-i18n'
   s.add_dependency 'liquid'
 
-  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rspec-rails', '~> 2.14.1' # rspec 3 not supportet atm :-(  https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/routing-specs/engine-routes
   s.add_development_dependency 'mongoid-rspec'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'database_cleaner'
