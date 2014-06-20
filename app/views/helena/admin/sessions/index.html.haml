@@ -31,7 +31,7 @@
               %td
                 .btn-group
                   - if session.completed?
-                    = link_to t('shared.show'), survey_session_path(@survey, session.view_token), class: 'btn btn-primary'
-                  = link_to t('shared.edit'), edit_survey_session_path(@survey, session.token), class: 'btn btn-success'
+                    = link_to t('shared.show'), session_path(session.view_token), class: 'btn btn-primary'
+                  = link_to t('shared.edit'), edit_session_path(session.token), class: 'btn btn-success'
                   = link_to t('shared.delete'), admin_survey_session_path(@survey, session),
                     method: :delete, class: 'btn btn-danger', data: { confirm: t('shared.delete_question') }

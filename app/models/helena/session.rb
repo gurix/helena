@@ -16,6 +16,8 @@ module Helena
     before_create :reset_tokens
 
     def reset_tokens
+      # NOTE: there are (2*26+10)^k tokens available
+      # To not run into performance issues we could pregenerate unique tokens in the future
       self.token = generate_token(5) until unique_token_for?
       self.view_token = generate_token(25) until unique_token_for?(:view_token)
     end

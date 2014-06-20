@@ -2,12 +2,11 @@ module Helena
   class SessionsController < ApplicationController
     respond_to :html
 
-    before_filter :load_survey
     before_filter :load_session, only: [:edit, :update]
 
     def show
-      @session = @survey.sessions.find_by view_token: params[:token]
-
+      @session = Helena::Session.find_by view_token: params[:token]
+      @survey = @session.survey
       @version = @survey.versions.find @session.version_id
       @question_group = question_group
 
@@ -37,13 +36,9 @@ module Helena
 
     private
 
-    def load_survey
-      @survey = Helena::Survey.find params[:survey_id]
-    end
-
     def load_session
-      @session = @survey.sessions.find_by token: params[:token]
-
+      @session = Helena::Session.find_by token: params[:token]
+      @survey = @session.survey
       @version = @survey.versions.find @session.version_id
       @question_group = question_group
     end

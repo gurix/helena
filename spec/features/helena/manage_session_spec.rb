@@ -79,7 +79,7 @@ feature 'Session management' do
 
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
-    visit helena.edit_survey_session_path(survey, session.token)
+    visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'Dummy Survey'
     expect(page).to have_content 'Page 1'
@@ -151,7 +151,7 @@ feature 'Session management' do
 
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
-    visit helena.edit_survey_session_path(survey, session.token)
+    visit helena.edit_session_path(session.token)
 
     expect(page).to have_content "What's your name? *"
     expect { click_button 'Save' }.not_to change { session.reload.answers.count }
@@ -167,7 +167,7 @@ feature 'Session management' do
 
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
-    visit helena.edit_survey_session_path(survey, session.token)
+    visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'Give a brief description of yourself *'
     expect { click_button 'Save' }.not_to change { session.reload.answers.count }
@@ -191,7 +191,7 @@ feature 'Session management' do
 
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
-    visit helena.edit_survey_session_path(survey, session.token)
+    visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'What is the answer to the Ultimate Question of Life, the Universe, and Everything? *'
     expect { click_button 'Save' }.not_to change { session.reload.answers.count }
@@ -214,7 +214,7 @@ feature 'Session management' do
 
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
-    visit helena.edit_survey_session_path(survey, session.token)
+    visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'What kind of food allergy do you have? *'
     expect { click_button 'Save' }.to change { session.reload.answers.map(&:value) }.from([]).to([0, 0, 0])
@@ -237,7 +237,7 @@ feature 'Session management' do
 
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
-    visit helena.edit_survey_session_path(survey, session.token)
+    visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'What kind of food allergy do you have? *'
     check('Oats')
@@ -271,7 +271,7 @@ feature 'Session management' do
 
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
-    visit helena.edit_survey_session_path(survey, session.token)
+    visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'Below are five statements with which you may agree or disagree. *'
 
@@ -294,7 +294,7 @@ feature 'Session management' do
     session.answers << build(:string_answer, code: 'country', value: 'USA')
     session.answers << build(:integer_answer, code: 'released', value: 2006)
 
-    visit helena.survey_session_path(survey, session.view_token)
+    visit helena.session_path(session.view_token)
 
     expect(page).to have_content 'Dummy Survey'
     expect(page).to have_content 'Leucadendron is a plants in the family Proteaceae.'
@@ -313,7 +313,7 @@ feature 'Session management' do
     session.answers << build(:string_answer, code: 'country', value: 'USA')
     session.answers << build(:integer_answer, code: 'released', value: 2006)
 
-    visit helena.survey_session_path(survey, session.view_token)
+    visit helena.session_path(session.view_token)
 
     expect(page).to have_content 'USA 2006'
   end

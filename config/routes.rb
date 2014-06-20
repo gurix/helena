@@ -1,7 +1,6 @@
 Helena::Engine.routes.draw do
-  resources :surveys do
-    resources :sessions, only: [:show, :edit, :update], param: :token
-  end
+  resources :surveys
+  resources :sessions, only: [:show, :edit, :update], param: :token
 
   scope :admin, as: :admin, module: :admin do
     concern :movable do
