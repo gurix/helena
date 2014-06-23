@@ -7,3 +7,5 @@ en:
           'false': "No"
           'true': "Yes"
           edit: Edit
+          export_sessions_csv: I want to export all session from this survey to my local computer as CSV
+          export_sessions_json: ... or as JSON

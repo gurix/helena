@@ -22,7 +22,29 @@ module Helena
       self.view_token = generate_token(25) until unique_token_for?(:view_token)
     end
 
+    def self.to_csv
+      # TODO: Protect reserved fields in session as code i.e "updated_at"
+      CSV.generate do |csv|
+        csv << fields.keys + answer_codes
+        all.each do |session|
+          answers = []
+          answer_codes.each do |code|
+            answers << session.answers.where(code: code).first.try(&:value)
+          end
+          csv << session.attributes.values_at(*fields.keys) + answers
+        end
+      end
+    end
+
     private
+
+    def self.answer_codes
+      answer_codes = []
+      all.each do |session|
+        answer_codes += session.answers.map(&:code) - answer_codes
+      end
+      answer_codes
+    end
 
     def generate_token(size)
       SecureRandom.base64(size).delete('/+=')[0, size]
@@ -30,6 +52,12 @@ module Helena
 
     def unique_token_for?(field = :token)
       self.class.where(field => send(field)).blank? && send(field).present?
+    end
+
+    def self.available_codes_for(survey)
+      Session.where(survey: survey).map do |session|
+        session.answers.map(&:code)
+      end.flatten.uniq
     end
   end
 end

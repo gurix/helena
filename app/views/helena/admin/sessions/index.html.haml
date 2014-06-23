@@ -1,11 +1,17 @@
 .helena-admin
-  %h2
-    = Helena::Session.model_name.human(count: 2)
-    = "(#{@sessions.count})"
   - if @sessions.empty?
     .alert.alert-warning
       = t '.empty'
   - else
+    .actions
+      = link_to admin_survey_sessions_path(@survey, format: :csv) do
+        = image_tag('helena/icons/export.svg', class: :icon)
+        = t('.export_sessions_csv')
+      = link_to admin_survey_sessions_path(@survey, format: :json) do
+        = t('.export_sessions_json')
+    %h2
+      = Helena::Session.model_name.human(count: 2)
+      = "(#{@sessions.count})"
     .table-responsive
       %table.table.sessions
         %thead
