@@ -27,16 +27,20 @@ module Helena
       CSV.generate do |csv|
         csv << fields.keys + answer_codes
         all.each do |session|
-          answers = []
-          answer_codes.each do |code|
-            answers << session.answers.where(code: code).first.try(&:value)
-          end
-          csv << session.attributes.values_at(*fields.keys) + answers
+          csv << session.attributes.values_at(*fields.keys) + answer_values_in(session)
         end
       end
     end
 
     private
+
+    def self.answer_values_in(session)
+      answers = []
+      answer_codes.each do |code|
+        answers << session.answers.where(code: code).first.try(&:value)
+      end
+      answers
+    end
 
     def self.answer_codes
       answer_codes = []
