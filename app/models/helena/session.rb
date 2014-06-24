@@ -62,11 +62,5 @@ module Helena
     def unique_token_for?(field = :token)
       self.class.where(field => send(field)).blank? && send(field).present?
     end
-
-    def self.available_codes_for(survey)
-      Session.where(survey: survey).map do |session|
-        session.answers.map(&:code)
-      end.flatten.uniq
-    end
   end
 end
