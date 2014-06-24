@@ -34,7 +34,7 @@ module Helena
 
       def destroy
         @version = @survey.versions.find_by id: params[:id]
-        notify_successful_delete_for(@version.version) if @version.destroy
+        notify_successful_delete_for(@version.version) if @version.destroy && Helena::Session.where(version: @version).destroy
         respond_with @version, location: admin_survey_versions_path(@survey)
       end
 
