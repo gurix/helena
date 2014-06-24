@@ -38,6 +38,14 @@ feature 'Question management' do
     expect { click_button 'Save' }.to change { question_group.reload.questions.count }.by(1)
   end
 
+  scenario 'creating a new question errors when without entering a code' do
+    visit helena.new_admin_survey_question_group_question_path(draft_version.survey, question_group)
+
+    fill_in 'Code', with: ''
+
+    expect { click_button 'Save' }.to change { question_group.reload.questions.count }.by(0)
+  end
+
   scenario 'edits a question' do
     question = create :question, question_text: 'We are here?', question_group: question_group
 
@@ -50,6 +58,16 @@ feature 'Question management' do
 
     expect(question.reload.question_text).to eq 'Are you sure?'
     expect(question.reload.code).to eq 'b12'
+  end
+
+  scenario 'edits a question errors when code text is empty' do
+    question = create :question, question_text: 'We are here?', question_group: question_group
+
+    visit helena.edit_admin_survey_question_group_question_path(draft_version.survey, question.question_group, question)
+
+    fill_in 'Code', with: ''
+
+    expect{ click_button 'Save' }.not_to change { question.reload }
   end
 
   scenario 'moving a question' do
