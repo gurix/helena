@@ -67,5 +67,18 @@ describe Helena::Admin::SessionsController do
         expect(csv[2]).to include value
       end
     end
+
+    specify 'csv header for all sessions does not allow same column names for answers and session fields' do
+      create :session, survey: survey, answers: [
+        build(:boolean_answer, code: 'completed', value: true),
+        build(:string_answer, code: 'token', value: 'abcdefghijklmnopqrstuvwxyz')
+      ]
+      get :index, survey_id: survey, format: :csv
+
+      csv = CSV.parse(response.body)
+      %w(answer_token  answer_completed).each do |code|
+        expect(csv.first).to include code
+      end
+    end
   end
 end

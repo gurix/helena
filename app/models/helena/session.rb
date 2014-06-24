@@ -23,9 +23,8 @@ module Helena
     end
 
     def self.to_csv
-      # TODO: Protect reserved fields in session as code i.e "updated_at"
       CSV.generate do |csv|
-        csv << fields.keys + answer_codes
+        csv << fields.keys + uniq_answer_codes
         all.each do |session|
           csv << session.attributes.values_at(*fields.keys) + answer_values_in(session)
         end
@@ -48,6 +47,12 @@ module Helena
         answer_codes += session.answers.map(&:code) - answer_codes
       end
       answer_codes
+    end
+
+    def self.uniq_answer_codes
+      answer_codes.map do |code|
+        fields.keys.include?(code) ? "answer_#{code}" : code
+      end
     end
 
     def generate_token(size)
