@@ -11,13 +11,13 @@
     %tbody
       = form.simple_fields_for :labels  do |label|
         %tr[label.object]
-          %td.position{ data: { title: Helena::Label.human_attribute_name(:position) } }
+          %td.position
             = label.input :position, as: :integer, label: false
-          %td.preselected{ data: { title: Helena::Label.human_attribute_name(:preselected) } }
+          %td.preselected
             = label.input :preselected, as: :boolean, wrapper: :checkbox, label: Helena::Label.human_attribute_name(:preselected)
-          %td.text{ data: { title: Helena::Label.human_attribute_name(:text) } }
+          %td.text
             = label.input :text, label: false
-          %td.value{ data: { title: Helena::Label.human_attribute_name(:value) } }
+          %td.value
             = label.input :value, label: false
           %td.delete
             - unless label.object.new_record?

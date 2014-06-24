@@ -17,7 +17,7 @@ feature 'Version management' do
     expect(page).not_to have_selector "#helena_#{dom_id @baseversion}" # Base version is always the working version
 
     within "#helena_#{dom_id published_version}" do
-      expect(page).to have_text '1 bla bla less than a minute'
+      expect(page).to have_text '1 bla bla 0 less than a minute'
     end
 
     within '.breadcrumb' do
