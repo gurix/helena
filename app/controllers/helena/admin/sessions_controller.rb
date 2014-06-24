@@ -6,7 +6,12 @@ module Helena
       before_filter :load_survey, :add_breadcrumbs
 
       def index
-        @sessions = @survey.sessions.desc(:created_at)
+        respond_to do |format|
+          @sessions = @survey.sessions.desc(:created_at)
+          format.html
+          format.json { render json: @sessions }
+          format.csv { render text: @sessions.to_csv }
+        end
       end
 
       def destroy

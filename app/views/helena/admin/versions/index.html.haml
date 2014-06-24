@@ -12,16 +12,19 @@
           %tr
             %th.version= Helena::Version.human_attribute_name(:version)
             %th.notes= Helena::Version.human_attribute_name(:notes)
+            %th.sessions= Helena::Session.model_name.human(count: 2)
             %th.created_at= Helena::Version.human_attribute_name(:created_at)
             %th
         %tbody
           - @versions.each do |version|
             %tr[version]
-              %td.version{ data: { title: Helena::Version.human_attribute_name(:version) } }
+              %td.version
                 = version.version
-              %td.notes{ data: { title: Helena::Version.human_attribute_name(:notes) } }
+              %td.notes
                 = version.notes
-              %td.created_at{ data: { title: Helena::Version.human_attribute_name(:created_at) } }
+              %td.sessions
+                = Helena::Session.where(version: version).count
+              %td.created_at
                 = time_ago_in_words(version.created_at)
               %td
                 .btn-group

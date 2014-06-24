@@ -4,6 +4,8 @@ module Helena
       copied_version = version.dup
       copied_version.survey = version.survey
       copied_version.version = newest_version_of(version.survey) + 1
+      copied_version.created_at = DateTime.now
+      copied_version.updated_at = DateTime.now
       copied_version
     end
 

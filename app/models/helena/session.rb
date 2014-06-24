@@ -22,7 +22,38 @@ module Helena
       self.view_token = generate_token(25) until unique_token_for?(:view_token)
     end
 
+    def self.to_csv
+      CSV.generate do |csv|
+        csv << fields.keys + uniq_answer_codes
+        all.each do |session|
+          csv << session.attributes.values_at(*fields.keys) + answer_values_in(session)
+        end
+      end
+    end
+
     private
+
+    def self.answer_values_in(session)
+      answers = []
+      answer_codes.each do |code|
+        answers << session.answers.where(code: code).first.try(&:value)
+      end
+      answers
+    end
+
+    def self.answer_codes
+      answer_codes = []
+      all.each do |session|
+        answer_codes += session.answers.map(&:code) - answer_codes
+      end
+      answer_codes
+    end
+
+    def self.uniq_answer_codes
+      answer_codes.map do |code|
+        fields.keys.include?(code) ? "answer_#{code}" : code
+      end
+    end
 
     def generate_token(size)
       SecureRandom.base64(size).delete('/+=')[0, size]

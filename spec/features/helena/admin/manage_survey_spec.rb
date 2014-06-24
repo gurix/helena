@@ -42,7 +42,14 @@ feature 'Survey management' do
     end
 
     expect { click_button 'Save' }.to change { Helena::Survey.count }.by 1
+  end
 
+  scenario 'creates a new surveys errors without a name' do
+    visit helena.new_admin_survey_path
+
+    fill_in 'Name', with: ''
+
+    expect { click_button 'Save' }.to change { Helena::Survey.count }.by 0
   end
 
   scenario 'edits a survey' do

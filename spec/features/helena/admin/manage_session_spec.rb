@@ -6,6 +6,7 @@ feature 'Session management' do
     @survey = create :survey
     baseversion = @survey.versions.create version: 0
     @version = Helena::VersionPublisher.publish baseversion
+    @version.save
   end
 
   scenario 'lists all sessions of a survey' do
@@ -32,7 +33,6 @@ feature 'Session management' do
     session = @survey.sessions.create
 
     visit helena.admin_survey_sessions_path @survey
-
     within "#helena_#{dom_id(session)}" do
       expect { click_link 'Delete' }.to change { @survey.sessions.count }.by(-1)
     end

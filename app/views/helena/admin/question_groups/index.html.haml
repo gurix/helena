@@ -16,9 +16,9 @@
         %tbody
           - @question_groups.each do |question_group|
             %tr[question_group]
-              %td.position{ data: { title: Helena::QuestionGroup.human_attribute_name(:position) } }
+              %td.position
                 = question_group.position
-              %td.title{ data: { title: Helena::QuestionGroup.human_attribute_name(:title) } }
+              %td.title
                 = question_group.title
               %td
                 .btn-group.btn-group-sm

@@ -22,8 +22,6 @@ module Helena
 
         if @question_group.save
           notify_successful_create_for(@question_group.title)
-        else
-          notify_error
         end
         respond_with @question_group, location: admin_survey_question_groups_path(@survey)
       end
@@ -37,9 +35,6 @@ module Helena
 
         if @question_group.update_attributes question_group_params
           notify_successful_update_for(@question_group.title)
-        else
-          notify_error
-          add_breadcrumb @question_group.title_was
         end
         respond_with @question_group, location: admin_survey_question_groups_path(@survey)
       end
