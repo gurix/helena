@@ -31,6 +31,16 @@ module Helena
       end
     end
 
+    def as_json(options)
+      session = super(options)
+      session[:answer] = answers_as_hash
+      session
+    end
+
+    def answers_as_hash
+      answers.map { |answer| [answer[:code], answer[:value]] }.to_h
+    end
+
     private
 
     def self.answer_values_in(session)

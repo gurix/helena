@@ -11,7 +11,10 @@ module Helena
       @question_group = question_group
 
       @template = Liquid::Template.parse(@version.session_report)
-      render html: @template.render(variable_mapping).html_safe, layout: true
+      respond_to do |format|
+        format.html { render html: @template.render(variable_mapping).html_safe, layout: true }
+        format.json { render json: @session }
+      end
     end
 
     def edit
