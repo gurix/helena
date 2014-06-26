@@ -67,7 +67,7 @@ feature 'Question management' do
 
     fill_in 'Code', with: ''
 
-    expect{ click_button 'Save' }.not_to change { question.reload }
+    expect { click_button 'Save' }.not_to change { question.reload }
   end
 
   scenario 'moving a question' do
