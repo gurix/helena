@@ -6,8 +6,8 @@ module Helena
     field :view_token, type: String
     field :completed, type: Boolean, default: false
 
-    belongs_to :survey, inverse_of: :sessions
-    belongs_to :version, inverse_of: :sessions
+    belongs_to :survey, inverse_of: :sessions, class_name: 'Helena::Survey'
+    belongs_to :version, inverse_of: :sessions, class_name: 'Helena::Version'
 
     embeds_many :answers, inverse_of: :session, class_name: 'Helena::Answer'
 
