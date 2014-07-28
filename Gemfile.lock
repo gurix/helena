@@ -7,7 +7,6 @@ PATH
       haml
       haml-rails
       jquery-rails
-      liquid
       mongoid (~> 4.0.0.rc2)
       mongoid-simple-tags
       mongoid_orderable
@@ -121,7 +120,6 @@ GEM
     json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
-    liquid (2.6.1)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
