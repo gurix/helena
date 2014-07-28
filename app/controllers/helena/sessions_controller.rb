@@ -10,8 +10,10 @@ module Helena
       @version = @survey.versions.find @session.version_id
       @question_group = question_group
 
-      @template = Liquid::Template.parse(@version.session_report)
-      render html: @template.render(variable_mapping).html_safe, layout: true
+      respond_to do |format|
+        format.html { render html: @version.session_report.html_safe, layout: true }
+        format.json { render json: @session }
+      end
     end
 
     def edit
@@ -55,10 +57,6 @@ module Helena
       Hash[@session.answers.map { |answer| [answer.code, answer.value] }]
     end
 
-    def hashed_session_answers
-      @session.answers.map { |answer| { code: answer.code, value: answer.value }.deep_stringify_keys }
-    end
-
     def session_params
       if params[:session]
         params.require(:session).permit(answers: @question_group.question_codes, question_types: @question_group.question_codes)
@@ -91,19 +89,6 @@ module Helena
         end
       end
       errors
-    end
-
-    def variable_mapping
-      variables = {
-        survey_answers: hashed_session_answers,
-        survey_title: @version.survey_detail.try(:title),
-        survey_description: @version.survey_detail.try(:description)
-      }.deep_stringify_keys
-
-      session_answers.each do |answer|
-        variables[answer.first.to_s] = answer.last
-      end
-      variables
     end
   end
 end

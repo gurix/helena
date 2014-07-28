@@ -30,7 +30,6 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'simple_form'
   s.add_dependency 'breadcrumbs_on_rails'
   s.add_dependency 'rails-i18n'
-  s.add_dependency 'liquid'
 
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rspec-collection_matchers'

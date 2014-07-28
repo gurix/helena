@@ -6,8 +6,8 @@ module Helena
     field :view_token, type: String
     field :completed, type: Boolean, default: false
 
-    belongs_to :survey, inverse_of: :sessions
-    belongs_to :version, inverse_of: :sessions
+    belongs_to :survey, inverse_of: :sessions, class_name: 'Helena::Survey'
+    belongs_to :version, inverse_of: :sessions, class_name: 'Helena::Version'
 
     embeds_many :answers, inverse_of: :session, class_name: 'Helena::Answer'
 
@@ -29,6 +29,16 @@ module Helena
           csv << session.attributes.values_at(*fields.keys) + answer_values_in(session)
         end
       end
+    end
+
+    def as_json(options)
+      session = super(options)
+      session[:answer] = answers_as_hash
+      session
+    end
+
+    def answers_as_hash
+      answers.map { |answer| [answer[:code], answer[:value]] }.to_h
     end
 
     private
