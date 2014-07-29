@@ -45,8 +45,7 @@ Typical implementation would be:
 
 ## TODOS
 * Support more question types, i.e Dates, Numeric inputs with validation, emails, ...
-* Individual Report for each version as liquid template
-* Demo App
+* Customize question type views for each survey
 * Better admininterface with much better usability
 
 ## Dummy site for development
