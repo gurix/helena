@@ -13,7 +13,7 @@ gemspec
 # To use debugger
 group :development, :test do
   gem 'pry'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
   gem 'ruby-progressbar'
   gem 'colorize'
   gem 'jquery-rails'
