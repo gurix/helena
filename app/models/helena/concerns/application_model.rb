@@ -7,7 +7,7 @@ module Helena
       include Mongoid::Timestamps
 
       included do
-        before_destroy   :removable?
+        before_destroy :removable?
 
         # Removable is given by default. Override for custom behaviour
         def removable?

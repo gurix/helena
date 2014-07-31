@@ -58,9 +58,8 @@ module Helena
     end
 
     def session_params
-      if params[:session]
-        params.require(:session).permit(answers: @question_group.question_codes, question_types: @question_group.question_codes)
-      end
+      return unless params[:session]
+      params.require(:session).permit(answers: @question_group.question_codes, question_types: @question_group.question_codes)
     end
 
     def question_group_questions
@@ -73,10 +72,10 @@ module Helena
 
         value = session_params[:answers][question_code] if session_params
 
-        unless value.blank?
-          answer = Helena::Answer.build_generic(question_code, value, request.remote_ip)
-          @session.answers << answer
-        end
+        next if value.blank?
+
+        answer = Helena::Answer.build_generic(question_code, value, request.remote_ip)
+        @session.answers << answer
       end
       session_answers
     end

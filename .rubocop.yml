@@ -1,8 +1,8 @@
 AllCops:
-  Includes:
-    - Rakefile
-    - config.ru
-  Excludes:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
     - bin/**
     - spec/dummy/db/schema.rb
     - spec/dummy/config/initializers/secret_token.rb
@@ -11,6 +11,6 @@ AllCops:
 Documentation:
   Enabled: false
 LineLength:
-  Enabled: true 
+  Enabled: true
   Max: 160
 

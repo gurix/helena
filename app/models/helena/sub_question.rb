@@ -18,10 +18,7 @@ module Helena
 
     def uniqueness_of_code
       question_code_occurences = question.question_group.version.question_code_occurences
-
-      if question_code_occurences[code] > 1
-        errors.add :code, :taken, value: code
-      end
+      errors.add(:code, :taken, value: code) if question_code_occurences[code] > 1
     end
   end
 end
