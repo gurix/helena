@@ -4,6 +4,8 @@ SimpleForm.setup do |config|
   config.button_class = 'btn btn-default'
   config.boolean_label_class = nil
 
+  config.wrapper_mappings =  { boolean: :vertical_boolean }
+
   config.wrappers :vertical_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
