@@ -13,7 +13,7 @@ PATH
       rails (~> 4.1.1)
       rails-i18n
       sass-rails (~> 4.0.3)
-      simple_form
+      simple_form (~> 3.1.0.rc2)
 
 GEM
   remote: https://rubygems.org/
@@ -220,7 +220,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
-    simple_form (3.0.2)
+    simple_form (3.1.0.rc2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     simplecov (0.9.0)
@@ -281,4 +281,3 @@ DEPENDENCIES
   rspec-rails
   ruby-progressbar
   selenium-webdriver
-  simple_form

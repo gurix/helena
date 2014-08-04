@@ -12,22 +12,19 @@ gemspec
 
 # To use debugger
 group :development, :test do
-  unless ENV['TRAVIS']
-    gem 'pry'
-    gem 'pry-byebug'
-    gem 'ruby-progressbar'
-    gem 'colorize'
-    gem 'quiet_assets'
-    gem 'better_errors'
-    gem 'launchy'
-    gem 'binding_of_caller'
-    gem 'selenium-webdriver'
-    gem 'i18n-tasks'
-  end
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'ruby-progressbar'
+  gem 'colorize'
+  gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'launchy'
+  gem 'binding_of_caller'
+  gem 'selenium-webdriver'
+  gem 'i18n-tasks'
 
   gem 'jquery-rails'
   gem 'bootstrap-sass'
-  gem 'simple_form'
   gem 'breadcrumbs_on_rails'
   gem 'coveralls', require: false
 end
