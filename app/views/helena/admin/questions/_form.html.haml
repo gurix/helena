@@ -12,6 +12,4 @@
     = render 'labels', form: f
   - if @question.includes_subquestions?
     = render 'sub_questions', form: f
-
-  %br
   = f.submit t('shared.save'), class: 'btn btn-success'
