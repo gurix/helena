@@ -281,3 +281,4 @@ DEPENDENCIES
   rspec-rails
   ruby-progressbar
   selenium-webdriver
+  simple_form

@@ -22,7 +22,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'selenium-webdriver'
   gem 'i18n-tasks'
-
+  gem 'simple_form'
   gem 'jquery-rails'
   gem 'bootstrap-sass'
   gem 'breadcrumbs_on_rails'
