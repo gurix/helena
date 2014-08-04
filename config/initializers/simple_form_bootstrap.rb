@@ -12,10 +12,7 @@ SimpleForm.setup do |config|
   config.wrapper_mappings = { boolean: :checkbox }
   config.wrappers :checkbox, tag: :div, class: 'checkbox', error_class: 'has-error' do |b|
     b.use :html5
-    b.wrapper tag: :label do |ba|
-      ba.use :input
-      ba.use :label_text
-    end
+    b.use :label_input # FIXME: shouldn't be such a hack https://gist.github.com/tokenvolt/6599141#comment-1275095
 
     b.use :hint,  wrap_with: { tag: :p, class: 'help-block' }
     b.use :error, wrap_with: { tag: :span, class: 'help-block text-danger' }
