@@ -14,11 +14,11 @@
           %td.position
             = label.input :position, as: :integer, label: false
           %td.preselected
-            = label.input :preselected, as: :boolean, wrapper: :checkbox, label: Helena::Label.human_attribute_name(:preselected)
+            = label.input :preselected, as: :boolean, label: Helena::Label.human_attribute_name(:preselected)
           %td.text
             = label.input :text, label: false
           %td.value
             = label.input :value, label: false
           %td.delete
             - unless label.object.new_record?
-              = label.input :_destroy, as: :boolean, label: Helena::Label.human_attribute_name(:_destroy), wrapper: :checkbox
+              = label.input :_destroy, as: :boolean, label: Helena::Label.human_attribute_name(:_destroy)

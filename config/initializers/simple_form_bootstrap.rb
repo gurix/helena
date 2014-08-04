@@ -9,6 +9,7 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
+  config.wrapper_mappings = { boolean: :checkbox }
   config.wrappers :checkbox, tag: :div, class: 'checkbox', error_class: 'has-error' do |b|
     b.use :html5
     b.wrapper tag: :label do |ba|

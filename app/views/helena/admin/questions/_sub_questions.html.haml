@@ -20,7 +20,7 @@
             = sub_question.input :code, label: false, hint: t('shared.code_hint')
           - if @question.is_a?(Helena::Questions::CheckboxGroup)
             %td.preselected
-              = sub_question.input :preselected, as: :boolean, wrapper: :checkbox
+              = sub_question.input :preselected, as: :boolean
           %td.text
             = sub_question.input :text, label: false
           - if @question.is_a?(Helena::Questions::CheckboxGroup)
