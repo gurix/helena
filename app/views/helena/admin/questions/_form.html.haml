@@ -3,7 +3,7 @@
   = f.input :code, hint: t('shared.code_hint')
   = f.input :_type, collection: Helena::Question::TYPES.map { |type| [type.model_name.human, type] }
   - if @question.respond_to? :required
-    = f.input :required, as: :boolean, wrapper: :checkbox
+    = f.input :required, as: :boolean
   - if @question.is_a?(Helena::Questions::LongText) || @question.is_a?(Helena::Questions::StaticText)
     = f.input :default_value
   - if @question.is_a?(Helena::Questions::ShortText)
@@ -12,6 +12,4 @@
     = render 'labels', form: f
   - if @question.includes_subquestions?
     = render 'sub_questions', form: f
-
-  %br
   = f.submit t('shared.save'), class: 'btn btn-success'

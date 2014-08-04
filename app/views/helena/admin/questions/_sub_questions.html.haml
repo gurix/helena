@@ -20,7 +20,7 @@
             = sub_question.input :code, label: false, hint: t('shared.code_hint')
           - if @question.is_a?(Helena::Questions::CheckboxGroup)
             %td.preselected
-              = sub_question.input :preselected, as: :boolean, wrapper: :checkbox
+              = sub_question.input :preselected, as: :boolean
           %td.text
             = sub_question.input :text, label: false
           - if @question.is_a?(Helena::Questions::CheckboxGroup)
@@ -28,6 +28,5 @@
               = sub_question.input :value, label: false, as: :hidden, value: 1
           %td.delete
             - unless sub_question.object.new_record?
-              = sub_question.input :_destroy, as:      :boolean,
-                                              wrapper: :checkbox,
-                                              label:   Helena::SubQuestion.human_attribute_name(:_destroy)
+              = sub_question.input :_destroy, as:    :boolean,
+                                              label: Helena::SubQuestion.human_attribute_name(:_destroy)

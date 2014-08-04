@@ -19,7 +19,7 @@ feature 'Question management' do
     end
 
     within '.breadcrumb' do
-      expect(page).to have_link'Surveys', href: helena.admin_surveys_path
+      expect(page).to have_link 'Surveys', href: helena.admin_surveys_path
       expect(page).to have_link draft_version.survey.name, href: helena.admin_survey_question_groups_path(draft_version.survey)
       expect(page).to have_text question_group.title
     end
@@ -84,7 +84,7 @@ feature 'Question management' do
       expect { click_link 'Move down' }.to change { second_question.reload.position }.from(1).to(2)
     end
 
-    within  "#helena_#{dom_id second_question}" do
+    within "#helena_#{dom_id second_question}" do
       expect { click_link 'Move up' }.to change { second_question.reload.position }.from(2).to(1)
     end
 
@@ -98,7 +98,7 @@ feature 'Question management' do
 
     visit helena.admin_survey_question_group_questions_path(draft_version.survey, question_group)
 
-    within"#helena_#{dom_id question}" do
+    within "#helena_#{dom_id question}" do
       expect { click_link 'Delete' }.to change { question_group.reload.questions.count }.by(-1)
     end
   end

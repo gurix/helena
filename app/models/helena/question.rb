@@ -29,8 +29,8 @@ module Helena
 
     validates :code, presence: true
 
-     # consist of lowercase characters or digits, not starting with a digit or underscore and not ending with an underscore
-     # foo_32: correct, 32_foo: incorrect, _bar: incorrect, bar_: incorrect, FooBaar: incorrect
+    # consist of lowercase characters or digits, not starting with a digit or underscore and not ending with an underscore
+    # foo_32: correct, 32_foo: incorrect, _bar: incorrect, bar_: incorrect, FooBaar: incorrect
     validates :code, format: { with: CODE_FORMAT }
     validate :uniqueness_of_code
 

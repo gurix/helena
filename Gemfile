@@ -13,18 +13,18 @@ gemspec
 # To use debugger
 group :development, :test do
   gem 'pry'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
   gem 'ruby-progressbar'
   gem 'colorize'
-  gem 'jquery-rails'
-  gem 'bootstrap-sass'
-  gem 'simple_form'
-  gem 'breadcrumbs_on_rails'
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'launchy'
   gem 'binding_of_caller'
-  gem 'coveralls', require: false
   gem 'selenium-webdriver'
   gem 'i18n-tasks'
+  gem 'simple_form'
+  gem 'jquery-rails'
+  gem 'bootstrap-sass'
+  gem 'breadcrumbs_on_rails'
+  gem 'coveralls', require: false
 end
