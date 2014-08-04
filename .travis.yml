@@ -4,5 +4,3 @@ rvm:
 
 services:
   - mongodb
-
-before_install: rm Gemfile.lock || true
