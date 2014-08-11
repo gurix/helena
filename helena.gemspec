@@ -33,7 +33,6 @@ survey/test development, longitudinal studies and instant feedback.'
 
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rspec-collection_matchers'
-  s.add_development_dependency 'mongoid-rspec'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'ffaker'
