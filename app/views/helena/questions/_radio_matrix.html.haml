@@ -1,4 +1,4 @@
-.form-group{ class: "#{'has-error' if errors.present?}" }
+.radio_matrix.form-group{ class: "#{'has-error' if errors.present?}" }
   %label{class: "#{'text-danger' if errors.present?}"}
     = question.question_text
     = ' *' if question.required
