@@ -11,16 +11,15 @@ PATH
   remote: .
   specs:
     helena (0.3.3)
-      bootstrap-sass
-      breadcrumbs_on_rails
-      haml
-      haml-rails
-      jquery-rails
+      bootstrap-sass (~> 3.2)
+      breadcrumbs_on_rails (~> 2.3)
+      haml-rails (~> 0.5)
+      jquery-rails (~> 3.1)
       mongoid (~> 4.0.0.rc2)
-      mongoid-simple-tags
-      mongoid_orderable
-      rails (~> 4.1.1)
-      rails-i18n
+      mongoid-simple-tags (~> 0.1)
+      mongoid_orderable (~> 4.1)
+      rails (~> 4.1)
+      rails-i18n (~> 4.0)
       sass-rails (~> 4.0.3)
       simple_form (~> 3.1.0.rc2)
 
@@ -270,12 +269,12 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   breadcrumbs_on_rails
-  capybara
+  capybara (~> 2.3)
   colorize
   coveralls
-  database_cleaner
-  factory_girl_rails
-  ffaker
+  database_cleaner (~> 1.3)
+  factory_girl_rails (~> 4.4)
+  ffaker (~> 1.23)
   helena!
   i18n-tasks
   jquery-rails
@@ -284,8 +283,8 @@ DEPENDENCIES
   pry
   pry-byebug
   quiet_assets
-  rspec-collection_matchers
-  rspec-rails
+  rspec-collection_matchers (~> 1)
+  rspec-rails (~> 3)
   ruby-progressbar
   selenium-webdriver
   simple_form

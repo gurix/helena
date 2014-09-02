@@ -15,7 +15,7 @@ Demo: http://helena-demo.herokuapp.com (https://github.com/gurix/helena-demo)
 ## Installation
 Add this line to your application's Gemfile:
 
-    gem 'helena', git: 'git://github.com/gurix/helena.git'
+    gem 'helena'
 
 And then execute:
 
