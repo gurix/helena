@@ -65,6 +65,12 @@ open http://localhost:3000/helena/admin/surveys
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+## Contact
+
+[info@markusgraf.ch](mailto: info@markusgraf.ch)
+
+Or at [#HelenaFramework](irc://chat.freenode.net/HelenaFramework) on freenode.net
+
 ## Support
 
 If you like helena and want to support the development, I would appreciate a donation:
