@@ -11,12 +11,12 @@ module Helena
       end
 
       def new
-        add_breadcrumb t('helena.admin.question_groups.new')
+        add_breadcrumb t('helena.admin.question_groups.new.new')
         @question_group = @version.question_groups.new
       end
 
       def create
-        add_breadcrumb t('helena.admin.question_groups.new')
+        add_breadcrumb t('helena.admin.question_groups.create.new')
 
         @question_group = @version.question_groups.new question_group_params
 
