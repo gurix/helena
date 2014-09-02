@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    helena (0.3.2)
+    helena (0.3.3)
       bootstrap-sass
       breadcrumbs_on_rails
       haml
