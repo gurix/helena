@@ -9,7 +9,7 @@
     = hidden_field_tag :question_group, @question_group.id
 
     - if @question_group.previous_items.any?
-      = link_to t('.back'), edit_session_path(@session.token, question_group: @question_group.previous_item), class: 'btn'
+      = link_to t('.back'), edit_session_path(@session.token, question_group: @question_group.previous_item), class: 'btn btn-default'
 
     = f.submit class: 'btn btn-success pull-right', value: @question_group.last? ? t('.save') : t('.next')
 
