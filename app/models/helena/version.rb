@@ -22,6 +22,10 @@ module Helena
     validates :version, presence: true
     validates :version, uniqueness: { scope: :survey_id }
 
+    def draft_version?
+      version == 0
+    end
+
     def question_codes
       question_groups.map(&:question_codes).flatten
     end

@@ -54,8 +54,11 @@ feature 'Survey management' do
 
   scenario 'edits a survey' do
     survey = create :survey, name: 'first'
-    survey.versions.create version: 0
-    survey.versions.first.survey_detail = Helena::SurveyDetail.new(title: 'My first survey', description: 'I am very proud of it')
+    base_version = survey.versions.create version: 0
+    base_version.survey_detail = Helena::SurveyDetail.new title: 'My first survey', description: 'I am very proud of it'
+
+    published_version = Helena::VersionPublisher.publish base_version
+    published_version.save
 
     visit helena.edit_admin_survey_path(survey)
 
@@ -75,8 +78,11 @@ feature 'Survey management' do
 
   scenario 'edits a survey fails when name is empty' do
     survey = create :survey, name: 'the first one'
-    survey.versions.create version: 0
-    survey.versions.first.survey_detail = Helena::SurveyDetail.new(title: 'My first survey', description: 'I am very proud of it')
+    base_version = survey.versions.create version: 0
+    base_version.survey_detail = Helena::SurveyDetail.new title: 'My first survey', description: 'I am very proud of it'
+
+    published_version = Helena::VersionPublisher.publish base_version
+    published_version.save
 
     visit helena.edit_admin_survey_path(survey)
 
