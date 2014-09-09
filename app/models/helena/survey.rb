@@ -8,7 +8,6 @@ module Helena
 
     field :name,        type: String
     field :language,    type: String
-    field :description, type: String
 
     embeds_many :versions, inverse_of: :survey, class_name: 'Helena::Version'
     has_many :sessions, inverse_of: :survey, dependent: :destroy, class_name: 'Helena::Session'
