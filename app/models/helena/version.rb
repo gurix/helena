@@ -20,7 +20,7 @@ module Helena
     scope :without_base, -> { where(:version.gt => 0) }
 
     validates :version, presence: true
-    validates :version, uniqueness: { scope: :survey_id }
+    validates :version, uniqueness: true
 
     def draft_version?
       version == 0
