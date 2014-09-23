@@ -6,6 +6,7 @@ module Helena
       copied_version.version = newest_version_of(version.survey) + 1
       copied_version.created_at = DateTime.now
       copied_version.updated_at = DateTime.now
+      copied_version.active = false
       copied_version
     end
 
