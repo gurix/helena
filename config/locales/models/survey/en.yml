@@ -4,3 +4,6 @@ en:
       'helena/survey':
         one: Survey
         other: Surveys
+    attributes:
+      'helena/survey':
+          created_at: Created
