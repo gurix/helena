@@ -3,7 +3,7 @@ module Helena
     include Helena::Concerns::ApplicationModel
     include Mongoid::Orderable
 
-    embedded_in :version
+    belongs_to :version
 
     embeds_many :questions, class_name: 'Helena::Question'
 
