@@ -11,7 +11,7 @@ Demo: http://helena-demo.herokuapp.com (https://github.com/gurix/helena-demo)
 ## Requirements
 * Rails (4.1 or higher)
 * Mongoid (4.0.0 or higher)
-* MongoDB 2.4.10 (2.6 does not work atm because of an intolerance with mongoid https://github.com/mongoid/mongoid/issues/3611)
+* MongoDB (2.4.10 or higher)
 
 ## Installation
 Add this line to your application's Gemfile:
