@@ -8,7 +8,7 @@ module Helena
     field :session_report, type: String
     field :active,         type: Boolean, default: false
 
-    embedded_in :survey
+    belongs_to :survey
 
     embeds_many :question_groups, class_name: 'Helena::QuestionGroup'
     embeds_many :sessions, class_name: 'Helena::Session'
@@ -22,7 +22,7 @@ module Helena
     scope :active, -> { where active: true }
 
     validates :version, presence: true
-    validates :version, uniqueness: true
+    validates :version, uniqueness: { scope: :survey_id }
 
     def draft_version?
       version == 0

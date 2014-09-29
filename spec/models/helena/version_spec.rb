@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Helena::Version do
-  it { expect(subject).to be_embedded_in(:survey) }
+  it { expect(subject).to belong_to(:survey) }
 
   it { expect(subject).to embed_many(:question_groups) }
   it { expect(subject).to embed_one(:survey_detail) }

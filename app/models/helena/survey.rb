@@ -9,7 +9,7 @@ module Helena
     field :name,        type: String
     field :language,    type: String
 
-    embeds_many :versions, inverse_of: :survey, class_name: 'Helena::Version'
+    has_many :versions, inverse_of: :survey, dependent: :destroy, class_name: 'Helena::Version'
     has_many :sessions, inverse_of: :survey, dependent: :destroy, class_name: 'Helena::Session'
 
     accepts_nested_attributes_for :versions
