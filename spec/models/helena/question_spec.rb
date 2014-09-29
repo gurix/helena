@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Helena::Question do
   let!(:version) { create :version, survey: create(:survey) }
 
-  it { expect(subject).to be_embedded_in(:question_group) }
+  it { expect(subject).to belong_to(:question_group) }
 
   it { expect(subject).to validate_presence_of(:code) }
 

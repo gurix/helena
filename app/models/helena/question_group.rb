@@ -5,7 +5,7 @@ module Helena
 
     belongs_to :version
 
-    embeds_many :questions, class_name: 'Helena::Question'
+    has_many :questions, inverse_of: :question_group, class_name: 'Helena::Question', dependent: :destroy
 
     orderable
 

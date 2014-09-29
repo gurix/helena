@@ -14,7 +14,7 @@ module Helena
       Helena::Questions::RadioMatrix
     ]
 
-    embedded_in :question_group, inverse_of: :questions
+    belongs_to :question_group, inverse_of: :questions
 
     embeds_many :labels, class_name: 'Helena::Label'
     embeds_many :sub_questions, class_name: 'Helena::SubQuestion'

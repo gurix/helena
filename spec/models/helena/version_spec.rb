@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Helena::Version do
   it { expect(subject).to belong_to(:survey) }
 
-  it { expect(subject).to have_many(:question_groups) }
+  it { expect(subject).to have_many(:question_groups).with_dependent(:destroy) }
   it { expect(subject).to embed_one(:survey_detail) }
 
   it { expect(subject).to validate_presence_of(:version) }

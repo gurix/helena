@@ -44,9 +44,7 @@ describe Helena::Admin::QuestionsController do
 
   it 'resort after deleting a question' do
     delete :destroy, survey_id: survey, question_group_id: question_group, id: first_question
-    # Note: first is destroyed, the others moving along so second_question_group becomes first_question_group and so on.
-    expect(first_question.reload.position).to eq 1
-    expect(second_question.reload.position).to eq 2
+    expect(second_question.reload.position).to eq 1
   end
 
   it 'counts position up when creating a new survey' do
