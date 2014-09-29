@@ -15,7 +15,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'ruby-progressbar'
-  gem 'mongoid-rspec', github: 'gurix/mongoid-rspec' # TODO: replace when https://github.com/mongoid-rspec/mongoid-rspec/pull/128 is merged
+  gem 'mongoid-rspec', '~> 2.0.0.rc1'
   gem 'colorize'
   gem 'quiet_assets'
   gem 'better_errors'
