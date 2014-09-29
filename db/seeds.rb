@@ -4,10 +4,6 @@ require 'database_cleaner'
 
 include FactoryGirl::Syntax::Methods
 
-# TODO: Codes smells because we have to assign the factory path here
-FactoryGirl.definition_file_paths += ['spec/factories']
-FactoryGirl.find_definitions
-
 puts 'Cleaning database ...'.green
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
