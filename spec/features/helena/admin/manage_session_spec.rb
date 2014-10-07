@@ -6,7 +6,6 @@ feature 'Session management' do
     @survey = create :survey
     baseversion = @survey.versions.create version: 0
     @version = Helena::VersionPublisher.publish baseversion
-    @version.save
   end
 
   scenario 'lists all sessions of a survey' do

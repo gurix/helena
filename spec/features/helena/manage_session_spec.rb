@@ -3,11 +3,10 @@ require 'spec_helper'
 feature 'Session management' do
   let(:survey) { create :survey, name: 'dummy' }
   let(:base_version) { survey.versions.create version: 0 }
-  let(:first_question_group) { build(:question_group, title: 'Page 1', position: 1) }
+  let(:first_question_group) { base_version.question_groups.create title: 'Page 1' }
 
   background do
     base_version.survey_detail = build :survey_detail, title: 'Dummy Survey', description: 'Leucadendron is a plants in the family Proteaceae.'
-    base_version.question_groups << first_question_group
   end
 
   scenario 'edits a session' do
@@ -17,8 +16,7 @@ feature 'Session management' do
     long_text_question  = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself'
     first_question_group.questions << long_text_question
 
-    second_question_group = build(:question_group, title: 'Page 2', position: 2)
-    base_version.question_groups << second_question_group
+    second_question_group = base_version.question_groups.create title: 'Page 2'
 
     all_and_everything = build :radio_group_question, code:           :all_and_everything,
                                                       question_text:  'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
@@ -41,13 +39,7 @@ feature 'Session management' do
 
     second_question_group.questions << food_allergy
 
-    third_question_group = build(:question_group, title: 'Page 3', position: 3)
-
-    build :radio_group_question, code:           :all_and_everything,
-                                 question_text:  'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
-                                 position:       1
-
-    base_version.question_groups << third_question_group
+    third_question_group = base_version.question_groups.create title: 'Page 3'
 
     satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
                                                         question_text: 'Below are five statements with which you may agree or disagree.',
@@ -73,7 +65,6 @@ feature 'Session management' do
                                                               position: 5)
 
     third_question_group.questions << satisfaction_matrix
-
     version = Helena::VersionPublisher.publish(base_version)
     version.save
 

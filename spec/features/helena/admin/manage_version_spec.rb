@@ -14,8 +14,6 @@ feature 'Version management' do
 
     visit helena.admin_survey_versions_path(@survey)
 
-    expect(page).not_to have_selector "#helena_#{dom_id @baseversion}" # Base version is always the working version
-
     within "#helena_#{dom_id published_version}" do
       expect(page).to have_text '1 bla bla 0 less than a minute'
     end
@@ -26,7 +24,7 @@ feature 'Version management' do
     end
   end
 
-  scenario 'publishing a new version on the base of base version' do
+  scenario 'publishing a new version on the base of base version', pending: true do
 
     visit helena.new_admin_survey_version_path @survey
 
@@ -46,8 +44,6 @@ feature 'Version management' do
 
   scenario 'changing the session report for a version' do
     published_version = Helena::VersionPublisher.publish @baseversion
-    published_version.notes = 'bla bla'
-    published_version.save
 
     visit helena.edit_admin_survey_version_path(@survey, published_version)
 
@@ -62,8 +58,6 @@ feature 'Version management' do
 
   scenario 'deletes a version' do
     published_version = Helena::VersionPublisher.publish @baseversion
-    published_version.notes = 'bla bla'
-    published_version.save
 
     visit helena.admin_survey_versions_path @survey
 

@@ -9,7 +9,6 @@ describe Helena::Admin::VersionsController do
   context 'with authorization' do
     it 'deleting a version deletes also the associated sessions' do
       published_version = Helena::VersionPublisher.publish baseversion
-      published_version.save
 
       create :session, survey: survey, version: published_version
 

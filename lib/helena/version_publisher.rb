@@ -1,16 +1,17 @@
 module Helena
   class VersionPublisher
     def self.publish(version)
-      copied_version = version.dup
-      copied_version.survey = version.survey
+      copied_version = create_copied_version_from(version)
 
-      copied_version.question_groups << version.question_groups
-
-      copied_version.question_groups.each_with_index do |question_group, index|
-        question_group.questions << version.question_groups[index].questions
+      version.question_groups.each do |original_question_group|
+        question_group = copied_version.question_groups.create reset_ids(original_question_group.attributes)
+        original_question_group.questions.each do |original_question|
+          question = question_group.questions.create reset_ids(original_question.attributes)
+          question.labels = original_question.labels
+          question.sub_questions = original_question.sub_questions
+        end
       end
-
-      adjust_copied_attributes(version, copied_version)
+      copied_version
     end
 
     def self.adjust_copied_attributes(version, copied_version)
@@ -23,6 +24,25 @@ module Helena
 
     def self.newest_version_of(survey)
       survey.newest_version.version
+    end
+
+    def self.create_copied_version_from(version)
+      copied_version = Helena::Version.new reset_ids(version.attributes)
+      copied_version = adjust_copied_attributes(version, copied_version)
+      copied_version.survey_detail = reset_ids(version.survey_detail.attributes) if version.survey_detail
+      copied_version.save
+      copied_version
+    end
+
+    def self.reset_ids(attributes)
+      attributes.each do |key, value|
+        if key == '_id' && value.is_a?(BSON::ObjectId)
+          attributes[key] = BSON::ObjectId.new
+        elsif value.is_a?(Hash) || value.is_a?(Array)
+          attributes[key] = reset_ids(value)
+        end
+      end
+      attributes
     end
   end
 end
