@@ -58,7 +58,6 @@ feature 'Survey management' do
     base_version.survey_detail = Helena::SurveyDetail.new title: 'My first survey', description: 'I am very proud of it'
 
     published_version = Helena::VersionPublisher.publish base_version
-    published_version.save
 
     visit helena.edit_admin_survey_path(survey)
 
@@ -82,7 +81,6 @@ feature 'Survey management' do
     base_version.survey_detail = Helena::SurveyDetail.new title: 'My first survey', description: 'I am very proud of it'
 
     published_version = Helena::VersionPublisher.publish base_version
-    published_version.save
 
     visit helena.edit_admin_survey_path(survey)
 
