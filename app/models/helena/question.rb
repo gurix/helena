@@ -25,7 +25,7 @@ module Helena
     field :code,          type: String
     field :question_text, type: String
 
-    orderable
+    orderable scope: :question_group
 
     validates :code, presence: true
 

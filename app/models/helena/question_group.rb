@@ -7,7 +7,7 @@ module Helena
 
     has_many :questions, inverse_of: :question_group, class_name: 'Helena::Question', dependent: :destroy
 
-    orderable
+    orderable scope: :version
 
     field :title, type: String
 
