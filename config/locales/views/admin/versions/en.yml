@@ -1,8 +1,0 @@
-en:
-  helena:
-    admin:
-      versions:
-        index:
-          empty: No versions published at the moment.
-        new:
-          new: Publish new version
