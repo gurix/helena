@@ -28,35 +28,12 @@ Add this line to your routes will and you will be good to go!
 
     mount Helena::Engine => '/helena'
 
-All helena controllers inherit from your `ApplicationController`. So define the `can_administer?` method in your `ApplicationController`. `can_administer?` determines whether current user can create/update survey questions.
-
-Typical implementation would be:
-
-```ruby
-  class ApplicationController < ActionController::Base
-    def current_user
-      @current_user ||= User.find(session[:user_id])
-    end
-
-    def can_administer?
-      current_user.try(:admin?)
-    end
-  end
-```
+Since Version 1.0 the admin interface is no longer a part of the gem and was extracted to http://github.com/gurix/helena-admin.
 
 ## TODOS
 * Support more question types, i.e Dates, Numeric inputs with validation, emails, ...
 * Customize question type views for each survey
-* Better admininterface with much better usability
 
-## Dummy site for development
-
-```
-rake -f spec/dummy/Rakefile db:seed
-cd spec/dummy
-rails s
-open http://localhost:3000/helena/admin/surveys
-```
 ## Contributing
 
 1. Fork it
