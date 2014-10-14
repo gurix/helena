@@ -29,4 +29,11 @@ describe Helena::Questions::RadioMatrix do
     question.labels << build(:label, preselected: false)
     expect(question).to be_valid
   end
+
+  it 'indicates that it includes sub_questions and labels' do
+    question = build :radio_matrix_question, question_group: question_group
+
+    expect(question.includes_subquestions?).to eq true
+    expect(question.includes_labels?).to eq true
+  end
 end
