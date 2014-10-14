@@ -11,9 +11,4 @@ describe Helena::Survey do
   it 'has a valid factory' do
     expect(build :survey).to be_valid
   end
-
-  it 'is removable by default via Helena::Concerns::ApplicationModel.removable?' do
-    survey = create :survey
-    expect { survey.delete }.to change { Helena::Survey.count }.by(-1)
-  end
 end
