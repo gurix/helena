@@ -14,13 +14,9 @@ module Helena
 
     def create_survey
       @survey = Helena::Survey.new @parsed.except('versions')
-      if @survey.save
-        @parsed['versions'].each do |parsed_version|
-          create_version parsed_version
-        end
-      else
-        raise_error @survey
-      end
+      return unless @survey.save
+      return unless @parsed['versions']
+      @parsed['versions'].each { |parsed_version| create_version parsed_version }
     end
 
     def create_version(parsed_version)
@@ -28,37 +24,24 @@ module Helena
       version.version = parsed_version.first
       version.survey_detail = parsed_version.last['survey_detail']
 
-      if version.save
-        parsed_version.last['question_groups'].each do |parsed_question_group|
-          create_question_group version, parsed_question_group
-        end
-      else
-        raise_error version
-      end
+      return unless version.save
+      return unless parsed_version.last['question_groups']
+      parsed_version.last['question_groups'].each { |parsed_question_group| create_question_group version, parsed_question_group }
     end
 
     def create_question_group(version, parsed_question_group)
       question_group = version.question_groups.build parsed_question_group.last.except('questions')
       question_group.position = parsed_question_group.first
-      if question_group.save
-        parsed_question_group.last['questions'].each do |parsed_question|
-          create_question question_group, parsed_question
-        end
-      else
-        raise_error question_group
-      end
+      return unless question_group.save
+      return unless parsed_question_group.last['questions']
+      parsed_question_group.last['questions'].each { |parsed_question| create_question question_group, parsed_question }
     end
 
     def create_question(question_group, parsed_question)
       question = question_group.questions.build parsed_question.last
       question.position = parsed_question.first
-      raise_error(question) unless question.save
+      question.save
       question
-    end
-
-    def raise_error(object)
-      @survey.delete
-      fail object.errors.messages.to_s
     end
   end
 end
