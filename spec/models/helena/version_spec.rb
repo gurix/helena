@@ -12,4 +12,13 @@ describe Helena::Version do
   it 'has a valid factory' do
     expect(build :version, survey: create(:survey)).to be_valid
   end
+
+  it 'scopes active versions' do
+    survey = create :survey
+    survey.versions.create version: 0
+    survey.versions.create active: true, version: 1
+
+    expect(survey.reload.versions.size).to eq 2
+    expect(survey.reload.versions.active.size).to eq 1
+  end
 end
