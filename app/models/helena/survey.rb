@@ -18,7 +18,7 @@ module Helena
     validates :language, presence: true
 
     def newest_version
-      versions.find_by version: versions.max(:version)
+      versions.find_by version: versions.max(:version) if versions.any?
     end
   end
 end

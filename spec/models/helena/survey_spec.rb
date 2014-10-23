@@ -11,4 +11,15 @@ describe Helena::Survey do
   it 'has a valid factory' do
     expect(build :survey).to be_valid
   end
+
+  it 'returns the newest version if there are any' do
+    survey = create :survey
+
+    expect(survey.newest_version).to be_nil
+
+    survey.versions.create version: 99
+    survey.versions.create version: 0
+
+    expect(survey.reload.newest_version.version).to be 99
+  end
 end
