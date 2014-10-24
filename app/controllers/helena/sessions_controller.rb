@@ -11,7 +11,7 @@ module Helena
       @question_group = question_group
 
       respond_to do |format|
-        format.html { render html: @version.session_report.html_safe, layout: true }
+        format.html { render html: session_report }
         format.json { render json: @session }
       end
     end
@@ -88,6 +88,12 @@ module Helena
         end
       end
       errors
+    end
+
+    private
+
+    def session_report
+      Slim::Template.new { @version.session_report }.render.html_safe if @version.session_report
     end
   end
 end

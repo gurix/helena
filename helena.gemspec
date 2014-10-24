@@ -24,6 +24,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'mongoid_orderable', '~> 4.1'
   s.add_dependency 'mongoid-simple-tags', '~> 0.1'
   s.add_dependency 'haml-rails', '~> 0.5'
+  s.add_dependency 'slim', '~> 2.1.0'
   s.add_dependency 'jquery-rails', '~> 3.1'
   s.add_dependency 'sass-rails', '~> 4.0.3' # version needed here http://stackoverflow.com/questions/22392862/undefined-method-environment-for-nilnilclass-when-importing-bootstrap
   s.add_dependency 'bootstrap-sass', '~> 3.2'
