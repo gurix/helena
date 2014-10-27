@@ -7,6 +7,7 @@ module Helena
     field :notes,          type: String
     field :session_report, type: String
     field :active,         type: Boolean, default: false
+    field :settings,       type: Hash
 
     belongs_to :survey
 
@@ -18,7 +19,6 @@ module Helena
     accepts_nested_attributes_for :survey_detail
     accepts_nested_attributes_for :question_groups
 
-    scope :without_base, -> { where(:version.gt => 0) } # TODO: Remove this in 1.0
     scope :active, -> { where active: true }
 
     validates :version, presence: true
