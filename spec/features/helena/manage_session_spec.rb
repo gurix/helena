@@ -83,6 +83,7 @@ feature 'Session management' do
     fill_in 'session_answers_selfdescription', with: 'I am a proud man living in middle earth. Everybody is laughing at me because I do not have hairy feets.'
 
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(0).to(2)
+    expect(session.reload.last_question_group_id).to eq second_question_group.id
 
     expect(page).to have_content 'Page 2'
 
@@ -105,6 +106,7 @@ feature 'Session management' do
 
     expect(page).to have_link 'Back'
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(2).to(6)
+    expect(session.reload.last_question_group_id).to eq third_question_group.id
 
     expect(page).to have_content 'Page 3'
 
@@ -131,6 +133,23 @@ feature 'Session management' do
     choose('session_answers_satisfied_with_life_7')
 
     expect { click_button 'Save' }.to change { session.reload.answers.count }.from(6).to(11)
+  end
+
+  scenario 'a user resumes the questionary and starts with ne first unfinished question group' do
+    first_question_group
+    second_question_group = base_version.question_groups.create title: 'Page 2'
+
+    session = survey.sessions.create version_id: base_version.id, token: 'abcdefg'
+
+    visit helena.edit_session_path(session.token)
+
+    expect(page).to have_content 'Page 1'
+    click_button 'Next'
+
+    expect(session.reload.last_question_group_id).to eq second_question_group.id
+
+    visit helena.edit_session_path(session.token)
+    expect(page).to have_content 'Page 2'
   end
 
   scenario 'does not save an empty short text field when required' do

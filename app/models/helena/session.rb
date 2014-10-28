@@ -5,6 +5,7 @@ module Helena
     field :token, type: String
     field :view_token, type: String
     field :completed, type: Boolean, default: false
+    field :last_question_group_id, type: BSON::ObjectId
 
     belongs_to :survey, inverse_of: :sessions, class_name: 'Helena::Survey'
     belongs_to :version, inverse_of: :sessions, class_name: 'Helena::Version'
