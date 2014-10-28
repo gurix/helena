@@ -1,7 +1,7 @@
-%h1.survey_title
+h1.survey_title
   = @version.survey_detail.title
-%fieldset[@question_group]
-  %legend= @question_group.title
+fieldset id="#{dom_id @question_group}"
+  legend= @question_group.title
   = simple_form_for(@session, url: helena.session_path(@session.token), as: :session) do |f|
     - @questions.each do |question|
       = render "#{question.class.to_s.underscore}", form: f, question: question, answers: @answers, errors: @errors
