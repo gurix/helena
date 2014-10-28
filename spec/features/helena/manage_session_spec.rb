@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'Session management' do
   let(:survey) { create :survey, name: 'dummy' }
   let(:base_version) { survey.versions.create version: 0 }
-  let(:first_question_group) { base_version.question_groups.create title: 'Page 1' }
+  let!(:first_question_group) { base_version.question_groups.create title: 'Page 1' }
 
   background do
     base_version.survey_detail = build :survey_detail, title: 'Dummy Survey', description: 'Leucadendron is a plants in the family Proteaceae.'
@@ -16,7 +16,7 @@ feature 'Session management' do
     long_text_question  = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself'
     first_question_group.questions << long_text_question
 
-    second_question_group = base_version.question_groups.create title: 'Page 2'
+    second_question_group = base_version.question_groups.create title: 'Page 2', allow_to_go_back: true
 
     all_and_everything = build :radio_group_question, code:           :all_and_everything,
                                                       question_text:  'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
@@ -39,7 +39,7 @@ feature 'Session management' do
 
     second_question_group.questions << food_allergy
 
-    third_question_group = base_version.question_groups.create title: 'Page 3'
+    third_question_group = base_version.question_groups.create title: 'Page 3', allow_to_go_back: true
 
     satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
                                                         question_text: 'Below are five statements with which you may agree or disagree.',
@@ -104,7 +104,7 @@ feature 'Session management' do
     check('Oats')
     check('Meat')
 
-    expect(page).to have_link 'Back'
+    expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: version.question_groups.find_by(position: 1))
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(2).to(6)
     expect(session.reload.last_question_group_id).to eq third_question_group.id
 
@@ -132,11 +132,11 @@ feature 'Session management' do
     choose('session_answers_nothing_to_change_5')
     choose('session_answers_satisfied_with_life_7')
 
+    expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: version.question_groups.find_by(position: 2))
     expect { click_button 'Save' }.to change { session.reload.answers.count }.from(6).to(11)
   end
 
   scenario 'a user resumes the questionary and starts with ne first unfinished question group' do
-    first_question_group
     second_question_group = base_version.question_groups.create title: 'Page 2'
 
     session = survey.sessions.create version_id: base_version.id, token: 'abcdefg'
@@ -303,5 +303,26 @@ feature 'Session management' do
     expect { click_button 'Save' }.to change { session.reload.answers.count }.from(0).to(1)
 
     expect(page).to have_content("can't be blank")
+  end
+
+  scenario 'Allows to define whether a user an jump back for each question group seperately' do
+    second_question_group = base_version.question_groups.create title: 'Page 2', allow_to_go_back: true
+    base_version.question_groups.create title: 'Page 3', allow_to_go_back: false
+
+    session = survey.sessions.create version_id: base_version.id, token: 'abcdefg'
+
+    visit helena.edit_session_path(session.token)
+
+    expect(page).to have_content 'Page 1'
+    expect(page).not_to have_link 'Back'
+
+    click_button 'Next'
+
+    expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: second_question_group.previous_item)
+    expect(page).to have_content 'Page 2'
+
+    click_button 'Next'
+
+    expect(page).not_to have_link 'Back'
   end
 end
