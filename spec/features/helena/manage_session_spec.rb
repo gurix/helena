@@ -164,8 +164,21 @@ feature 'Session management' do
     visit helena.edit_session_path(session.token)
 
     expect(page).to have_content "What's your name? *"
+    expect(page).to have_content '* indicates required fields'
     expect { click_button 'Save' }.not_to change { session.reload.answers.count }
     expect(page).to have_content("can't be blank")
+  end
+
+  scenario 'does not display "* indicates required fields" when no required fields are in question group' do
+    short_text_question  = build :short_text_question, code: 'a_name', question_text: "What's your name?", required: false
+    first_question_group.questions << short_text_question
+
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
+
+    visit helena.edit_session_path(session.token)
+
+    expect(page).to have_content "What's your name?"
+    expect(page).not_to have_content '* indicates required fields'
   end
 
   scenario 'does not save an empty long text field when required' do
