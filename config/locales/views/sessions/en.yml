@@ -5,5 +5,9 @@ en:
         next: Next
         save: Save
         back: Back
+
       end_message:
         message: Thank you for participating.
+
+      progressbar:
+        count_page: "Page %{page} of %{total_pages}"

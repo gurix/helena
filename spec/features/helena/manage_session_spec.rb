@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'Session management' do
   let(:survey) { create :survey, name: 'dummy' }
   let(:base_version) { survey.versions.create version: 0 }
-  let!(:first_question_group) { base_version.question_groups.create title: 'Page 1' }
+  let!(:first_question_group) { base_version.question_groups.create title: 'Question Group 1' }
 
   background do
     base_version.survey_detail = build :survey_detail, title: 'Dummy Survey', description: 'Leucadendron is a plants in the family Proteaceae.'
@@ -16,7 +16,7 @@ feature 'Session management' do
     long_text_question  = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself'
     first_question_group.questions << long_text_question
 
-    second_question_group = base_version.question_groups.create title: 'Page 2', allow_to_go_back: true
+    second_question_group = base_version.question_groups.create title: 'Question Group 2', allow_to_go_back: true
 
     all_and_everything = build :radio_group_question, code:           :all_and_everything,
                                                       question_text:  'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
@@ -39,7 +39,7 @@ feature 'Session management' do
 
     second_question_group.questions << food_allergy
 
-    third_question_group = base_version.question_groups.create title: 'Page 3', allow_to_go_back: true
+    third_question_group = base_version.question_groups.create title: 'Question Group 3', allow_to_go_back: true
 
     satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
                                                         question_text: 'Below are five statements with which you may agree or disagree.',
@@ -66,14 +66,20 @@ feature 'Session management' do
 
     third_question_group.questions << satisfaction_matrix
     version = Helena::VersionPublisher.publish(base_version)
+    version.settings = { display_progressbar: true }
     version.save
 
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 
+    within '#survey_progress' do
+      expect(page).to have_content 'Page 1 of 3'
+      expect(page).to have_content '33%'
+    end
+
     expect(page).to have_content 'Dummy Survey'
-    expect(page).to have_content 'Page 1'
+    expect(page).to have_content 'Question Group 1'
     expect(page).to have_content "What's your name?"
     expect(page).to have_content 'Give a brief description of yourself'
 
@@ -85,8 +91,12 @@ feature 'Session management' do
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(0).to(2)
     expect(session.reload.last_question_group_id).to eq second_question_group.id
 
-    expect(page).to have_content 'Page 2'
+    within '#survey_progress' do
+      expect(page).to have_content 'Page 2 of 3'
+      expect(page).to have_content '67%'
+    end
 
+    expect(page).to have_content 'Question Group 2'
     expect(page).to have_content 'What is the answer to the Ultimate Question of Life, the Universe, and Everything?'
     expect(page).to have_content 'Just Chuck Norris knows it'
     expect(page).to have_content 'God'
@@ -108,7 +118,12 @@ feature 'Session management' do
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(2).to(6)
     expect(session.reload.last_question_group_id).to eq third_question_group.id
 
-    expect(page).to have_content 'Page 3'
+    within '#survey_progress' do
+      expect(page).to have_content 'Page 3 of 3'
+      expect(page).to have_content '100%'
+    end
+
+    expect(page).to have_content 'Question Group 3'
 
     expect(page).to have_content 'Below are five statements with which you may agree or disagree.'
 
@@ -137,19 +152,19 @@ feature 'Session management' do
   end
 
   scenario 'a user resumes the questionary and starts with ne first unfinished question group' do
-    second_question_group = base_version.question_groups.create title: 'Page 2'
+    second_question_group = base_version.question_groups.create title: 'Question Group 2'
 
     session = survey.sessions.create version_id: base_version.id, token: 'abcdefg'
 
     visit helena.edit_session_path(session.token)
 
-    expect(page).to have_content 'Page 1'
+    expect(page).to have_content 'Question Group 1'
     click_button 'Next'
 
     expect(session.reload.last_question_group_id).to eq second_question_group.id
 
     visit helena.edit_session_path(session.token)
-    expect(page).to have_content 'Page 2'
+    expect(page).to have_content 'Question Group 2'
   end
 
   scenario 'does not save an empty short text field when required' do
@@ -306,23 +321,24 @@ feature 'Session management' do
   end
 
   scenario 'Allows to define whether a user an jump back for each question group seperately' do
-    second_question_group = base_version.question_groups.create title: 'Page 2', allow_to_go_back: true
-    base_version.question_groups.create title: 'Page 3', allow_to_go_back: false
+    second_question_group = base_version.question_groups.create title: 'Question Group 2', allow_to_go_back: true
+    base_version.question_groups.create title: 'Question Group 3', allow_to_go_back: false
 
     session = survey.sessions.create version_id: base_version.id, token: 'abcdefg'
 
     visit helena.edit_session_path(session.token)
 
-    expect(page).to have_content 'Page 1'
+    expect(page).to have_content 'Question Group 1'
     expect(page).not_to have_link 'Back'
 
     click_button 'Next'
 
     expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: second_question_group.previous_item)
-    expect(page).to have_content 'Page 2'
+    expect(page).to have_content 'Question Group 2'
 
     click_button 'Next'
 
+    expect(page).to have_content 'Question Group 3'
     expect(page).not_to have_link 'Back'
   end
 end

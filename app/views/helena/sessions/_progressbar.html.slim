@@ -1,0 +1,9 @@
+- page = (@question_group.previous_items.size + 1)
+- total_pages = @version.question_groups.size
+- percent = ((page.to_f / total_pages.to_f)*100).round
+#survey_progress
+  .text-center
+    = t '.count_page', page: page, total_pages: total_pages
+  .progress
+    .progress-bar aria-valuemax="100" aria-valuemin="0" aria-valuenow="#{percent}" role="progressbar" style="width: #{percent}%"
+      = "#{percent}%"
