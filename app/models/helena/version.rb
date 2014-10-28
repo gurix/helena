@@ -7,7 +7,7 @@ module Helena
     field :notes,          type: String
     field :session_report, type: String
     field :active,         type: Boolean, default: false
-    field :settings,       type: Hash
+    field :settings,       type: Hash, default: {}
 
     belongs_to :survey
 
