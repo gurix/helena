@@ -8,3 +8,7 @@ en:
     attributes:
       'helena/session':
         completed: Completed?
+        last_question_group_id: Last viewed question group
+        answers_as_yaml: Answers
+        token: Token
+        view_token: View token
