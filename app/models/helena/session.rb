@@ -17,16 +17,13 @@ module Helena
     before_create :reset_tokens
 
     def answers_as_yaml
-      Hash[answers.map { | answer | [answer.code, answer.value] }].to_yaml
+      Hash[answers.map { | answer | [answer.code, answer.value] }.sort].to_yaml
     end
 
     def answers_as_yaml=(yaml)
-      YAML.load(yaml).each do | code, value |
-        answer = answers.find_by code: code
-        next if answer.value == value
-        answer.delete
-        answers << Helena::Answer.build_generic(code, value, '')
-      end
+      parsed_answers = YAML.load yaml
+      update_answers parsed_answers
+      remove_unparsed_answers parsed_answers
     end
 
     def reset_tokens
@@ -85,6 +82,22 @@ module Helena
 
     def unique_token_for?(field = :token)
       self.class.where(field => send(field)).blank? && send(field).present?
+    end
+
+    def update_answers(parsed_answers)
+      parsed_answers.each do | code, value |
+        answer = answers.where(code: code).first
+        if answer
+          next if answer.value == value
+          answer.delete
+        end
+        answers << Helena::Answer.build_generic(code, value, '')
+      end
+    end
+
+    def remove_unparsed_answers(parsed_answers)
+      unparsed_answers = answers.map(&:code) - parsed_answers.keys
+      answers.in(code: unparsed_answers).destroy
     end
   end
 end

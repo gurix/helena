@@ -35,9 +35,9 @@ describe Helena::Session do
 
   describe '#answers_as_yaml and #answer_as_yaml=' do
     before do
+      session.answers << Helena::Answer.build_generic('c', 'Barbra Streisand!!', '192.999.0.1')
       session.answers << Helena::Answer.build_generic('a', 42, '192.168.0.1')
       session.answers << Helena::Answer.build_generic('b', true, '192.235.0.1')
-      session.answers << Helena::Answer.build_generic('c', 'Barbra Streisand!!', '192.999.0.1')
     end
 
     it 'prints answers as yaml' do
@@ -56,6 +56,15 @@ describe Helena::Session do
         session.answers_as_yaml = 'a: 42'
         session.save
       end.not_to change { session.answers.find_by code: 'a' }
+    end
+
+    it 'removes existings answers that is not in the yaml' do
+      expect do
+        session.answers_as_yaml = 'x: "test"'
+        session.save
+      end.to change { session.reload.answers.size }.by(-2)
+
+      expect(session.answers.in(code: %w(a b c)).size).to eq 0
     end
   end
 end
