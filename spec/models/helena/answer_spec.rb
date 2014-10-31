@@ -10,7 +10,6 @@ describe Helena::Answer do
 
   it { expect(subject).to validate_presence_of(:code) }
   it { expect(subject).to validate_uniqueness_of(:code) }
-  it { expect(subject).to validate_presence_of(:ip_address) }
 
   it 'saves the created_at time when create an answer' do
     expect(build(:answer).created_at).to be_kind_of(DateTime)

@@ -16,6 +16,19 @@ module Helena
 
     before_create :reset_tokens
 
+    def answers_as_yaml
+      Hash[answers.map { | answer | [answer.code, answer.value] }].to_yaml
+    end
+
+    def answers_as_yaml=(yaml)
+      YAML.load(yaml).each do | code, value |
+        answer = answers.find_by code: code
+        next if answer.value == value
+        answer.delete
+        answers << Helena::Answer.build_generic(code, value, '')
+      end
+    end
+
     def reset_tokens
       # NOTE: there are (2*26+10)^k tokens available
       # To not run into performance issues we could pregenerate unique tokens in the future
