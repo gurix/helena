@@ -3,6 +3,7 @@
 [![Dependency Status](https://img.shields.io/gemnasium/gurix/helena.svg?style=flat)](https://gemnasium.com/gurix/helena)
 [![Dependency Status](https://img.shields.io/gem/v/helena.svg?style=flat)](https://rubygems.org/gems/helena)
 # Helena
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/gurix/helena?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Helena is an online survey/test framework designed for agile survey/test development, longitudinal studies and instant feedback.
 
 ![swiss made software](https://raw.githubusercontent.com/gurix/helena/master/app/assets/images/helena/swissmadesoftware.png "swiss made software")
