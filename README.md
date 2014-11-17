@@ -29,7 +29,7 @@ Add this line to your routes will and you will be good to go!
 
     mount Helena::Engine => '/helena'
 
-Since Version 1.0 the admin interface is no longer a part of the gem and was extracted to http://github.com/gurix/helena-admin.
+Since Version 1.0 the admin interface is no longer a part of the gem and was extracted to http://github.com/gurix/helena_administration.
 
 ## TODOS
 * Support more question types, i.e Dates, Numeric inputs with validation, emails, ...
