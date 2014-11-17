@@ -3,6 +3,7 @@ module Helena
     respond_to :html
 
     before_filter :load_session, only: [:edit, :update]
+    after_filter :update_last_question_group_id, only: :update
 
     def show
       @session = Helena::Session.find_by view_token: params[:token]
@@ -11,7 +12,7 @@ module Helena
       @question_group = question_group
 
       respond_to do |format|
-        format.html { render html: @version.session_report.html_safe, layout: true }
+        format.html { render html: session_report }
         format.json { render json: @session }
       end
     end
@@ -46,8 +47,9 @@ module Helena
     end
 
     def question_group
-      if params[:question_group]
-        @version.question_groups.find params[:question_group]
+      question_group_id = params[:question_group] || @session.last_question_group_id
+      if question_group_id
+        @version.question_groups.find question_group_id
       else
         @version.question_groups.asc(:position).first
       end
@@ -67,15 +69,16 @@ module Helena
     end
 
     def update_answers
+      return session_answers unless session_params
+
       @question_group.question_codes.each do |question_code|
         @session.answers.where(code: question_code).delete
 
-        value = session_params[:answers][question_code] if session_params
+        value = session_params[:answers][question_code]
 
         next if value.blank?
 
-        answer = Helena::Answer.build_generic(question_code, value, request.remote_ip)
-        @session.answers << answer
+        @session.answers << Helena::Answer.build_generic(question_code, value, request.remote_ip)
       end
       session_answers
     end
@@ -88,6 +91,14 @@ module Helena
         end
       end
       errors
+    end
+
+    def session_report
+      Slim::Template.new { @version.session_report }.render.html_safe if @version.session_report
+    end
+
+    def update_last_question_group_id
+      @session.update_attribute :last_question_group_id, @question_group.id
     end
   end
 end

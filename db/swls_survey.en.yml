@@ -1,0 +1,67 @@
+# Helena survey template for "The Satisfaction with Life Scale"
+# http://internal.psychology.illinois.edu/~ediener/SWLS.html
+# Ed Diener, Robert A. Emmons, Randy J. Larsen and Sharon Griffin as noted in the 1985 article in the Journal of Personality Assessment.
+
+name: The Satisfaction with Life Scale
+tags:
+  - others
+language: en
+
+versions:
+  0:
+    notes: initial version
+    survey_detail:
+      title: The Satisfaction with Life Scale
+      description: A 5-item scale designed to measure global cognitive judgments of ones life satisfaction. – Ed Diener
+
+    question_groups:
+      1:
+        questions:
+          1:
+            code: satisfaction
+            _type: Helena::Questions::RadioMatrix
+            required: true
+            question_text: 'Below are five statements with which you may agree or disagree.
+                            Using the 1-7 scale below, indicate your agreement with each item by placing the
+                            appropriate number in the line preceding that item. Please be open and honest in
+                            your responding.'
+            required: true
+            labels:
+              1:
+                text: Strongly Disagree
+                value: 0
+              2:
+                text: Disagree
+                value: 1
+              3:
+                text: Slightly Disagree
+                value: 2
+              4:
+                text: Neither Agree or Disagree
+                value: 3
+              5:
+                text: Slightly Agree
+                value: 4
+              6:
+                text: Agree
+                value: 5
+              7:
+                text: Strongly Agree
+                value: 6
+
+            sub_questions:
+              1:
+                text: In most ways my life is close to my ideal.
+                code: life_is_ideal
+              2:
+                text: The conditions of my life are excellent.
+                code: condition
+              3:
+                text: I am satisfied with life.
+                code: satisfied_with_life
+              4:
+                text: So far I have gotten the important things I want in life.
+                code: important_things
+              5:
+                text: If I could live my life over, I would change almost nothing.
+                code: nothing_to_change

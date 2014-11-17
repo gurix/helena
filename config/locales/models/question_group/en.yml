@@ -9,3 +9,4 @@ en:
       'helena/question_group':
         position: Position
         title: Title
+        allow_to_go_back: Allow participants to go back to the previous question group

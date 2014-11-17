@@ -6,25 +6,23 @@ module Helena
     field :version,        type: Integer, default: 0
     field :notes,          type: String
     field :session_report, type: String
+    field :active,         type: Boolean, default: false
+    field :settings,       type: Hash, default: {}
 
-    embedded_in :survey
+    belongs_to :survey
 
-    embeds_many :question_groups, class_name: 'Helena::QuestionGroup'
-    embeds_many :sessions, class_name: 'Helena::Session'
+    has_many :question_groups, inverse_of: :version, dependent: :destroy, class_name: 'Helena::QuestionGroup'
+    has_many :sessions, inverse_of: :version, dependent: :destroy, class_name: 'Helena::Session'
 
     embeds_one :survey_detail, class_name: 'Helena::SurveyDetail'
 
     accepts_nested_attributes_for :survey_detail
     accepts_nested_attributes_for :question_groups
 
-    scope :without_base, -> { where(:version.gt => 0) }
+    scope :active, -> { where active: true }
 
     validates :version, presence: true
     validates :version, uniqueness: { scope: :survey_id }
-
-    def draft_version?
-      version == 0
-    end
 
     def question_codes
       question_groups.map(&:question_codes).flatten

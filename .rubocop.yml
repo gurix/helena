@@ -4,13 +4,11 @@ AllCops:
     - '**/config.ru'
   Exclude:
     - bin/**
-    - spec/dummy/db/schema.rb
     - spec/dummy/config/initializers/secret_token.rb
-    - db/migrate/**
-    - db/seeds.rb
 Documentation:
   Enabled: false
 LineLength:
   Enabled: true
   Max: 160
-
+AbcSize:
+  Enabled: false

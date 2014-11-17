@@ -8,9 +8,8 @@ module Helena
 
     field :name,        type: String
     field :language,    type: String
-    field :description, type: String
 
-    embeds_many :versions, inverse_of: :survey, class_name: 'Helena::Version'
+    has_many :versions, inverse_of: :survey, dependent: :destroy, class_name: 'Helena::Version'
     has_many :sessions, inverse_of: :survey, dependent: :destroy, class_name: 'Helena::Session'
 
     accepts_nested_attributes_for :versions
@@ -18,12 +17,8 @@ module Helena
     validates :name, presence: true, uniqueness: true
     validates :language, presence: true
 
-    def draft_version
-      versions.find_by version: 0
-    end
-
     def newest_version
-      versions.find_by version: versions.max(:version)
+      versions.find_by version: versions.max(:version) if versions.any?
     end
   end
 end

@@ -14,7 +14,7 @@ module Helena
       Helena::Questions::RadioMatrix
     ]
 
-    embedded_in :question_group, inverse_of: :questions
+    belongs_to :question_group, inverse_of: :questions
 
     embeds_many :labels, class_name: 'Helena::Label'
     embeds_many :sub_questions, class_name: 'Helena::SubQuestion'
@@ -25,7 +25,7 @@ module Helena
     field :code,          type: String
     field :question_text, type: String
 
-    orderable
+    orderable scope: :question_group
 
     validates :code, presence: true
 
@@ -51,13 +51,13 @@ module Helena
 
     def reject_labels(attributed)
       attributed['text'].blank? &&
-          attributed['value'].blank?
+        attributed['value'].blank?
     end
 
     def reject_sub_questions(attributed)
       attributed['code'].blank? &&
-          attributed['default_value'].blank? &&
-          attributed['question_text'].blank?
+        attributed['default_value'].blank? &&
+        attributed['question_text'].blank?
     end
   end
 end

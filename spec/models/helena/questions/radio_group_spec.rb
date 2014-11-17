@@ -29,4 +29,10 @@ describe Helena::Questions::RadioGroup do
     question.labels << build(:label, preselected: false)
     expect(question).to be_valid
   end
+
+  it 'indicates that it includes labels' do
+    question = build :radio_group_question, question_group: question_group
+
+    expect(question.includes_labels?).to eq true
+  end
 end

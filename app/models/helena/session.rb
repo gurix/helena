@@ -5,6 +5,7 @@ module Helena
     field :token, type: String
     field :view_token, type: String
     field :completed, type: Boolean, default: false
+    field :last_question_group_id, type: BSON::ObjectId
 
     belongs_to :survey, inverse_of: :sessions, class_name: 'Helena::Survey'
     belongs_to :version, inverse_of: :sessions, class_name: 'Helena::Version'
@@ -14,6 +15,16 @@ module Helena
     validates :token, :view_token, uniqueness: true
 
     before_create :reset_tokens
+
+    def answers_as_yaml
+      Hash[answers.map { | answer | [answer.code, answer.value] }.sort].to_yaml
+    end
+
+    def answers_as_yaml=(yaml)
+      parsed_answers = YAML.load yaml
+      update_answers parsed_answers
+      remove_unparsed_answers parsed_answers
+    end
 
     def reset_tokens
       # NOTE: there are (2*26+10)^k tokens available
@@ -71,6 +82,22 @@ module Helena
 
     def unique_token_for?(field = :token)
       self.class.where(field => send(field)).blank? && send(field).present?
+    end
+
+    def update_answers(parsed_answers)
+      parsed_answers.each do | code, value |
+        answer = answers.where(code: code).first
+        if answer
+          next if answer.value == value
+          answer.delete
+        end
+        answers << Helena::Answer.build_generic(code, value, '')
+      end
+    end
+
+    def remove_unparsed_answers(parsed_answers)
+      unparsed_answers = answers.map(&:code) - parsed_answers.keys
+      answers.in(code: unparsed_answers).destroy
     end
   end
 end

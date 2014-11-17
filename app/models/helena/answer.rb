@@ -8,8 +8,7 @@ module Helena
 
     embedded_in :session, inverse_of: :answers
 
-    validates :code, :ip_address, presence: true
-    validates :code, uniqueness: true
+    validates :code, presence: true, uniqueness: true
 
     def self.build_generic(code, value, ip_address)
       value = cast_value(value)
