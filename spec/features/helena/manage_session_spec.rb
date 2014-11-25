@@ -66,7 +66,7 @@ feature 'Session management' do
 
     third_question_group.questions << satisfaction_matrix
     version = Helena::VersionPublisher.publish(base_version)
-    version.settings = { display_progressbar: true }
+    version.settings = { display_progressbar: '1' }
     version.save
 
     session = survey.sessions.create version_id: version.id, token: 'abc'

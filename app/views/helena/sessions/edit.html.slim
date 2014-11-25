@@ -1,4 +1,4 @@
-= render 'progressbar' if @version.settings && @version.settings[:display_progressbar]
+= render 'progressbar' if @version.settings && @version.settings[:display_progressbar] == "1"
 #survey_content
   h1.survey_title
     = @version.survey_detail.title
