@@ -4,6 +4,5 @@ FactoryGirl.define do
   end
 
   factory :session_without_token, class: Helena::Session do
-
   end
 end

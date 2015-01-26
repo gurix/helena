@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Helena::Answer do
-
   let(:survey) { create :survey }
   let(:version) { build :version, survey: survey }
   let(:session) { create :session, survey: survey, version: version }
@@ -48,5 +47,4 @@ describe Helena::Answer do
       expect(Helena::Answer.build_generic('bla', 'false', '192.168.0.1')).to be_kind_of(Helena::BooleanAnswer)
     end
   end
-
 end
