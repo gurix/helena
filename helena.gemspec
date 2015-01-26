@@ -31,11 +31,12 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'simple_form', '~> 3.1.0.rc2'
   s.add_dependency 'breadcrumbs_on_rails', '~> 2.3'
   s.add_dependency 'rails-i18n', '~> 4.0'
+  s.add_dependency 'responders', '~> 2.0'
 
   s.add_development_dependency 'rspec-rails', '~> 3'
   s.add_development_dependency 'rspec-collection_matchers', '~> 1'
   s.add_development_dependency 'factory_girl_rails', '~> 4.4'
-  s.add_development_dependency 'database_cleaner', '~> 1.3'
+  # s.add_development_dependency 'database_cleaner', '~> 1.3'
   s.add_development_dependency 'ffaker', '~> 1.23'
   s.add_development_dependency 'capybara', '~> 2.3'
 end

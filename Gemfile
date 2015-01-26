@@ -16,6 +16,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'ruby-progressbar'
   gem 'mongoid-rspec', '~> 2.0.0.rc1'
+  # Remove git dependency after 1.4.1 is released, see https://github.com/DatabaseCleaner/database_cleaner/pull/316
+  gem 'database_cleaner', git: 'https://github.com/DatabaseCleaner/database_cleaner.git'
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'launchy'

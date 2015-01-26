@@ -1,7 +1,5 @@
 module Helena
   class SessionsController < ApplicationController
-    respond_to :html
-
     before_filter :load_session, only: [:edit, :update]
     after_filter :update_last_question_group_id, only: :update
 
