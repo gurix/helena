@@ -12,7 +12,7 @@ PATH
       breadcrumbs_on_rails (~> 2.3)
       haml-rails (~> 0.5)
       jquery-rails (~> 3.1)
-      mongoid (~> 4.0.0.rc2)
+      mongoid (~> 4.0)
       mongoid-simple-tags (~> 0.1)
       mongoid_orderable (~> 4.1)
       rails (~> 4.1)
