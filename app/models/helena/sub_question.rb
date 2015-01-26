@@ -12,7 +12,6 @@ module Helena
 
     orderable
 
-    validates :code, format: { with: Helena::Question::CODE_FORMAT }
     validate :uniqueness_of_code
     validates :text, presence: true, uniqueness: true
 

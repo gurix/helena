@@ -3,8 +3,6 @@ module Helena
     include Helena::Concerns::ApplicationModel
     include Mongoid::Orderable
 
-    CODE_FORMAT = /\A[a-z]([-\w]{,498}[a-z\d])?\Z/
-
     TYPES = [
       Helena::Questions::ShortText,
       Helena::Questions::LongText,
@@ -28,10 +26,6 @@ module Helena
     orderable scope: :question_group
 
     validates :code, presence: true
-
-    # consist of lowercase characters or digits, not starting with a digit or underscore and not ending with an underscore
-    # foo_32: correct, 32_foo: incorrect, _bar: incorrect, bar_: incorrect, FooBaar: incorrect
-    validates :code, format: { with: CODE_FORMAT }
     validate :uniqueness_of_code
 
     def includes_labels?
