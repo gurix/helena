@@ -1,6 +1,6 @@
 .radio_matrix.form-group{ class: "#{'has-error' if errors.present?}" }
   %label{class: "#{'text-danger' if errors.present?}"}
-    = question.question_text
+    != question.question_text
     = ' *' if question.required
   .table-responsive
     %table.table
