@@ -36,4 +36,16 @@ describe Helena::Questions::RadioMatrix do
     expect(question.includes_subquestions?).to eq true
     expect(question.includes_labels?).to eq true
   end
+
+  it 'recognizes splitted sub questions' do
+    question = build :radio_matrix_question, question_group: question_group
+
+    build :sub_question, question: question, text: 'just an ordinary subquestion'
+
+    expect(question.splitted?).to be false
+
+    build :sub_question, question: question, text: 'i am|splitted'
+
+    expect(question.splitted?).to be true
+  end
 end

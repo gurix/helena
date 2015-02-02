@@ -15,6 +15,14 @@ module Helena
     validate :uniqueness_of_code
     validates :text, presence: true, uniqueness: true
 
+    def splitted?
+      parts.size > 1
+    end
+
+    def parts
+      text.split '|'
+    end
+
     def uniqueness_of_code
       question_code_occurences = question.question_group.version.question_code_occurences
 

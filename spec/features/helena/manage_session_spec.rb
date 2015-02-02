@@ -320,6 +320,34 @@ feature 'Session management' do
     expect(page).to have_content("can't be blank")
   end
 
+  scenario 'It splits radio matrix group questions in two parts when seperating at least one sub question with a vertical bar "|"' do
+    radio_matrix = build :radio_matrix_question, code:          :satisfaction,
+                                                 question_text: 'What do you like more?'
+
+    radio_matrix.labels << build(:label, value: 1, text: 'Yo')
+    radio_matrix.labels << build(:label, value: 2, text: "can't decide")
+    radio_matrix.labels << build(:label, value: 3, text: 'Yo')
+
+    radio_matrix.sub_questions << build(:sub_question, code: 'food', text: 'Ice cream|Cookies')
+    radio_matrix.sub_questions << build(:sub_question, code: 'drugs', text: 'Weed|Booze')
+    radio_matrix.sub_questions << build(:sub_question, code: 'pets', text: 'Cats|Dogs')
+    radio_matrix.sub_questions << build(:sub_question, code: 'not_splitted', text: 'I am not splitted')
+
+    first_question_group.questions << radio_matrix
+
+    version = Helena::VersionPublisher.publish(base_version)
+    version.save
+
+    session = survey.sessions.create version_id: version.id, token: 'abc'
+
+    visit helena.edit_session_path(session.token)
+
+    expect(page.all('table thead tr th').size).to eq 5
+    expect(page.find('table tbody tr:first td:first')).to have_content 'Ice cream'
+    expect(page.find('table tbody tr:last td:first')).to have_content 'I am not splitted'
+    expect(page.find('table tbody tr:last td:last').text).to be_empty
+  end
+
   scenario 'Allows to define whether a user an jump back for each question group seperately' do
     second_question_group = base_version.question_groups.create title: 'Question Group 2', allow_to_go_back: true
     base_version.question_groups.create title: 'Question Group 3', allow_to_go_back: false

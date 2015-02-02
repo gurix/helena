@@ -12,6 +12,10 @@ module Helena
         true
       end
 
+      def splitted?
+        sub_questions.map(&:splitted?).any?
+      end
+
       def validate_answers_in(answers)
         errors = {}
         sub_questions.each do |sub_question|

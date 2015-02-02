@@ -25,4 +25,22 @@ describe Helena::SubQuestion do
   it 'has a valid factory' do
     expect(build :sub_question, question: question).to be_valid
   end
+
+  describe 'splitting the sub_question text with a vertical bar "|" i.e for pair comparisions' do
+    it 'recognize splitted sub questions' do
+      normal_sub_question = build :sub_question, question: question, text: 'just an ordinary subquestion'
+
+      expect(normal_sub_question.splitted?).to be false
+
+      splitted_sub_question = build :sub_question, question: question, text: 'i am|splitted'
+
+      expect(splitted_sub_question.splitted?).to be true
+    end
+
+    it 'returns correct parts' do
+      splitted_sub_question = build :sub_question, question: question, text: 'first|last'
+
+      expect(splitted_sub_question.parts).to eq %w(first last)
+    end
+  end
 end
