@@ -341,7 +341,7 @@ feature 'Session management' do
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
-    save_and_open_page
+    
     expect(page.all('table thead tr th').size).to eq 5
     expect(page.find('table tbody tr:first td:first')).to have_content 'Ice cream'
     expect(page.find('table tbody tr:last td:first')).to have_content 'I am not splitted'
