@@ -1,6 +1,6 @@
 module Helena
   module Questions
-    class BipolarRadioMatrix < Helena::Questions::RadioMatrix
+    class BipolarRadioMatrix < RadioMatrix
     end
   end
 end
