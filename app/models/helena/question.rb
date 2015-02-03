@@ -9,7 +9,8 @@ module Helena
       Helena::Questions::StaticText,
       Helena::Questions::RadioGroup,
       Helena::Questions::CheckboxGroup,
-      Helena::Questions::RadioMatrix
+      Helena::Questions::RadioMatrix,
+      Helena::Questions::BipolarRadioMatrix
     ]
 
     belongs_to :question_group, inverse_of: :questions

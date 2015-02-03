@@ -320,9 +320,9 @@ feature 'Session management' do
     expect(page).to have_content("can't be blank")
   end
 
-  scenario 'It splits radio matrix group questions in two parts when seperating at least one sub question with a vertical bar "|"' do
-    radio_matrix = build :radio_matrix_question, code:          :satisfaction,
-                                                 question_text: 'What do you like more?'
+  scenario 'Displaying a bipolar radio matrix question"' do
+    radio_matrix = build :bipolar_radio_matrix_question, code:          :satisfaction,
+                                                         question_text: 'What do you like more?'
 
     radio_matrix.labels << build(:label, value: 1, text: 'Yo')
     radio_matrix.labels << build(:label, value: 2, text: "can't decide")
@@ -341,7 +341,7 @@ feature 'Session management' do
     session = survey.sessions.create version_id: version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
-
+    save_and_open_page
     expect(page.all('table thead tr th').size).to eq 5
     expect(page.find('table tbody tr:first td:first')).to have_content 'Ice cream'
     expect(page.find('table tbody tr:last td:first')).to have_content 'I am not splitted'
