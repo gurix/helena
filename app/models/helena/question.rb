@@ -15,8 +15,8 @@ module Helena
 
     belongs_to :question_group, inverse_of: :questions
 
-    embeds_many :labels, class_name: 'Helena::Label'
-    embeds_many :sub_questions, class_name: 'Helena::SubQuestion'
+    embeds_many :labels, class_name: 'Helena::Label', cascade_callbacks: true
+    embeds_many :sub_questions, class_name: 'Helena::SubQuestion', cascade_callbacks: true
 
     accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: :reject_labels
     accepts_nested_attributes_for :sub_questions, allow_destroy: true, reject_if: :reject_sub_questions
