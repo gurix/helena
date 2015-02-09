@@ -11,7 +11,6 @@ module Helena
 
     orderable
 
-    validates :text, presence: true
     validates :value, presence: true
     validates :value, uniqueness: true
   end
