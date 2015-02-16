@@ -29,9 +29,13 @@ en:
         one: Radio Matrix
         other: Radio Matrice
 
+      'helena/questions/bipolar_radio_matrix':
+        one: Bipolar Radio Matrix
+        other: Bipolar Radio Matrice
+
       'helena/questions/checkbox_matrix':
-              one: Checkbox Matrix
-              other: Checkbox Matrice
+        one: Checkbox Matrix
+        other: Checkbox Matrice
 
     attributes:
       'helena/question':
