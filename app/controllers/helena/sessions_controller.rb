@@ -92,7 +92,7 @@ module Helena
     end
 
     def session_report
-      Slim::Template.new { @version.session_report }.render.html_safe if @version.session_report
+      Slim::Template.new { @version.session_report }.render(self).html_safe if @version.session_report
     end
 
     def update_last_question_group_id
