@@ -1,7 +1,9 @@
 module Helena
   class SessionsController < ApplicationController
-    before_filter :load_session, only: [:edit, :update]
-    after_filter :update_last_question_group_id, only: :update
+    before_action :load_session, only: [:edit, :update]
+    before_action :update_answers, only: :update
+    before_action :answer_errors, only: :update
+    after_action :update_last_question_group_id, only: :update
 
     def show
       @session = Helena::Session.find_by view_token: params[:token]
@@ -22,9 +24,6 @@ module Helena
     end
 
     def update
-      @answers = update_answers
-      @errors = answer_errors
-
       if @question_group.last? && @errors.blank?
         @session.update_attribute :completed, true
         render 'end_message'
@@ -67,18 +66,18 @@ module Helena
     end
 
     def update_answers
-      return session_answers unless session_params
+      if session_params
+        @question_group.question_codes.each do |question_code|
+          @session.answers.where(code: question_code).delete
 
-      @question_group.question_codes.each do |question_code|
-        @session.answers.where(code: question_code).delete
+          value = session_params[:answers][question_code]
 
-        value = session_params[:answers][question_code]
+          next if value.blank?
 
-        next if value.blank?
-
-        @session.answers << Helena::Answer.build_generic(question_code, value, request.remote_ip)
+          @session.answers << Helena::Answer.build_generic(question_code, value, request.remote_ip)
+        end
       end
-      session_answers
+      @answers = session_answers
     end
 
     def answer_errors
@@ -88,7 +87,7 @@ module Helena
           errors[question_code] = t("errors.messages.#{error_message}")
         end
       end
-      errors
+      @errors = errors
     end
 
     def session_report

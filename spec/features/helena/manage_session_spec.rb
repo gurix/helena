@@ -233,6 +233,7 @@ feature 'Session management' do
 
     expect(page).to have_content 'What is the answer to the Ultimate Question of Life, the Universe, and Everything? *'
     expect { click_button 'Save' }.not_to change { session.reload.answers.count }
+
     expect(page).to have_content("can't be blank")
   end
 
