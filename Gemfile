@@ -29,4 +29,5 @@ group :development, :test do
   gem 'bootstrap-sass'
   gem 'breadcrumbs_on_rails'
   gem 'coveralls', require: false
+  gem 'shoulda-matchers'
 end

@@ -4,12 +4,26 @@ describe Helena::SessionsController do
   routes { Helena::Engine.routes }
 
   let(:survey) { create :survey }
-  let(:version) { survey.versions.create version: 0 }
+  let(:version) { survey.versions.create version: 0, question_groups: [build(:question_group)] }
   let(:session) do
     create :session, survey: survey, version: version, answers: [
       build(:string_answer, code: 'string_answer_1', value: 'abc'),
       build(:integer_answer, code: 'integer_answer_1', value: '123')
     ]
+  end
+
+  context 'version not active' do
+    before { version.update_attribute :active, false }
+
+    it 'raises not found when editing' do
+      get :edit, token: session.token
+      is_expected.to respond_with :not_found
+    end
+
+    it 'raises not found when updating' do
+      patch :update, token: session.token
+      is_expected.to respond_with :not_found
+    end
   end
 
   it 'return json result of the current session' do

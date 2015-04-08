@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Session management' do
   let(:survey) { create :survey, name: 'dummy' }
-  let(:base_version) { survey.versions.create version: 0 }
+  let(:base_version) { survey.versions.create version: 0, active: true }
   let!(:first_question_group) { base_version.question_groups.create title: 'Question Group 1' }
 
   background do
@@ -65,11 +65,10 @@ feature 'Session management' do
                                                               position: 5)
 
     third_question_group.questions << satisfaction_matrix
-    version = Helena::VersionPublisher.publish(base_version)
-    version.settings = { display_progressbar: '1' }
-    version.save
 
-    session = survey.sessions.create version_id: version.id, token: 'abc'
+    base_version.update_attribute :settings,  display_progressbar: '1'
+
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 
@@ -114,7 +113,7 @@ feature 'Session management' do
     check('Oats')
     check('Meat')
 
-    expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: version.question_groups.find_by(position: 1))
+    expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: base_version.question_groups.find_by(position: 1))
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(2).to(6)
     expect(session.reload.last_question_group_id).to eq third_question_group.id
 
@@ -147,7 +146,7 @@ feature 'Session management' do
     choose('session_answers_nothing_to_change_5')
     choose('session_answers_satisfied_with_life_7')
 
-    expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: version.question_groups.find_by(position: 2))
+    expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: base_version.question_groups.find_by(position: 2))
     expect { click_button 'Save' }.to change { session.reload.answers.count }.from(6).to(11)
   end
 
@@ -171,10 +170,7 @@ feature 'Session management' do
     short_text_question  = build :short_text_question, code: 'a_name', question_text: "What's your name?", required: true
     first_question_group.questions << short_text_question
 
-    version = Helena::VersionPublisher.publish(base_version)
-    version.save
-
-    session = survey.sessions.create version_id: version.id, token: 'abc'
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 
@@ -200,10 +196,7 @@ feature 'Session management' do
     long_text_question  = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself', required: true
     first_question_group.questions << long_text_question
 
-    version = Helena::VersionPublisher.publish(base_version)
-    version.save
-
-    session = survey.sessions.create version_id: version.id, token: 'abc'
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 
@@ -224,10 +217,7 @@ feature 'Session management' do
 
     first_question_group.questions << all_and_everything
 
-    version = Helena::VersionPublisher.publish(base_version)
-    version.save
-
-    session = survey.sessions.create version_id: version.id, token: 'abc'
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 
@@ -248,10 +238,7 @@ feature 'Session management' do
 
     first_question_group.questions << food_allergy
 
-    version = Helena::VersionPublisher.publish(base_version)
-    version.save
-
-    session = survey.sessions.create version_id: version.id, token: 'abc'
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 
@@ -271,10 +258,7 @@ feature 'Session management' do
 
     first_question_group.questions << food_allergy
 
-    version = Helena::VersionPublisher.publish(base_version)
-    version.save
-
-    session = survey.sessions.create version_id: version.id, token: 'abc'
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 
@@ -305,10 +289,7 @@ feature 'Session management' do
 
     first_question_group.questions << satisfaction_matrix
 
-    version = Helena::VersionPublisher.publish(base_version)
-    version.save
-
-    session = survey.sessions.create version_id: version.id, token: 'abc'
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 
@@ -336,10 +317,7 @@ feature 'Session management' do
 
     first_question_group.questions << radio_matrix
 
-    version = Helena::VersionPublisher.publish(base_version)
-    version.save
-
-    session = survey.sessions.create version_id: version.id, token: 'abc'
+    session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
 

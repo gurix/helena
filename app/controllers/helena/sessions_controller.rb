@@ -1,4 +1,5 @@
 module Helena
+  # TODO: Needs refactoring, is really ugly atm :-(
   class SessionsController < ApplicationController
     before_action :load_session, only: [:edit, :update]
     before_action :update_answers, only: :update
@@ -40,6 +41,7 @@ module Helena
       @session = Helena::Session.find_by token: params[:token]
       @survey = @session.survey
       @version = @survey.versions.find @session.version_id
+      render text: 'Version not active', status: '404' unless @version && @version.active
       @question_group = question_group
     end
 
