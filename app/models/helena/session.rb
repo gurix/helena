@@ -17,7 +17,7 @@ module Helena
     before_create :reset_tokens
 
     def answers_as_yaml
-      Hash[answers.map { | answer | [answer.code, answer.value] }.sort].to_yaml
+      Hash[answers.map { |answer| [answer.code, answer.value] }.sort].to_yaml
     end
 
     def answers_as_yaml=(yaml)
@@ -49,7 +49,7 @@ module Helena
     end
 
     def answers_as_hash
-      answers.map { |answer| [answer[:code], answer[:value]] }.to_h
+      Hash[*answers.map { |answer| [answer[:code], answer[:value]] }.flatten]
     end
 
     private
@@ -85,7 +85,7 @@ module Helena
     end
 
     def update_answers(parsed_answers)
-      parsed_answers.each do | code, value |
+      parsed_answers.each do |code, value|
         answer = answers.where(code: code).first
         if answer
           next if answer.value == value
