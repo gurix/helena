@@ -13,7 +13,7 @@ module Helena
     field :allow_to_go_back, type: Boolean
 
     def question_codes
-      questions.map { |question| [question.code] +  question.sub_questions.map(&:code) }.flatten
+      questions.map { |question| [question.code] + question.sub_questions.map(&:code) }.flatten
     end
   end
 end
