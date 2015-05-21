@@ -139,7 +139,7 @@ feature 'Session management' do
     expect(page).to have_content 'I am satisfied with life.'
     expect(page).to have_content 'So far I have gotten the important things I want in life.'
     expect(page).to have_content 'If I could live my life over, I would change almost nothing.'
-    
+
     within '.hidden-xs' do
       choose('session_answers_life_is_ideal_1')
       choose('session_answers_important_things_2')
@@ -147,7 +147,6 @@ feature 'Session management' do
       choose('session_answers_nothing_to_change_5')
       choose('session_answers_satisfied_with_life_7')
     end
-    
 
     expect(page).to have_link 'Back', href: helena.edit_session_path(session.token, question_group: base_version.question_groups.find_by(position: 2))
     expect { click_button 'Save' }.to change { session.reload.answers.count }.from(6).to(11)
@@ -297,7 +296,7 @@ feature 'Session management' do
     visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'Below are five statements with which you may agree or disagree. *'
-    
+
     within '.hidden-xs' do
       choose('session_answers_satisfied_with_life_3')
     end
@@ -325,7 +324,7 @@ feature 'Session management' do
     session = survey.sessions.create version_id: base_version.id, token: 'abc'
 
     visit helena.edit_session_path(session.token)
-    
+
     within '.hidden-xs' do
       expect(page.all('table thead tr th').size).to eq 5
       expect(page.find('table tbody tr:first td:first')).to have_content 'Ice cream'
