@@ -14,6 +14,9 @@ module Helena
 
     validates :token, :view_token, uniqueness: true
 
+    index created_at: 1
+    index updated_at: 1
+
     before_create :reset_tokens
 
     def answers_as_yaml

@@ -13,6 +13,9 @@ describe Helena::Session do
   it { expect(subject).to validate_uniqueness_of(:token) }
   it { expect(subject).to validate_uniqueness_of(:view_token) }
 
+  it { expect(subject).to have_index_for(created_at: 1) }
+  it { expect(subject).to have_index_for(updated_at: 1) }
+
   it 'has a valid factory' do
     expect(build :session).to be_valid
   end
