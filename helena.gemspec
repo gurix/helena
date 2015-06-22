@@ -19,11 +19,11 @@ survey/test development, longitudinal studies and instant feedback.'
   s.files        = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
 
-  s.add_dependency 'rails', '~> 4.1'
+  s.add_dependency 'rails', '~> 4.2'
   s.add_dependency 'mongoid', '~> 4.0'
   s.add_dependency 'mongoid_orderable', '~> 4.1'
   s.add_dependency 'mongoid-simple-tags', '~> 0.1'
-  s.add_dependency 'haml-rails', '~> 0.5'
+  s.add_dependency 'haml-rails', '~> 0.9'
   s.add_dependency 'slim', '~> 3.0'
   s.add_dependency 'jquery-rails', '~> 3.1'
   s.add_dependency 'sass-rails', '~> 5.0'
