@@ -1,5 +1,5 @@
 require 'factory_girl'
-require 'ffaker'
+require 'faker'
 require 'database_cleaner'
 require 'helena/survey_importer'
 

@@ -1,4 +1,4 @@
-require 'ffaker'
+require 'faker'
 require 'coveralls'
 
 Coveralls.wear!

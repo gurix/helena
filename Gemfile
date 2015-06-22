@@ -15,7 +15,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'ruby-progressbar'
-  gem 'mongoid-rspec', '~> 2.0.0.rc1'
+  gem 'mongoid-rspec'
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'launchy'
