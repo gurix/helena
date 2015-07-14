@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    helena (1.0.0.rc2)
+    helena (1.0.0.rc3)
       bootstrap-sass (~> 3.2)
       breadcrumbs_on_rails (~> 2.3)
       browser (~> 0.8)
@@ -9,6 +9,7 @@ PATH
       jquery-rails (~> 4.0)
       mongoid (~> 4.0)
       mongoid-simple-tags (~> 0.1)
+      mongoid-tree (~> 2.0)
       mongoid_orderable (~> 4.1)
       rails (~> 4.2)
       rails-i18n (~> 4.0)
@@ -56,7 +57,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    arel (6.0.0)
+    arel (6.0.2)
     autoprefixer-rails (5.2.1)
       execjs
       json
@@ -166,6 +167,8 @@ GEM
     mongoid-simple-tags (0.1.3)
       json (~> 1.8)
       mongoid (>= 3.0.3)
+    mongoid-tree (2.0.0)
+      mongoid (>= 4.0, <= 5.0)
     mongoid_orderable (4.1.1)
       mongoid
     moped (2.0.6)
@@ -280,7 +283,7 @@ GEM
     slop (3.6.0)
     sprockets (3.2.0)
       rack (~> 1.0)
-    sprockets-rails (2.3.1)
+    sprockets-rails (2.3.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
