@@ -2,6 +2,7 @@ module Helena
   class Version
     include Helena::Concerns::ApplicationModel
     include Mongoid::Orderable # Needed, because the embedded objects needs this, see
+    include Mongoid::Tree
 
     field :version,        type: Integer, default: 0
     field :notes,          type: String
@@ -11,8 +12,8 @@ module Helena
 
     belongs_to :survey
 
-    has_many :question_groups, inverse_of: :version, dependent: :destroy, class_name: 'Helena::QuestionGroup'
-    has_many :sessions, inverse_of: :version, dependent: :destroy, class_name: 'Helena::Session'
+    has_many :question_groups, inverse_of: :version, dependent: :destroy, class_name: 'Helena::QuestionGroup',  autosave: true
+    has_many :sessions, inverse_of: :version, dependent: :destroy, class_name: 'Helena::Session',  autosave: true
 
     embeds_one :survey_detail, class_name: 'Helena::SurveyDetail'
 

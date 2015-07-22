@@ -5,3 +5,6 @@ rvm:
 
 services:
   - mongodb
+
+cache: bundler
+sudo: false
