@@ -13,7 +13,7 @@ module Helena
     private
 
     def create_survey
-      @survey = Helena::Survey.new @parsed.except('versions')
+      @survey = Helena::Survey.find_or_initialize_by @parsed.except('versions')
       return unless @survey.save!
       return unless @parsed['versions']
       @parsed['versions'].each { |parsed_version| create_version parsed_version }
@@ -21,7 +21,7 @@ module Helena
 
     def create_version(parsed_version)
       version = build_version(parsed_version)
-
+      return unless version.new_record? # We ignore already imported versions
       return unless version.save!
       return unless parsed_version.last['question_groups']
       parsed_version.last['question_groups'].each { |parsed_question_group| create_question_group version, parsed_question_group }
@@ -43,7 +43,7 @@ module Helena
     end
 
     def build_version(parsed_version)
-      version = @survey.versions.build parsed_version.last.except('question_groups')
+      version = @survey.versions.find_or_initialize_by parsed_version.last.except('question_groups', 'survey_detail')
       version.version = parsed_version.first
       version.survey_detail = parsed_version.last['survey_detail']
       version
