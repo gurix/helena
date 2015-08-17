@@ -13,7 +13,7 @@ module Helena
     belongs_to :survey
 
     has_many :question_groups, inverse_of: :version, dependent: :destroy, class_name: 'Helena::QuestionGroup',  autosave: true
-    has_many :sessions, inverse_of: :version, dependent: :destroy, class_name: 'Helena::Session',  autosave: true
+    has_many :sessions, inverse_of: :version, dependent: :destroy, class_name: 'Helena::Session'
 
     embeds_one :survey_detail, class_name: 'Helena::SurveyDetail'
 
