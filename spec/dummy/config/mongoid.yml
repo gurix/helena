@@ -1,14 +1,13 @@
 development:
-  sessions:
+  clients:
     default:
       database: helena_dev
       hosts:
         - localhost:27017
 
 test:
-  sessions:
+  clients :
     default:
       database: helena_test
       hosts:
         - localhost:27017
-

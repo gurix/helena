@@ -1,5 +1,5 @@
-- page = (@question_group.previous_items.size + 1)
-- total_pages = @version.question_groups.size
+- page = (@question_group.previous_items.size + 1).to_i
+- total_pages = @version.question_groups.size.to_i
 - percent = ((page.to_f / total_pages.to_f)*100).round
 #survey_progress
   .text-center
