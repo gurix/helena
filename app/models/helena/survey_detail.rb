@@ -5,6 +5,6 @@ module Helena
     field :title, type: String
     field :description, type: String
 
-    embedded_in :version, inverse_of: :survey_detail
+    embedded_in :version
   end
 end

@@ -17,8 +17,7 @@ module Helena
 
     embeds_one :survey_detail, class_name: 'Helena::SurveyDetail'
 
-    accepts_nested_attributes_for :survey_detail
-    accepts_nested_attributes_for :question_groups
+    accepts_nested_attributes_for :survey_detail, :question_groups
 
     scope :active, -> { where active: true }
 
