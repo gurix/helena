@@ -4,10 +4,3 @@ development:
       database: helena_dev
       hosts:
         - localhost:27017
-
-test:
-  clients :
-    default:
-      database: helena_test
-      hosts:
-        - localhost:27017

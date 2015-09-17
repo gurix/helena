@@ -19,6 +19,10 @@ ENGINE_RAILS_ROOT = File.join(File.dirname(__FILE__), '../')
 # in spec/support/ and its subdirectories.
 Dir[File.join(ENGINE_RAILS_ROOT, 'spec/support/**/*.rb')].each { |f| require f }
 
+Mongoid.configure do |config|
+  config.connect_to('helena_adminstration_test')
+end
+
 RSpec.configure do |config|
   config.order = :random
   config.include ActionView::RecordIdentifier, type: :feature
