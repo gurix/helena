@@ -15,7 +15,7 @@ PATH
       browser (~> 0.8)
       haml-rails (~> 0.9)
       jquery-rails (~> 4.0)
-      mongoid (~> 5.0)
+      mongoid (>= 4.0, < 6.0)
       mongoid-simple-tags (~> 0.1)
       mongoid_orderable (~> 4.1)
       rails (~> 4.2)
