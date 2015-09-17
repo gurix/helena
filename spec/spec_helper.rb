@@ -23,6 +23,8 @@ Mongoid.configure do |config|
   config.connect_to('helena_adminstration_test')
 end
 
+Mongo::Logger.logger.level= Logger::WARN # Set log level to DEBUG to see everything
+
 RSpec.configure do |config|
   config.order = :random
   config.include ActionView::RecordIdentifier, type: :feature
