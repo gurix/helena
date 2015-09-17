@@ -9,12 +9,6 @@ GIT
       rspec (~> 3.3)
 
 GIT
-  remote: git://github.com/DatabaseCleaner/database_cleaner.git
-  revision: b87f00320f8aa0f7e499d183128f05ce29cedc33
-  specs:
-    database_cleaner (1.5.1)
-
-GIT
   remote: git://github.com/gurix/mongoid-tree.git
   revision: 50c0d34608c0553cfd661338ef5b28ebdd54a90d
   branch: mongoid-5.0
@@ -327,7 +321,6 @@ DEPENDENCIES
   breadcrumbs_on_rails
   capybara (~> 2.3)
   coveralls
-  database_cleaner!
   factory_girl_rails (~> 4.4)
   faker (~> 1.4)
   helena!

@@ -31,6 +31,4 @@ group :development, :test do
   gem 'breadcrumbs_on_rails'
   gem 'coveralls', require: false
   gem 'shoulda-matchers'
-  # TODO: Change this as soon as version 1.5.1 was bumped on rubygems
-  gem 'database_cleaner', github: 'DatabaseCleaner/database_cleaner'
 end

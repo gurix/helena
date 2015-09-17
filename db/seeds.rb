@@ -1,13 +1,11 @@
 require 'factory_girl'
 require 'faker'
-require 'database_cleaner'
 require 'helena/survey_importer'
 
 include FactoryGirl::Syntax::Methods
 
 puts 'Cleaning database ...'
-DatabaseCleaner.strategy = :truncation
-DatabaseCleaner.clean
+Mongoid.purge!
 
 puts 'Seeding surveys ...'
 
