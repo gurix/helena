@@ -17,8 +17,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'ruby-progressbar'
-  # TODO: Change this after https://github.com/mongoid-rspec/mongoid-rspec/pull/158 is merged
-  gem 'mongoid-rspec', github: '90yukke/mongoid-rspec', branch: 'feature/support-mongoid-5.0.0'
+  gem 'mongoid-rspec'
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'launchy'
