@@ -1,11 +1,3 @@
-GIT
-  remote: git://github.com/gurix/mongoid-tree.git
-  revision: 50c0d34608c0553cfd661338ef5b28ebdd54a90d
-  branch: mongoid-5.0
-  specs:
-    mongoid-tree (2.0.1)
-      mongoid (>= 4.0)
-
 PATH
   remote: .
   specs:
@@ -17,6 +9,7 @@ PATH
       jquery-rails (~> 4.0)
       mongoid (>= 4.0, < 6.0)
       mongoid-simple-tags (~> 0.1)
+      mongoid-tree (~> 2.0)
       mongoid_orderable (~> 4.1)
       rails (~> 4.2)
       rails-i18n (~> 4.0)
@@ -174,6 +167,8 @@ GEM
     mongoid-simple-tags (0.1.3)
       json (~> 1.8)
       mongoid (>= 3.0.3)
+    mongoid-tree (2.0.1)
+      mongoid (>= 4.0, < 6.0)
     mongoid_orderable (4.1.1)
       mongoid
     multi_json (1.11.2)
@@ -322,7 +317,6 @@ DEPENDENCIES
   jquery-rails
   launchy
   mongoid-rspec
-  mongoid-tree!
   pry
   pry-byebug
   quiet_assets

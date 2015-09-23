@@ -33,8 +33,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'rails-i18n', '~> 4.0'
   s.add_dependency 'responders', '~> 2.0'
   s.add_dependency 'browser', '~> 0.8'
-  # TODO: Change this after https://github.com/benedikt/mongoid-tree/pull/61 is merged
-  # s.add_dependency 'mongoid-tree', '~> 2.0'
+  s.add_dependency 'mongoid-tree', '~> 2.0'
 
   s.add_development_dependency 'rspec-rails', '~> 3'
   s.add_development_dependency 'rspec-collection_matchers', '~> 1'

@@ -10,8 +10,6 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-gem 'mongoid-tree', github: 'gurix/mongoid-tree', branch: 'mongoid-5.0'
-
 # To use debugger
 group :development, :test do
   gem 'pry'
