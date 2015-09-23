@@ -8,6 +8,7 @@ require 'mongoid_orderable'
 require 'mongoid-simple-tags'
 require 'slim'
 require 'mongoid/tree'
+require 'browser'
 
 module Helena
 end
