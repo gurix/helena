@@ -4,7 +4,7 @@ PATH
     helena (1.0.0.rc5)
       bootstrap-sass (~> 3.2)
       breadcrumbs_on_rails (~> 2.3)
-      browser (~> 0.8)
+      browser (> 0.4)
       haml-rails (~> 0.9)
       jquery-rails (~> 4.0)
       mongoid (>= 4.0, < 6.0)

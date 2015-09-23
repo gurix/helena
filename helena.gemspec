@@ -32,7 +32,7 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'breadcrumbs_on_rails', '~> 2.3'
   s.add_dependency 'rails-i18n', '~> 4.0'
   s.add_dependency 'responders', '~> 2.0'
-  s.add_dependency 'browser', '~> 0.8'
+  s.add_dependency 'browser', '> 0.4'
   s.add_dependency 'mongoid-tree', '~> 2.0'
 
   s.add_development_dependency 'rspec-rails', '~> 3'
