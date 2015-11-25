@@ -21,7 +21,6 @@ group :development, :test do
   gem 'launchy'
   gem 'binding_of_caller'
   gem 'selenium-webdriver'
-  gem 'i18n-tasks'
   gem 'simple_form'
   gem 'jquery-rails'
   gem 'bootstrap-sass'
