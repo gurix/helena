@@ -24,6 +24,7 @@ module Helena
     end
 
     def uniqueness_of_code
+      return unless question
       question_code_occurences = question.question_group.version.question_code_occurences
 
       return true if question_code_occurences[code] <= 1

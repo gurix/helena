@@ -40,3 +40,12 @@ RSpec.configure do |config|
     Mongoid.purge!
   end
 end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    # Choose a test framework:
+    with.test_framework :rspec
+    with.library :active_model
+    with.library :action_controller
+  end
+end
