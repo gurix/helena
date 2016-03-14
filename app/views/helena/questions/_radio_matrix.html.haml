@@ -1,5 +1,5 @@
 - label_width = "#{80 / question.labels.count}%"
-- mobile = (browser.mobile? || browser.tablet?) # Use a special layout for this devices
+- mobile = (browser.device.mobile? || browser.device.tablet?) # Use a special layout for this devices
 
 .radio_matrix.form-group{ class: "#{'has-error' if errors.present?}" }
   %label{class: "#{'text-danger' if errors.present?}"}
