@@ -16,7 +16,6 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'ruby-progressbar'
   gem 'mongoid-rspec'
-  gem 'quiet_assets'
   gem 'better_errors'
   gem 'launchy'
   gem 'binding_of_caller'
