@@ -1,0 +1,25 @@
+source 'https://rubygems.org'
+
+# development dependencies will be added by default to the :development group.
+
+gemspec path: '../'
+
+gem 'mongoid', '~> 6.0.0.rc0'
+
+# To use debugger
+group :development, :test do
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'ruby-progressbar'
+  gem 'mongoid-rspec', github: 'gurix/mongoid-rspec', branch: 'mongoid_6_support'
+  gem 'better_errors'
+  gem 'launchy'
+  gem 'binding_of_caller'
+  gem 'selenium-webdriver'
+  gem 'simple_form'
+  gem 'jquery-rails'
+  gem 'bootstrap-sass'
+  gem 'breadcrumbs_on_rails'
+  gem 'coveralls', require: false
+  gem 'shoulda-matchers'
+end
