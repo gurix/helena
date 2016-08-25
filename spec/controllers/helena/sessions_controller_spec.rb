@@ -27,7 +27,7 @@ describe Helena::SessionsController do
   end
 
   it 'return json result of the current session' do
-    get :show,  params: { token: session.view_token } , format: :json
+    get :show,  params: { token: session.view_token }, format: :json
 
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['answer']['string_answer_1']).to eq 'abc'
