@@ -2,10 +2,28 @@ language: ruby
 rvm:
   - 2.0
   - 2.1
-  - 2.2
+  - 2.2.1
+  - 2.2.2
+  - 2.3.1
 
 services:
   - mongodb
 
+before_install:
+  - gem update --system
+  - gem update bundler
+
 cache: bundler
 sudo: false
+gemfile:
+  - Gemfile
+  - gemfiles/Gemfile.mongoid-6.0
+
+matrix:
+  exclude:
+    - rvm: 2.0
+      gemfile: gemfiles/Gemfile.mongoid-6.0
+    - rvm: 2.1
+      gemfile: gemfiles/Gemfile.mongoid-6.0
+    - rvm: 2.2.1
+      gemfile: gemfiles/Gemfile.mongoid-6.0
