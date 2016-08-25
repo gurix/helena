@@ -17,12 +17,12 @@ describe Helena::Session do
   it { expect(subject).to have_index_for(updated_at: 1) }
 
   it 'has a valid factory' do
-    expect(build :session).to be_valid
+    expect(build :session, version: version, survey: survey).to be_valid
   end
 
   it 'assigns a token after when creating a session' do
     expect_any_instance_of(Helena::Session).to receive(:generate_token).exactly(2).times.and_return('a493oP')
-    expect(create(:session_without_token).token).to eq 'a493oP'
+    expect(create(:session_without_token, version: version, survey: survey).token).to eq 'a493oP'
   end
 
   describe '#answers_as_yaml and #answer_as_yaml=' do

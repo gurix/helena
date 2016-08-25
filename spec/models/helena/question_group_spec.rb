@@ -7,6 +7,6 @@ describe Helena::QuestionGroup do
   it { expect(subject).to belong_to(:version) }
 
   it 'has a valid factory' do
-    expect(build :question_group).to be_valid
+    expect(build :question_group, version: version).to be_valid
   end
 end
