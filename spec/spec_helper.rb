@@ -1,7 +1,7 @@
-require 'faker'
-require 'coveralls'
+require 'simplecov'
+SimpleCov.start
 
-Coveralls.wear!
+require 'faker'
 
 # Configure Rails Envinronment
 ENV['RAILS_ENV'] = 'test'
@@ -38,6 +38,11 @@ RSpec.configure do |config|
 
   config.after(:each) do
     Mongoid.purge!
+  end
+
+  config.before :suite do
+    puts "# Mongoid v#{Mongoid::VERSION}"
+    puts "# Rails v#{Rails.version}"
   end
 end
 

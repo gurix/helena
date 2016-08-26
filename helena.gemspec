@@ -34,11 +34,4 @@ survey/test development, longitudinal studies and instant feedback.'
   s.add_dependency 'responders', '>= 2.0'
   s.add_dependency 'browser', '>= 2.0'
   s.add_dependency 'mongoid-tree', '>= 2.0'
-  
-
-  s.add_development_dependency 'rspec-rails', '>= 3'
-  s.add_development_dependency 'rspec-collection_matchers', '>= 1'
-  s.add_development_dependency 'factory_girl_rails', '>= 4.4'
-  s.add_development_dependency 'faker', '>= 1.4'
-  s.add_development_dependency 'capybara', '>= 2.3'
 end

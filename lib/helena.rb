@@ -9,6 +9,9 @@ require 'mongoid-simple-tags'
 require 'slim'
 require 'mongoid/tree'
 require 'browser'
+require 'bootstrap-sass'
+require 'breadcrumbs_on_rails'
+require 'jquery-rails'
 
 module Helena
 end
