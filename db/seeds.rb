@@ -29,9 +29,9 @@ def generate_sessions(survey, version)
     version.question_groups.map(&:questions).flatten.each do |question|
       case question
       when Helena::Questions::ShortText
-        session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill)
+        session.answers << build(:string_answer, code: question.code, value: Faker::Lorem.word)
       when Helena::Questions::LongText
-        session.answers << build(:string_answer, code: question.code, value: Faker::Skill.tech_skill)
+        session.answers << build(:string_answer, code: question.code, value: Faker::Lorem.word)
       when Helena::Questions::RadioGroup
         session.answers << Helena::Answer.build_generic(question.code, question.labels.sample.value, Faker::Internet.ip_v4_address)
       when Helena::Questions::CheckboxGroup

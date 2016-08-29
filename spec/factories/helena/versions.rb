@@ -7,5 +7,6 @@ FactoryGirl.define do
   factory :base_version, class: Helena::Version do
     version { 0 }
     notes { Faker::Lorem.paragraphs(1).join('') }
+    survey
   end
 end
