@@ -25,6 +25,5 @@ group :development, :test do
   gem 'jquery-rails'
   gem 'bootstrap-sass'
   gem 'breadcrumbs_on_rails'
-  gem 'coveralls', require: false
   gem 'shoulda-matchers'
 end

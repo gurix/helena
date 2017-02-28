@@ -2,7 +2,6 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/gurix/helena.svg?style=flat)](https://codeclimate.com/github/gurix/helena)
 [![Dependency Status](https://img.shields.io/gemnasium/gurix/helena.svg?style=flat)](https://gemnasium.com/gurix/helena)
 [![Rubygems Version](https://img.shields.io/gem/v/helena.svg?style=flat)](https://rubygems.org/gems/helena)
-[![Coverage Status](https://coveralls.io/repos/gurix/helena/badge.svg?branch=master&service=github)](https://coveralls.io/github/gurix/helena?branch=master)
 # Helena
 Helena is an online survey/test framework designed for agile survey/test development, longitudinal studies and instant feedback.
 

@@ -1,7 +1,4 @@
 require 'faker'
-require 'coveralls'
-
-Coveralls.wear!
 
 # Configure Rails Envinronment
 ENV['RAILS_ENV'] = 'test'
