@@ -6,7 +6,7 @@ describe Helena::Questions::CheckboxGroup do
   let(:question_group) { build :question_group, version: version }
 
   it 'has a valid factory' do
-    expect(build :checkbox_group_question, question_group: question_group).to be_valid
+    expect(build(:checkbox_group_question, question_group: question_group)).to be_valid
   end
 
   it 'indicates that it includes sub_questions' do

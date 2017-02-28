@@ -23,7 +23,7 @@ describe Helena::SubQuestion do
   end
 
   it 'has a valid factory' do
-    expect(build :sub_question, question: question).to be_valid
+    expect(build(:sub_question, question: question)).to be_valid
   end
 
   describe 'splitting the sub_question text with a vertical bar "|" i.e for pair comparisions' do

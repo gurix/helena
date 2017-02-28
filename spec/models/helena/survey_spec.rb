@@ -9,7 +9,7 @@ describe Helena::Survey do
   it { expect(subject).to validate_uniqueness_of(:name) }
 
   it 'has a valid factory' do
-    expect(build :survey).to be_valid
+    expect(build(:survey)).to be_valid
   end
 
   it 'returns the newest version if there are any' do

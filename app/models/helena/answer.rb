@@ -17,7 +17,7 @@ module Helena
 
     def self.answer_class_for(value)
       case value
-      when Fixnum
+      when Integer
         Helena::IntegerAnswer
       when TrueClass
         Helena::BooleanAnswer
@@ -41,7 +41,9 @@ module Helena
     end
 
     def self.integer?(str)
-      Integer(str) rescue false
+      Integer(str)
+    rescue
+      false
     end
   end
 end

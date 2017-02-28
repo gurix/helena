@@ -17,7 +17,7 @@ describe Helena::Session do
   it { expect(subject).to have_index_for(updated_at: 1) }
 
   it 'has a valid factory' do
-    expect(build :session).to be_valid
+    expect(build(:session)).to be_valid
   end
 
   it 'assigns a token after when creating a session' do

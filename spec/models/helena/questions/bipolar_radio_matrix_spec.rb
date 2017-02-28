@@ -6,7 +6,7 @@ describe Helena::Questions::BipolarRadioMatrix do
   let(:question_group) { build :question_group, version: version }
 
   it 'has a valid factory' do
-    expect(build :bipolar_radio_matrix_question, question_group: question_group).to be_valid
+    expect(build(:bipolar_radio_matrix_question, question_group: question_group)).to be_valid
   end
 
   it 'validates uniquness of label preselection' do

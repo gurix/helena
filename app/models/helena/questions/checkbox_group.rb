@@ -9,7 +9,7 @@ module Helena
 
       def validate_answers_in(answers)
         errors = {}
-        errors[code] = :blank if sub_questions.map { |sub_question| answers[sub_question.code] == 0 }.all? && required
+        errors[code] = :blank if sub_questions.map { |sub_question| answers[sub_question.code].zero? }.all? && required
         errors
       end
     end

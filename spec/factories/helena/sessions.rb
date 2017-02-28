@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :session, class: Helena::Session do
-    sequence(:token)  { |n| "token_#{n}" }
+    sequence(:token) { |n| "token_#{n}" }
     survey
     version
   end

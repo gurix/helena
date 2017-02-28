@@ -15,7 +15,7 @@ describe Helena::Answer do
   end
 
   it 'has a valid factory' do
-    expect(build :answer).to be_valid
+    expect(build(:answer)).to be_valid
   end
 
   describe '.build_generic' do

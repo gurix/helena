@@ -46,8 +46,6 @@ module Helena
       Hash[*answers.map { |answer| [answer[:code], answer[:value]] }.flatten]
     end
 
-    private
-
     def self.answer_codes
       answer_codes = []
       all.each do |session|
@@ -55,6 +53,8 @@ module Helena
       end
       answer_codes
     end
+
+    private
 
     def generate_token(size)
       SecureRandom.base64(size).delete('/+=')[0, size]

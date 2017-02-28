@@ -10,10 +10,10 @@ feature 'Session management' do
   end
 
   scenario 'edits a session' do
-    short_text_question  = build :short_text_question, code: 'a_name', question_text: "What's your name?"
+    short_text_question = build :short_text_question, code: 'a_name', question_text: "What's your name?"
     first_question_group.questions << short_text_question
 
-    long_text_question  = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself'
+    long_text_question = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself'
     first_question_group.questions << long_text_question
 
     second_question_group = base_version.question_groups.create title: 'Question Group 2', allow_to_go_back: true
@@ -167,7 +167,7 @@ feature 'Session management' do
   end
 
   scenario 'does not save an empty short text field when required' do
-    short_text_question  = build :short_text_question, code: 'a_name', question_text: "What's your name?", required: true
+    short_text_question = build :short_text_question, code: 'a_name', question_text: "What's your name?", required: true
     first_question_group.questions << short_text_question
 
     session = survey.sessions.create version_id: base_version.id, token: 'abc'
@@ -181,7 +181,7 @@ feature 'Session management' do
   end
 
   scenario 'does not display "* indicates required fields" when no required fields are in question group' do
-    short_text_question  = build :short_text_question, code: 'a_name', question_text: "What's your name?", required: false
+    short_text_question = build :short_text_question, code: 'a_name', question_text: "What's your name?", required: false
     first_question_group.questions << short_text_question
 
     session = survey.sessions.create version_id: base_version.id, token: 'abc'
@@ -193,7 +193,7 @@ feature 'Session management' do
   end
 
   scenario 'does not save an empty long text field when required' do
-    long_text_question  = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself', required: true
+    long_text_question = build :long_text_question, code: 'selfdescription', question_text: 'Give a brief description of yourself', required: true
     first_question_group.questions << long_text_question
 
     session = survey.sessions.create version_id: base_version.id, token: 'abc'

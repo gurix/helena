@@ -20,6 +20,7 @@ def publish(version)
   published_version.save
   published_version
 end
+
 # rubocop:disable Metrics/MethodLength
 def generate_sessions(survey, version)
   3.times { survey.sessions << build(:session, version: version, updated_at: DateTime.now - rand(999), completed: false) }

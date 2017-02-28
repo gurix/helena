@@ -17,7 +17,7 @@ describe Helena::Question do
   end
 
   it 'has a valid factory' do
-    expect(build :question, question_group: question_group).to be_valid
+    expect(build(:question, question_group: question_group)).to be_valid
   end
 
   it 'indicates that it does not include sub_questions or labels' do

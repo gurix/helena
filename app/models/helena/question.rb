@@ -11,7 +11,7 @@ module Helena
       Helena::Questions::CheckboxGroup,
       Helena::Questions::RadioMatrix,
       Helena::Questions::BipolarRadioMatrix
-    ]
+    ].freeze
 
     belongs_to :question_group, inverse_of: :questions
 

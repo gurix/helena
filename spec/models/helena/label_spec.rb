@@ -6,6 +6,6 @@ describe Helena::Label do
   it { expect(subject).to validate_uniqueness_of(:value) }
 
   it 'has a valid factory' do
-    expect(build :label).to be_valid
+    expect(build(:label)).to be_valid
   end
 end

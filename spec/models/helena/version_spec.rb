@@ -10,7 +10,7 @@ describe Helena::Version do
   it { expect(subject).to validate_uniqueness_of(:version) }
 
   it 'has a valid factory' do
-    expect(build :version, survey: create(:survey)).to be_valid
+    expect(build(:version, survey: create(:survey))).to be_valid
   end
 
   it 'scopes active versions' do

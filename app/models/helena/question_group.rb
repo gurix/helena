@@ -5,7 +5,7 @@ module Helena
 
     belongs_to :version
 
-    has_many :questions, inverse_of: :question_group, class_name: 'Helena::Question', dependent: :destroy,  autosave: true
+    has_many :questions, inverse_of: :question_group, class_name: 'Helena::Question', dependent: :destroy, autosave: true
 
     orderable scope: :version
 

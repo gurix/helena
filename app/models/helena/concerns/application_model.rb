@@ -1,6 +1,6 @@
 module Helena
   module Concerns
-    module  ApplicationModel
+    module ApplicationModel
       extend ActiveSupport::Concern
 
       include Mongoid::Document
