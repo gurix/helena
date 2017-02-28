@@ -7,6 +7,6 @@ end
 appraise "rails-5.0" do
   gem "rails", "5.0"
   gem "mongoid", ">= 6.0"
-  gem "mongoid-rspec", git: "git@github.com:mongoid-rspec/mongoid-rspec.git"  , group: [:development, :test]
+  gem "mongoid-rspec", git: "https://github.com/mongoid-rspec/mongoid-rspec.git"  , group: [:development, :test]
   gemspec
 end

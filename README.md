@@ -9,6 +9,7 @@ Helena is an online survey/test framework designed for agile survey/test develop
 
 Demo: http://helena-demo.herokuapp.com (https://github.com/gurix/helena-demo)
 ## Requirements
+* Ruby (2.1 or higher)
 * Rails (4.1 or higher)
 * Mongoid (4.0.0 or higher)
 * MongoDB (2.4.10 or higher)
