@@ -41,7 +41,7 @@ module Helena
       @session = Helena::Session.find_by token: params[:token]
       @survey = @session.survey
       @version = @survey.versions.find @session.version_id
-      render text: 'Version not active', status: '404' unless @version && @version.active
+      render plain: 'Version not active', status: '404' unless @version && @version.active
       @question_group = question_group
     end
 
