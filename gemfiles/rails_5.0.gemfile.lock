@@ -1,14 +1,14 @@
 GIT
   remote: https://github.com/mongoid-rspec/mongoid-rspec.git
-  revision: 799cd96cede0f7214d8c79f93f7b933f671966b4
+  revision: ed38f0b8ed4aa08edaee5c0deee6fb643fb7cd5a
   specs:
     mongoid-rspec (4.0.0.pre.alpha1)
+      activesupport (>= 4.0.0)
       mongoid (~> 6.0)
-      rake
       rspec (~> 3.3)
 
 PATH
-  remote: ../
+  remote: ..
   specs:
     helena (1.1.0)
       bootstrap-sass (~> 3.2)
@@ -74,7 +74,7 @@ GEM
       rake
       thor (>= 0.14.0)
     arel (7.1.4)
-    autoprefixer-rails (6.7.5)
+    autoprefixer-rails (6.7.6)
       execjs
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -112,7 +112,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.7.3)
       i18n (~> 0.5)
-    ffi (1.9.17)
+    ffi (1.9.18)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -235,7 +235,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.2.1)
+    selenium-webdriver (3.3.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
@@ -297,4 +297,4 @@ DEPENDENCIES
   simple_form
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
