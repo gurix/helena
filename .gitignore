@@ -9,7 +9,7 @@ spec/dummy/tmp/
 spec/dummy/.sass-cache
 coverage/
 **/*.DS_Store
-
+spec/dummy/public/uploads/*
 .DS_Store
-
 .respec_failures
+helena-*.gem

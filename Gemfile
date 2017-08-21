@@ -24,4 +24,5 @@ group :development, :test do
   gem 'bootstrap-sass'
   gem 'breadcrumbs_on_rails'
   gem 'shoulda-matchers'
+  gem 'mongoid-rspec', git: 'https://github.com/mongoid-rspec/mongoid-rspec'
 end

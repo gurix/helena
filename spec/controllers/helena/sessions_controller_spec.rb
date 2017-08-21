@@ -16,18 +16,18 @@ describe Helena::SessionsController do
     before { version.update_attribute :active, false }
 
     it 'raises not found when editing' do
-      get :edit, params: { token: session.token }, token: session.token
+      get :edit, params: { token: session.token }
       is_expected.to respond_with :not_found
     end
 
     it 'raises not found when updating' do
-      patch :update, params: { token: session.token }, token: session.token
+      patch :update, params: { token: session.token }
       is_expected.to respond_with :not_found
     end
   end
 
   it 'return json result of the current session' do
-    get :show, params: { token: session.view_token }, token: session.view_token, format: :json
+    get :show, params: { token: session.view_token }, format: :json
 
     result = ActiveSupport::JSON.decode(response.body)
     expect(result['answer']['string_answer_1']).to eq 'abc'
@@ -36,7 +36,7 @@ describe Helena::SessionsController do
 
   it 'renders session_report as slim template' do
     session.version.update_attribute :session_report, 'h1 make it slim!'
-    get :show, params: { token: session.view_token }, token: session.view_token
+    get :show, params: { token: session.view_token }
 
     expect(response.body).to eq '<h1>make it slim!</h1>'
   end
