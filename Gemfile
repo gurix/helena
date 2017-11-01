@@ -14,7 +14,6 @@ gemspec
 group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
-  gem 'ruby-progressbar'
   gem 'better_errors'
   gem 'launchy'
   gem 'binding_of_caller'
