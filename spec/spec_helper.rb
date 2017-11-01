@@ -5,7 +5,7 @@ ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../dummy/config/environment.rb', __FILE__)
 
 require 'rspec/rails'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'mongoid-rspec'
 require 'capybara/rspec'
 require 'rspec/collection_matchers'
@@ -28,8 +28,8 @@ RSpec.configure do |config|
 
   config.include Mongoid::Matchers, type: :model
 
-  # We don't want write FactoryGirl all the time
-  config.include FactoryGirl::Syntax::Methods
+  # We don't want write FactoryBot all the time
+  config.include FactoryBot::Syntax::Methods
 
   config.infer_spec_type_from_file_location!
 

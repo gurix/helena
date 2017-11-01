@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :answer, class: Helena::Answer do
     sequence(:code) { |n| "answer_#{n}" }
     sequence(:ip_address) { Faker::Internet.ip_v4_address }

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :session, class: Helena::Session do
     sequence(:token) { |n| "token_#{n}" }
     survey

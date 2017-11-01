@@ -1,8 +1,8 @@
-require 'factory_girl'
+require 'factory_bot'
 require 'faker'
 require 'helena/survey_importer'
 
-include FactoryGirl::Syntax::Methods
+include FactoryBot::Syntax::Methods
 
 puts 'Cleaning database ...'
 Mongoid.purge!

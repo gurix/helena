@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :version, class: Helena::Version do
     sequence(:version)
     notes { Faker::Lorem.paragraphs(1).join('') }
