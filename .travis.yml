@@ -13,4 +13,4 @@ cache: bundler
 sudo: false
 
 script:
-  - bundle exec rspec
+  - bundle exec rake
