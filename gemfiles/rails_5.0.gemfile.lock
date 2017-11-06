@@ -10,7 +10,7 @@ GIT
 PATH
   remote: ..
   specs:
-    helena (1.2.0)
+    helena (1.3.0)
       bootstrap-sass (~> 3.2)
       browser (~> 2.0)
       haml-rails (~> 1.0)
