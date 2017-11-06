@@ -10,7 +10,3 @@ services:
   - mongodb
 
 sudo: false
-
-scripts:
-  - bundle install
-  - bundle exec rakes
