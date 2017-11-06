@@ -11,6 +11,3 @@ services:
 
 cache: bundler
 sudo: false
-
-script:
-  - bundle exec rake
