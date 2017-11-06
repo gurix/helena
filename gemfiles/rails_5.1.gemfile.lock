@@ -293,6 +293,7 @@ DEPENDENCIES
   pry
   pry-byebug
   rails (= 5.1)
+  rake
   rspec-collection_matchers (~> 1)
   rspec-rails (~> 3)
   ruby-progressbar

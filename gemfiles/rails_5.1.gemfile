@@ -8,6 +8,7 @@ gem "mongoid-rspec", :git => "https://github.com/mongoid-rspec/mongoid-rspec.git
 
 group :development, :test do
   gem "pry"
+  gem "rake"
   gem "pry-byebug"
   gem "ruby-progressbar"
   gem "better_errors"
