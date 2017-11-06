@@ -9,5 +9,8 @@ gemfile:
 services:
   - mongodb
 
-cache: bundler
 sudo: false
+
+scripts:
+  - bundle install
+  - bundle exec rakes
