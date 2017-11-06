@@ -16,7 +16,6 @@ group :development, :test do
   gem "simple_form"
   gem "jquery-rails"
   gem "bootstrap-sass"
-  gem "breadcrumbs_on_rails"
   gem "shoulda-matchers"
 end
 
