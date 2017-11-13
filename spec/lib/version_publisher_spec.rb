@@ -10,7 +10,7 @@ describe Helena::VersionPublisher do
   let!(:sub_question) { create(:sub_question, text: 'ymca', code: 'cde', question: question) }
 
   it 'creates a new version' do
-    allow(DateTime).to receive(:now).and_return('Tue, 24 Jun 2014 10:24:08 +0200')
+    allow(Time).to receive(:now).and_return(Time.parse('Tue, 24 Jun 2014 10:24:08 +0200'))
 
     new_version = Helena::VersionPublisher.publish(source_version)
     new_version.save

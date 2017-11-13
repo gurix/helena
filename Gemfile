@@ -12,15 +12,16 @@ gemspec
 
 # To use debugger
 group :development, :test do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'bootstrap-sass'
+  gem 'jquery-rails'
+  gem 'launchy'
+  gem 'mongoid-rspec', git: 'https://github.com/mongoid-rspec/mongoid-rspec'
   gem 'pry'
   gem 'pry-byebug'
-  gem 'better_errors'
-  gem 'launchy'
-  gem 'binding_of_caller'
+  gem 'rubocop-rails'
   gem 'selenium-webdriver'
-  gem 'simple_form'
-  gem 'jquery-rails'
-  gem 'bootstrap-sass'
   gem 'shoulda-matchers'
-  gem 'mongoid-rspec', git: 'https://github.com/mongoid-rspec/mongoid-rspec'
+  gem 'simple_form'
 end

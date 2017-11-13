@@ -1,7 +1,7 @@
 module Helena
   # TODO: Needs refactoring, is really ugly atm :-(
   class SessionsController < ApplicationController
-    before_action :load_session, only: [:edit, :update]
+    before_action :load_session, only: %i[edit update]
     before_action :update_answers, only: :update
     before_action :answer_errors, only: :update
     after_action :update_last_question_group_id, only: :update

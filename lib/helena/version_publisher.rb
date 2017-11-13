@@ -17,8 +17,8 @@ module Helena
     def self.adjust_copied_attributes(version, copied_version)
       copied_version.version = newest_version_of(version.survey) + 1
       copied_version.survey_detail = version.survey_detail.attributes if version.survey_detail
-      copied_version.created_at = DateTime.now
-      copied_version.updated_at = DateTime.now
+      copied_version.created_at = Time.now
+      copied_version.updated_at = Time.now
       copied_version.active = false
       copied_version
     end

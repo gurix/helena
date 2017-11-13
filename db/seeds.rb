@@ -23,10 +23,10 @@ end
 
 # rubocop:disable Metrics/MethodLength
 def generate_sessions(survey, version)
-  3.times { survey.sessions << build(:session, version: version, updated_at: DateTime.now - rand(999), completed: false) }
+  3.times { survey.sessions << build(:session, version: version, updated_at: Time.now - rand(999), completed: false) }
 
   3.times do
-    session = build :session, version: version, updated_at: DateTime.now - rand(999), completed: true
+    session = build :session, version: version, updated_at: Time.now - rand(999), completed: true
     version.question_groups.map(&:questions).flatten.each do |question|
       case question
       when Helena::Questions::ShortText

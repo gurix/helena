@@ -2,8 +2,12 @@ AllCops:
   Include:
     - '**/Rakefile'
     - '**/config.ru'
+    - '**/Gemfile'
+    - '**/Appraisals'
   Exclude:
     - bin/**
+    - spec/**/**
+    - helena.gemspec
     - spec/dummy/config/initializers/secret_token.rb
 Documentation:
   Enabled: false

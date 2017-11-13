@@ -4,7 +4,7 @@ module Helena
 
     field :code,        type: String
     field :ip_address,  type: String
-    field :created_at,  type: DateTime, default: -> { DateTime.now }
+    field :created_at,  type: DateTime, default: -> { Time.now }
 
     embedded_in :session, inverse_of: :answers
 
@@ -42,7 +42,7 @@ module Helena
 
     def self.integer?(str)
       Integer(str)
-    rescue
+    rescue StandardError
       false
     end
   end
