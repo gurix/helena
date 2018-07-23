@@ -5,7 +5,7 @@ module Helena
     attr_accessor :survey
 
     def initialize(yaml_string)
-      @parsed = YAML.safe_load yaml_string
+      @parsed = YAML.load yaml_string
 
       create_survey
     end
