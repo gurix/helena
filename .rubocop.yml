@@ -16,3 +16,5 @@ LineLength:
   Max: 160
 AbcSize:
   Enabled: false
+FrozenStringLiteralComment:
+  Enabled: false
