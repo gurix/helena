@@ -14,7 +14,7 @@ gemspec
 group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'bootstrap-sass'
+  gem 'bootstrap', '~> 4.1.3'
   gem 'jquery-rails'
   gem 'launchy'
   gem 'mongoid-rspec', git: 'https://github.com/mongoid-rspec/mongoid-rspec'
