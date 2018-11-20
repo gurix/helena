@@ -1,6 +1,6 @@
-.short_text.form-group
+.short_text
   - if question.question_text.present?
     label
       = question.question_text.html_safe
-    
+
   = question.default_value.html_safe

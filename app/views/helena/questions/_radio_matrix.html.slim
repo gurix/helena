@@ -1,0 +1,51 @@
+- label_width = "#{80 / question.labels.count}%"
+- mobile = (browser.device.mobile? || browser.device.tablet?) # Use a special layout for this devices
+
+.radio_matrix class="#{'helena-error' if errors.present?}"
+  label
+    == question.question_text
+    = ' *' if question.required
+  - unless mobile
+    table.table
+      thead
+        tr
+          th
+          - question.labels.each do |label|
+            th width="#{label_width}"
+              = label.text
+      tbody
+        - question.sub_questions.each do |sub_question|
+          tr
+            td
+              = sub_question.parts.first
+              - if errors[sub_question.code]
+                .helena-error= errors[sub_question.code]
+            - question.labels.each do |label|
+              - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
+              - checked ||= (label.preselected? ? true : false)
+              th width="#{label_width}"
+                label
+                  = form.simple_fields_for :answers do |answer_form|
+                    = answer_form.radio_button sub_question.code, label.value, checked: checked
+                  span.hide-text= label.text
+
+  - if mobile
+    .mobile
+      - question.sub_questions.each do |sub_question|
+        table
+          tbody
+            tr
+              td.part = sub_question.parts.first
+            tr
+              td
+                - question.labels.each do |label|
+                  - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
+                  - checked ||= (label.preselected? ? true : false)
+                  .radio
+                    label.responsive_label
+                      = form.simple_fields_for :answers do |answer_form|
+                        = answer_form.radio_button sub_question.code, label.value, checked: checked
+                        = label.text
+              - if sub_question.splitted?
+                tr
+                  td.part= sub_question.parts.last

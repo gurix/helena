@@ -1,13 +1,13 @@
-.radio_group.form-group{ class: "#{'has-error' if errors[question.code]}" }
-  %label
-    != question.question_text
+.radio_group class="#{'helena-error' if errors[question.code]}"
+  label
+    == question.question_text
     = ' *' if question.required
   - question.labels.each do |label|
     .radio
-      %label
+      label
         - checked = (answers[question.code].to_s == label.value.to_s) || label.preselected
         = form.simple_fields_for :answers do |answer_form|
           = answer_form.radio_button question.code, label.value, checked: checked
         = label.text
   - if errors[question.code]
-    .help-block.text-danger= errors[question.code]
+    .helena-error= errors[question.code]
