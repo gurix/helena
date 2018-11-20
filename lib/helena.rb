@@ -1,5 +1,4 @@
 require 'helena/engine'
-require 'haml'
 require 'helena/version_publisher'
 require 'helena/survey_importer'
 require 'mongoid'

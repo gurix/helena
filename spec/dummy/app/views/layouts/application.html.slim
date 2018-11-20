@@ -1,22 +1,21 @@
-!!!
-%html
-  %head
-    %title Helena
+doctype html
+html
+  head
+    title Helena
     = stylesheet_link_tag    'helena/application', media: 'all'
     = javascript_include_tag 'helena/application'
-    %meta{ name: 'viewport', content: 'initial-scale=1.0' }
     = csrf_meta_tags
 
-  %body
+  body
     .container
       - flash.each do |name, messages|
-        %div{class: "alert alert-#{name == 'notice' ? 'success' : 'danger'}"}
+        div class="alert alert-#{name}"}
           - if messages.is_a?(String)
             = messages
           - else
-            %ul
+            ul
             - messages.each do |message|
-              %li= message
-      %h1.hidden
+              li= message
+      h1
         Helena
       = yield
