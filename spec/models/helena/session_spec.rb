@@ -43,13 +43,6 @@ describe Helena::Session do
       end.to change { session.answers.find_by(code: 'a').value }.from(42).to(666)
     end
 
-    it 'does not affect the answer when the value is the same' do
-      expect do
-        session.answers_as_yaml = 'a: 42'
-        session.save
-      end.not_to change { session.answers.find_by code: 'a' }
-    end
-
     it 'removes existings answers that is not in the yaml' do
       expect do
         session.answers_as_yaml = 'x: "test"'

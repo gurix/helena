@@ -26,7 +26,6 @@ module Helena
     def answers_as_yaml=(yaml)
       parsed_answers = YAML.safe_load yaml
       update_answers parsed_answers
-      remove_unparsed_answers parsed_answers
     end
 
     def reset_tokens
@@ -65,19 +64,10 @@ module Helena
     end
 
     def update_answers(parsed_answers)
+      answers.delete_all
       parsed_answers.each do |code, value|
-        answer = answers.where(code: code).first
-        if answer
-          next if answer.value == value
-          answer.delete
-        end
         answers << Helena::Answer.build_generic(code, value, '')
       end
-    end
-
-    def remove_unparsed_answers(parsed_answers)
-      unparsed_answers = answers.map(&:code) - parsed_answers.keys
-      answers.in(code: unparsed_answers).destroy
     end
   end
 end
