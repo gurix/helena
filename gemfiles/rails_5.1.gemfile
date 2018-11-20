@@ -20,4 +20,8 @@ group :development, :test do
   gem 'simple_form'
 end
 
+group :test do
+  gem 'simplecov', require: false
+end
+
 gemspec path: '../'

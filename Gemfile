@@ -24,3 +24,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'simple_form'
 end
+
+group :test do
+  gem 'simplecov', require: false
+end

@@ -1,3 +1,6 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=3914174f01c669419f4342558d64de49c6b3065a46b2a47048694b64b4e699cd
 language: ruby
 rvm:
   - 2.3.1
@@ -11,3 +14,11 @@ services:
   - mongodb
 
 sudo: false
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
