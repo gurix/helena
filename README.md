@@ -2,11 +2,10 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/gurix/helena.svg?style=flat)](https://codeclimate.com/github/gurix/helena)
 [![Rubygems Version](https://img.shields.io/gem/v/helena.svg?style=flat)](https://rubygems.org/gems/helena)
 # Helena
-Helena is an online survey/test framework designed for agile survey/test development, longitudinal studies and instant feedback.
+Helena is an online survey/test framework designed for agile survey/test development, longitudinal studies and instant feedback. It was designed as modular part of the platform Laufbahndiagnostik (https://laufbahndiagnostik.ch/en).
 
 ![swiss made software](https://raw.githubusercontent.com/gurix/helena/master/app/assets/images/helena/swissmadesoftware.png "swiss made software")
 
-Demo: http://helena-demo.herokuapp.com (https://github.com/gurix/helena-demo)
 ## Requirements
 * Ruby (2.3.1 or higher)
 * Rails (4.2 or higher)
