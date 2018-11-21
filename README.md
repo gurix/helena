@@ -1,5 +1,5 @@
-[![Build Status](https://img.shields.io/travis/gurix/helena/master.svg?style=flat)](https://travis-ci.org/gurix/helena)
-[![Code Climate](https://img.shields.io/codeclimate/github/gurix/helena.svg?style=flat)](https://codeclimate.com/github/gurix/helena)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0a74377cf11aeb621333/maintainability)](https://codeclimate.com/github/gurix/helena/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/0a74377cf11aeb621333/test_coverage)](https://codeclimate.com/github/gurix/helena/test_coverage)
 [![Rubygems Version](https://img.shields.io/gem/v/helena.svg?style=flat)](https://rubygems.org/gems/helena)
 # Helena
 Helena is an online survey/test framework designed for agile survey/test development, longitudinal studies and instant feedback. It was designed as modular part of the platform Laufbahndiagnostik (https://laufbahndiagnostik.ch/en).
