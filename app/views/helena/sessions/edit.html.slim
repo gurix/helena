@@ -11,8 +11,8 @@
       = hidden_field_tag :question_group, @question_group.id
 
       - if @question_group.previous_items.any? && @question_group.allow_to_go_back?
-        = link_to t('.back'), edit_session_path(@session.token, question_group: @question_group.previous_item), class: 'btn btn-default'
+        = link_to t('.back'), edit_session_path(@session.token, question_group: @question_group.previous_item), class: 'back_button'
 
-      = f.submit class: 'btn btn-success pull-right', value: @question_group.last? ? t('.save') : t('.next')
+      = f.submit class: 'next_button', value: @question_group.last? ? t('.save') : t('.next')
 
     = t('shared.required') if @questions.map{ |question| question.try :required }.any?

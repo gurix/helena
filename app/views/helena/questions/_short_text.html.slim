@@ -5,4 +5,4 @@
   = form.simple_fields_for :answers do |answer_form|
     = answer_form.text_field question.code, value: answers[question.code]
     - if errors[question.code]
-      .helena-error= errors[question.code]
+      .error= errors[question.code]

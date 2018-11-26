@@ -1,8 +1,8 @@
-.long_text class="#{'has-error' if errors[question.code]}"
+.long_text class="#{'helena-error' if errors[question.code]}"
   label
     == question.question_text
     = ' *' if question.required
   = form.simple_fields_for :answers do |answer_form|
     = answer_form.text_area question.code, value: answers[question.code]
   - if errors[question.code]
-    .helena-error= errors[question.code]
+    .error= errors[question.code]
