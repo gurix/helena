@@ -1,8 +1,9 @@
 .long_text class="#{'helena-error' if errors[question.code]}"
-  label
-    == question.question_text
-    = ' *' if question.required
+  = question_label(question)
   = form.simple_fields_for :answers do |answer_form|
-    = answer_form.text_area question.code, value: answers[question.code]
+    - params = { value: answers[question.code], id: "question_#{question.code}" }
+    - params = params.merge(aria: { describedby: "#{question.code}_error" }, invalid: true) if errors[question.code]
+    - params = params.merge(required: true) if question.required
+    = answer_form.text_area(question.code, params)
   - if errors[question.code]
-    .error= errors[question.code]
+    .error id="#{question.code}_error" = errors[question.code]
