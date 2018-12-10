@@ -179,6 +179,7 @@ feature 'Session management' do
     expect(page).to have_content '* indicates required fields'
     expect { click_button 'Save' }.not_to change { session.reload.answers.count }
     expect(page).to have_content("One or more questions have not been answered correctly.")
+    expect(page).to have_content("«What's your name?» can't be blank.")
 
     expect(page).to have_content("can't be blank")
   end

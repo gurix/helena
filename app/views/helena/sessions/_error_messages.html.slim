@@ -3,5 +3,6 @@
   .details
     ul
       - @errors.each do |key,value|
+        - text = Hash[*@session.version.question_texts][key]
         li
-          a href="#question_#{key}" #{key} #{value}
+          a href="#question_#{key}" «#{text.sub('|', ' vs. ')}» #{value}.
