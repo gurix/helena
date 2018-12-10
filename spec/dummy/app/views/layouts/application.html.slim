@@ -9,7 +9,7 @@ html
   body
     .container
       - flash.each do |name, messages|
-        div class="alert alert-#{name}"}
+        div class="alert alert-#{name}"
           - if messages.is_a?(String)
             = messages
           - else
