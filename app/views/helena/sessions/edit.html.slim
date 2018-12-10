@@ -14,5 +14,5 @@
         = link_to t('.back'), edit_session_path(@session.token, question_group: @question_group.previous_item), class: 'back_button'
 
       = f.submit class: 'next_button', value: @question_group.last? ? t('.save') : t('.next')
-
-    = t('shared.required') if @questions.map{ |question| question.try :required }.any?
+    - if @questions.map{ |question| question.try :required }.any?
+      span aria-hidden="true" = t('helena.shared.required')
