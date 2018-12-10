@@ -5,7 +5,7 @@ module Helena
 
     # Thanks to https://github.com/thoughtbot/factory_girl_rails/pull/42
     initializer 'helena.factories', after: 'factory_bot.set_factory_paths' do
-      FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories/helena', __FILE__) if defined?(FactoryBot)
+      FactoryBot.definition_file_paths << File.expand_path('../../spec/factories/helena', __dir__) if defined?(FactoryBot)
     end
 
     config.to_prepare do

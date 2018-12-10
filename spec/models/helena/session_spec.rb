@@ -49,7 +49,7 @@ describe Helena::Session do
         session.save
       end.to change { session.reload.answers.size }.by(-2)
 
-      expect(session.answers.in(code: %w(a b c)).size).to eq 0
+      expect(session.answers.in(code: %w[a b c]).size).to eq 0
     end
   end
 end

@@ -18,20 +18,20 @@ feature 'Session management' do
 
     second_question_group = base_version.question_groups.create title: 'Question Group 2', allow_to_go_back: true
 
-    all_and_everything = build :radio_group_question, code:           :all_and_everything,
-                                                      question_text:  'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
-                                                      position:       1
+    all_and_everything = build :radio_group_question, code: :all_and_everything,
+                                                      question_text: 'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
+                                                      position: 1
 
     all_and_everything.labels << build(:label, position: 1, text: 'Just Chuck Norris knows it', value: 'norris')
     all_and_everything.labels << build(:label, position: 2, text: 'God', value: 'god')
     all_and_everything.labels << build(:label, position: 3, text: '42', value: 42)
-    all_and_everything.labels << build(:label, position: 4, text: 'Your mom', value: 'mom', preselected: :true)
+    all_and_everything.labels << build(:label, position: 4, text: 'Your mom', value: 'mom', preselected: true)
 
     second_question_group.questions << all_and_everything
 
-    food_allergy = build :checkbox_group_question, code:           :food_allergy,
-                                                   question_text:  'What kind of food allergy do you have?',
-                                                   position:       2
+    food_allergy = build :checkbox_group_question, code: :food_allergy,
+                                                   question_text: 'What kind of food allergy do you have?',
+                                                   position: 2
 
     food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic', position: 1, preselected: true)
     food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat', position: 2)
@@ -41,10 +41,10 @@ feature 'Session management' do
 
     third_question_group = base_version.question_groups.create title: 'Question Group 3', allow_to_go_back: true
 
-    satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
+    satisfaction_matrix = build :radio_matrix_question, code: :satisfaction,
                                                         question_text: 'Below are five statements with which you may agree or disagree.',
-                                                        required:      true,
-                                                        position:      1
+                                                        required: true,
+                                                        position: 1
 
     satisfaction_matrix.labels << build(:label, position: 1, text: 'Strongly Disagree', value: 1)
     satisfaction_matrix.labels << build(:label, position: 2, text: 'Disagree', value: 2)
@@ -57,8 +57,8 @@ feature 'Session management' do
     satisfaction_matrix.sub_questions << build(:sub_question, text: 'In most ways my life is close to my ideal.', code: 'life_is_ideal', position: 1)
     satisfaction_matrix.sub_questions << build(:sub_question, text: 'The conditions of my life are excellent.', code: 'condition', position: 2)
     satisfaction_matrix.sub_questions << build(:sub_question, text: 'I am satisfied with life.', code: 'satisfied_with_life', position: 3)
-    satisfaction_matrix.sub_questions << build(:sub_question, text:     'So far I have gotten the important things I want in life.',
-                                                              code:     'important_things',
+    satisfaction_matrix.sub_questions << build(:sub_question, text: 'So far I have gotten the important things I want in life.',
+                                                              code: 'important_things',
                                                               position: 4)
     satisfaction_matrix.sub_questions << build(:sub_question, text: 'If I could live my life over, I would change almost nothing.',
                                                               code: 'nothing_to_change',
@@ -86,7 +86,7 @@ feature 'Session management' do
 
     fill_in "What's your name?", with: 'Hans'
 
-    fill_in 'Give a brief description of yourself', with: 'I am a proud man living in middle earth. Everybody is laughing at me because I do not have hairy feets.'
+    fill_in 'Give a brief description of yourself', with: 'I am a proud man living in middle earth.'
 
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(0).to(2)
     expect(session.reload.last_question_group_id).to eq second_question_group.id
@@ -177,8 +177,8 @@ feature 'Session management' do
 
     expect(page).to have_content "What's your name?*"
     expect(page).to have_content '* indicates required fields'
-    expect { click_button 'Save' }.not_to change { session.reload.answers.count }
-    expect(page).to have_content("One or more questions have not been answered correctly.")
+    expect { click_button 'Save' }.not_to(change { session.reload.answers.count })
+    expect(page).to have_content('One or more questions have not been answered correctly.')
     expect(page).to have_content("«What's your name?» can't be blank.")
 
     expect(page).to have_content("can't be blank")
@@ -205,14 +205,14 @@ feature 'Session management' do
     visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'Give a brief description of yourself*'
-    expect { click_button 'Save' }.not_to change { session.reload.answers.count }
+    expect { click_button 'Save' }.not_to(change { session.reload.answers.count })
     expect(page).to have_content("can't be blank")
   end
 
   scenario 'does not save a non selected radio group when required' do
-    all_and_everything = build :radio_group_question, code:           :all_and_everything,
-                                                      question_text:  'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
-                                                      required:       true
+    all_and_everything = build :radio_group_question, code: :all_and_everything,
+                                                      question_text: 'What is the answer to the Ultimate Question of Life, the Universe, and Everything?',
+                                                      required: true
 
     all_and_everything.labels << build(:label, value: 'norris')
     all_and_everything.labels << build(:label, value: 'god')
@@ -226,15 +226,15 @@ feature 'Session management' do
     visit helena.edit_session_path(session.token)
 
     expect(page).to have_content 'What is the answer to the Ultimate Question of Life, the Universe, and Everything? *'
-    expect { click_button 'Save' }.not_to change { session.reload.answers.count }
+    expect { click_button 'Save' }.not_to(change { session.reload.answers.count })
 
     expect(page).to have_content("can't be blank")
   end
 
   scenario 'does not save when no subquestion of a checkbox group is selected if required' do
-    food_allergy = build :checkbox_group_question, code:           :food_allergy,
-                                                   question_text:  'What kind of food allergy do you have?',
-                                                   required:       true
+    food_allergy = build :checkbox_group_question, code: :food_allergy,
+                                                   question_text: 'What kind of food allergy do you have?',
+                                                   required: true
 
     food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic')
     food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat')
@@ -252,9 +252,9 @@ feature 'Session management' do
   end
 
   scenario 'saves when subquestion of a checkbox group is selected if required' do
-    food_allergy = build :checkbox_group_question, code:           :food_allergy,
-                                                   question_text:  'What kind of food allergy do you have?',
-                                                   required:       true
+    food_allergy = build :checkbox_group_question, code: :food_allergy,
+                                                   question_text: 'What kind of food allergy do you have?',
+                                                   required: true
 
     food_allergy.sub_questions << build(:sub_question, text: 'Garlic', code: 'garlic')
     food_allergy.sub_questions << build(:sub_question, text: 'Oats', code: 'oat')
@@ -273,9 +273,9 @@ feature 'Session management' do
   end
 
   scenario 'does not save when radio matrix is filled out completely if required' do
-    satisfaction_matrix = build :radio_matrix_question, code:          :satisfaction,
+    satisfaction_matrix = build :radio_matrix_question, code: :satisfaction,
                                                         question_text: 'Below are five statements with which you may agree or disagree.',
-                                                        required:      true
+                                                        required: true
 
     satisfaction_matrix.labels << build(:label, value: 1)
     satisfaction_matrix.labels << build(:label, value: 2)
@@ -307,7 +307,7 @@ feature 'Session management' do
   end
 
   scenario 'Displaying a bipolar radio matrix question"' do
-    radio_matrix = build :bipolar_radio_matrix_question, code:          :satisfaction,
+    radio_matrix = build :bipolar_radio_matrix_question, code: :satisfaction,
                                                          question_text: 'What do you like more?'
 
     radio_matrix.labels << build(:label, value: 1, text: 'Yo')

@@ -17,7 +17,11 @@ module Helena
     end
 
     def question_texts
-      questions.map { |question| [question.code,question.question_text] + question.sub_questions.map{ |sub_question| [sub_question.code, sub_question.text] } }.flatten
+      questions.map { |question| [question.code, question.question_text] + subquestion_texts(question) }.flatten
+    end
+
+    def subquestion_texts(question)
+      question.sub_questions.map { |sub_question| [sub_question.code, sub_question.text] }
     end
   end
 end

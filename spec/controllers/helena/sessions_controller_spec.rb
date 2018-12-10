@@ -15,8 +15,8 @@ describe Helena::SessionsController do
   context 'version not active' do
     before { version.update_attribute :active, false }
 
-    it 'raises not found when editing' do      
-      get :edit, parametrize(token: session.token) 
+    it 'raises not found when editing' do
+      get :edit, parametrize(token: session.token)
       is_expected.to respond_with :not_found
     end
 

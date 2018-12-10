@@ -42,7 +42,7 @@ module Helena
       @session = Helena::Session.find_by token: params[:token]
       @survey = @session.survey
       @version = @survey.versions.find @session.version_id
-      render plain: 'Version not active', status: '404' unless @version && @version.active
+      render plain: 'Version not active', status: '404' unless @version&.active
       @question_group = question_group
     end
 
@@ -61,6 +61,7 @@ module Helena
 
     def session_params
       return unless params[:session]
+
       params.require(:session).permit(answers: @question_group.question_codes, question_types: @question_group.question_codes)
     end
 
@@ -94,7 +95,7 @@ module Helena
     end
 
     def flash_errors
-      flash.now[:danger] = t("errors.messages.any_errors_flash") if @errors.any?
+      flash.now[:danger] = t('errors.messages.any_errors_flash') if @errors.any?
     end
 
     def session_report

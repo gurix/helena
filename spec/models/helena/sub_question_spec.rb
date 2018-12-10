@@ -40,7 +40,7 @@ describe Helena::SubQuestion do
     it 'returns correct parts' do
       splitted_sub_question = build :sub_question, question: question, text: 'first|last'
 
-      expect(splitted_sub_question.parts).to eq %w(first last)
+      expect(splitted_sub_question.parts).to eq %w[first last]
     end
   end
 end
