@@ -1,19 +1,18 @@
 en:
-  shared:
-    delete_question: Are you sure?
-    delete: Delete
-    save: Save
-    edit: Edit
-    add: Add
-    show: Show
-    required: '* indicates required fields'
-    code_hint: The code should consist only of lowercase letters, numbers and underscores. Don't begin with a digit or an underscore and don't end with an underscore.
-    move_up: Move up
-    move_down: Move down
-    untitled: Untitled
+  helena:
+      shared:
+        required_indicator: "*"
+        sr_required_indicator: "(Mandatory)"
+        required: '* indicates required fields'
+
 
   actions:
     deleted: "'%{resource}' successfully deleted"
     updated: "'%{resource}' successfully updated"
     created: "'%{resource}' successfully created"
     error: Ooopss... something is wrong, please check your input
+
+  errors:
+    messages:
+      any_errors: Problems have arisen in answering the questions. Please check your input.
+      any_errors_flash: One or more questions have not been answered correctly. You cannot continue until the correct answers have been given.

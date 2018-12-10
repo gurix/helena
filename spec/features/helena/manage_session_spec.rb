@@ -84,8 +84,9 @@ feature 'Session management' do
 
     expect(page).not_to have_link 'Back'
 
-    fill_in 'session_answers_a_name', with: 'Hans'
-    fill_in 'session_answers_selfdescription', with: 'I am a proud man living in middle earth. Everybody is laughing at me because I do not have hairy feets.'
+    fill_in "What's your name?", with: 'Hans'
+
+    fill_in 'Give a brief description of yourself', with: 'I am a proud man living in middle earth. Everybody is laughing at me because I do not have hairy feets.'
 
     expect { click_button 'Next' }.to change { session.reload.answers.count }.from(0).to(2)
     expect(session.reload.last_question_group_id).to eq second_question_group.id
@@ -174,9 +175,11 @@ feature 'Session management' do
 
     visit helena.edit_session_path(session.token)
 
-    expect(page).to have_content "What's your name? *"
+    expect(page).to have_content "What's your name?*"
     expect(page).to have_content '* indicates required fields'
     expect { click_button 'Save' }.not_to change { session.reload.answers.count }
+    expect(page).to have_content("One or more questions have not been answered correctly.")
+
     expect(page).to have_content("can't be blank")
   end
 
@@ -200,7 +203,7 @@ feature 'Session management' do
 
     visit helena.edit_session_path(session.token)
 
-    expect(page).to have_content 'Give a brief description of yourself *'
+    expect(page).to have_content 'Give a brief description of yourself*'
     expect { click_button 'Save' }.not_to change { session.reload.answers.count }
     expect(page).to have_content("can't be blank")
   end

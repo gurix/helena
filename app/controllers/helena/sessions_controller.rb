@@ -4,6 +4,7 @@ module Helena
     before_action :load_session, only: %i[edit update]
     before_action :update_answers, only: :update
     before_action :answer_errors, only: :update
+    before_action :flash_errors, only: :update
     after_action :update_last_question_group_id, only: :update
 
     def show
@@ -90,6 +91,10 @@ module Helena
         end
       end
       @errors = errors
+    end
+
+    def flash_errors
+      flash.now[:danger] = t("errors.messages.any_errors_flash") if @errors.any?
     end
 
     def session_report

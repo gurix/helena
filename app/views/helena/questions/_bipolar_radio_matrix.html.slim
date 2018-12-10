@@ -14,7 +14,7 @@
 
     tbody
       - question.sub_questions.each do |sub_question|
-        tr class="#{'error' if errors[sub_question.code]}"
+        tr class="#{'error' if errors[sub_question.code]}" id="question_#{sub_question.code}"
           td
             = sub_question.parts.first
             - if errors[sub_question.code]

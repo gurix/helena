@@ -1,0 +1,7 @@
+#question_group_errors
+  p = t('errors.messages.any_errors')
+  .details
+    ul
+      - @errors.each do |key,value|
+        li
+          a href="#question_#{key}" #{key} #{value}
