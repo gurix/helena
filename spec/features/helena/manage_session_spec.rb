@@ -325,7 +325,7 @@ feature 'Session management' do
 
     visit helena.edit_session_path(session.token)
 
-    expect(page.all('table thead tr th').size).to eq 5
+    expect(page.all('table thead tr th').size).to eq 3
     expect(page.find('table tbody tr:first td:first')).to have_content 'Ice cream'
     expect(page.find('table tbody tr:last td:first')).to have_content 'I am not splitted'
     expect(page.find('table tbody tr:last td:last').text).to be_empty

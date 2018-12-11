@@ -6,11 +6,11 @@
   table
     thead
       tr
-        th
+        td
         - question.labels.each do |label|
           th width="#{label_width}"
             = label.text
-        th
+        td
 
     tbody
       - question.sub_questions.each do |sub_question|
@@ -19,13 +19,19 @@
             = sub_question.parts.first
             - if errors[sub_question.code]
               .error= errors[sub_question.code]
-          - question.labels.each do |label|
+          - question.labels.each_with_index do |label, index|
             - checked = answers[sub_question.code].to_s == label.value.to_s if answers[sub_question.code].present?
             - checked ||= (label.preselected? ? true : false)
             th width="#{label_width}"
               label
                 = form.simple_fields_for :answers do |answer_form|
                   = answer_form.radio_button sub_question.code, label.value, checked: checked
-                span.label-text= label.text
+                span.label-text
+                  - if index < (question.labels.size / 2)
+                    = "#{label.text} #{sub_question.parts.first}"
+                  - elsif index > (question.labels.size / 2)
+                    = "#{label.text} #{sub_question.parts.last}"
+                  - else
+                    = label.text
           td
             = sub_question.parts.last if sub_question.splitted?
