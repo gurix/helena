@@ -45,14 +45,6 @@ module Helena
       Hash[*answers.map { |answer| [answer[:code], answer[:value]] }.flatten]
     end
 
-    def self.answer_codes
-      answer_codes = []
-      all.each do |session|
-        answer_codes += session.answers.map(&:code) - answer_codes
-      end
-      answer_codes
-    end
-
     private
 
     def generate_token(size)
