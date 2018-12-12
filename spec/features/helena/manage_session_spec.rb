@@ -225,7 +225,7 @@ feature 'Session management' do
 
     visit helena.edit_session_path(session.token)
 
-    expect(page).to have_content 'What is the answer to the Ultimate Question of Life, the Universe, and Everything? *'
+    expect(page).to have_content 'What is the answer to the Ultimate Question of Life, the Universe, and Everything?*'
     expect { click_button 'Save' }.not_to(change { session.reload.answers.count })
 
     expect(page).to have_content("can't be blank")
@@ -246,7 +246,7 @@ feature 'Session management' do
 
     visit helena.edit_session_path(session.token)
 
-    expect(page).to have_content 'What kind of food allergy do you have? *'
+    expect(page).to have_content 'What kind of food allergy do you have?*'
     expect { click_button 'Save' }.to change { session.reload.answers.map(&:value) }.from([]).to([0, 0, 0])
     expect(page).to have_content("can't be blank")
   end
@@ -266,7 +266,7 @@ feature 'Session management' do
 
     visit helena.edit_session_path(session.token)
 
-    expect(page).to have_content 'What kind of food allergy do you have? *'
+    expect(page).to have_content 'What kind of food allergy do you have?*'
     check('Oats')
     expect { click_button 'Save' }.to change { session.reload.answers.count }.from(0).to(3)
     expect(page).not_to have_content("can't be blank")
@@ -297,7 +297,7 @@ feature 'Session management' do
 
     visit helena.edit_session_path(session.token)
 
-    expect(page).to have_content 'Below are five statements with which you may agree or disagree. *'
+    expect(page).to have_content 'Below are five statements with which you may agree or disagree.*'
 
     choose('session_answers_satisfied_with_life_3')
 

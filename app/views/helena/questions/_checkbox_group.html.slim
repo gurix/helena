@@ -1,5 +1,5 @@
 .checkbox_group class="#{'helena-error' if errors[question.code]}"
-= question_label(question, dummy: true)
+  = question_label(question, dummy: true)
 
   = form.simple_fields_for :answers do |answer_form|
     - question.sub_questions.each do |sub_question|
