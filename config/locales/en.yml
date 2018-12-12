@@ -1,10 +1,9 @@
 en:
   helena:
-      shared:
-        required_indicator: "*"
-        sr_required_indicator: "(Mandatory)"
-        required: '* indicates required fields'
-
+    shared:
+      required_indicator: "*"
+      sr_required_indicator: "(Mandatory)"
+      required: '* indicates required fields'
 
   layouts:
       application:
