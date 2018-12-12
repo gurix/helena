@@ -1,9 +1,8 @@
 - label_width = "#{80 / question.labels.count}%"
 
 .radio_matrix class="#{'helena-error' if errors.present?}"
-  label
-    == question.question_text
-    = ' *' if question.required
+  = question_label(question, dummy: true)
+
   table.table
     thead
       tr

@@ -1,6 +1,4 @@
-.short_text
+.static_text
   - if question.question_text.present?
-    label
-      = question.question_text.html_safe
-
+    = question_label(question, dummy: true)
   = question.default_value.html_safe
