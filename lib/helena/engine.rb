@@ -8,10 +8,10 @@ module Helena
       FactoryBot.definition_file_paths << File.expand_path('../../spec/factories/helena', __dir__) if defined?(FactoryBot)
     end
 
-    # config.to_prepare do
-    #   Dir.glob(Rails.root + 'app/decorators/**/*_decorator*.rb').each do |c|
-    #     require_dependency c
-    #   end
-    # end
+    config.to_prepare do
+      Dir.glob(Rails.root + 'app/decorators/**/*_decorator*.rb').each do |c|
+        require_dependency c
+      end
+    end
   end
 end
