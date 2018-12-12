@@ -1,7 +1,6 @@
 = render 'progressbar' if @version.settings && @version.settings[:display_progressbar] == "1"
 #survey_content
-  h1.survey_title
-    = @version.survey_detail.title
+  h1.survey_title = title @version.survey_detail.title
   fieldset id="#{dom_id @question_group}"
     legend= @question_group.title
     = simple_form_for(@session, url: helena.session_path(@session.token), as: :session) do |f|

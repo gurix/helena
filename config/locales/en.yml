@@ -6,6 +6,9 @@ en:
         required: '* indicates required fields'
 
 
+  layouts:
+      application:
+        brand_name: Helena
   actions:
     deleted: "'%{resource}' successfully deleted"
     updated: "'%{resource}' successfully updated"
