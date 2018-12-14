@@ -1,5 +1,5 @@
-.radio_group class="#{'helena-error' if errors[question.code]}"
-  = question_label(question, dummy: true)
+fieldset.radio_group id="question_#{question.code}" class="#{'helena-error' if errors[question.code]}"
+  legend = question_label(question, dummy: true)
 
   - question.labels.each do |label|
     .radio
