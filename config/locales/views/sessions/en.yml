@@ -5,6 +5,7 @@ en:
         next: Next
         save: Save
         back: Back
+        question_group_legend: Page %{page}
 
       end_message:
         message: Thank you for participating.

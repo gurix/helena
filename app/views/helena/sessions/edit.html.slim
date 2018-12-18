@@ -2,7 +2,11 @@
 #survey_content
   h1.survey_title = title @version.survey_detail.title
   fieldset id="#{dom_id @question_group}"
-    legend= @question_group.title
+    legend
+      - if @question_group.title
+        = @question_group.title
+      - else
+        .sr-only= t('.question_group_legend', page: (@question_group.previous_items.size + 1).to_i)
     = simple_form_for(@session, url: helena.session_path(@session.token), as: :session) do |f|
       = render 'error_messages'if @errors.any?
       - @questions.each do |question|
