@@ -16,7 +16,7 @@ end
 
 def publish(version)
   published_version = Helena::VersionPublisher.publish(version)
-  published_version.notes = Faker::Lorem.paragraph(1)
+  published_version.notes = Faker::Lorem.paragraph
   published_version.save
   published_version
 end
