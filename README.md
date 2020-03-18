@@ -8,7 +8,7 @@ Helena is an online survey/test framework designed for agile survey/test develop
 
 ## Requirements
 * Ruby (2.3.1 or higher)
-* Rails (4.2 or higher)
+* Rails (5.1 or higher)
 * Mongoid (4.0.0 or higher)
 * MongoDB (2.4.10 or higher)
 

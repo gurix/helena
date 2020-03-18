@@ -3,11 +3,9 @@ env:
     - CC_TEST_REPORTER_ID=3914174f01c669419f4342558d64de49c6b3065a46b2a47048694b64b4e699cd
 language: ruby
 rvm:
-  - 2.3.1
-  - 2.5.1
+  - 2.5.3
 
 gemfile:
-  - gemfiles/rails_4.2.gemfile
   - gemfiles/rails_5.1.gemfile
 
 services:
