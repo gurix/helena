@@ -5,7 +5,7 @@ module Helena
     attr_accessor :survey
 
     def initialize(yaml_string)
-      @parsed = YAML.load yaml_string
+      @parsed = YAML.load yaml_string # rubocop:disable Security/YAMLLoad
 
       create_survey
     end

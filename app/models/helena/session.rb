@@ -24,7 +24,7 @@ module Helena
     end
 
     def answers_as_yaml=(yaml)
-      parsed_answers = YAML.load yaml
+      parsed_answers = YAML.load yaml # rubocop:disable Security/YAMLLoad
       update_answers parsed_answers
     end
 
