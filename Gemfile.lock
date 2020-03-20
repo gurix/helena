@@ -59,10 +59,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    appraisal (2.2.0)
-      bundler
-      rake
-      thor (>= 0.14.0)
     arel (9.0.0)
     ast (2.4.0)
     better_errors (2.5.0)
@@ -278,7 +274,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal
   better_errors
   binding_of_caller
   capybara (>= 2.3)
