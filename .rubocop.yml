@@ -5,12 +5,12 @@ AllCops:
     - 'script/**/*'
     - bin/**
     - spec/dummy/config/initializers/secret_token.rb
-Documentation:
+Style/Documentation:
   Enabled: false
-LineLength:
+Metrics/LineLength:
   Enabled: true
   Max: 160
-AbcSize:
+Metrics/AbcSize:
   Enabled: false
 FrozenStringLiteralComment:
   Enabled: false
