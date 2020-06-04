@@ -9,7 +9,7 @@
         th
         - question.labels.each do |label|
           th width="#{label_width}"
-            = label.text
+            == label.text
     tbody
       - question.sub_questions.each do |sub_question|
         tr class="#{'error' if errors[sub_question.code]}" id="question_#{sub_question.code}"
